@@ -79,3 +79,27 @@ log de acesso, porta 8080 em IPv6 no host, acentos no curl do Git Bash, *overflo
 
 **Pendente**
 - Sprint 3: `recommendation-service` (+ avaliação offline) e `agent-service`.
+
+## Sprint 3 — Inteligência
+
+**Feito**
+- `recommendation-service`: modelo de leitura por eventos, algoritmo híbrido explicável e determinístico
+  (filtros + TF-IDF/cosseno + Jaccard + preferências; *cold start* por recência/popularidade), ranking de
+  candidatos, `rebuild` via REST.
+- `scripts/synthetic_data.py` (dados sintéticos com rótulos por trilha latente) e
+  `scripts/evaluate_recommender.py` (precision@5, nDCG@5, *baselines* e ablações).
+- `agent-service`: Assistente de Candidatura, Agente de Acompanhamento (APScheduler + sob demanda, publica
+  `report.due_soon`) e Agente de Triagem; Claude via SDK oficial com laço de *tool use* de até 6 passos e
+  *timeout*; fallback em modo regras; trilha de execução persistida.
+- Frontend: recomendações com explicação, ranking na página de candidatos, assistente com trilha (HTMX),
+  selo "IA em modo regras", top 3 no dashboard do estudante.
+- ADR-010 e ADR-011.
+
+**Decisões**
+- Pesos 0,50/0,35/0,15 mantidos (não ajustados ao conjunto sintético).
+- Agentes não têm ferramenta de escrita sobre candidaturas (decisão sempre humana).
+
+**Problemas encontrados** — ver `docs/scrum/sprint-3.md`.
+
+**Pendente**
+- Sprint 4: tela de status, legenda de serviços, seed, e2e, prints, relatório, guia de estudo.

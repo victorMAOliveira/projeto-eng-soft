@@ -15,3 +15,5 @@ commit que introduziu o ADR (`git log --follow docs/architecture/adr/<arquivo>`)
 | [007](007-server-side-rendering-htmx.md) | Frontend renderizado no servidor com Jinja2 + HTMX | 1 | Aceito |
 | [008](008-documents-mongodb-and-volume.md) | Documentos: MongoDB para metadados e volume para arquivos | 2 | Aceito |
 | [009](009-notifications-redis-inbox.md) | Notificações em Redis, alimentadas por todos os eventos | 2 | Aceito |
+| [010](010-hybrid-explainable-recommender.md) | Recomendador híbrido, explicável e determinístico | 3 | Aceito |
+| [011](011-ai-agents-with-rules-fallback.md) | Agentes de IA com tool use e fallback em modo regras | 3 | Aceito |
