@@ -1,0 +1,15 @@
+.git
+.github
+.env
+docs
+data
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/.coverage
+**/htmlcov
+**/build
+**/dist
+**/*.egg-info
+node_modules
