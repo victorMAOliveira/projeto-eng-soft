@@ -384,6 +384,10 @@ serviços.
 
 ## 5. Roteiro de demonstração (5 minutos)
 
+> Versão resumida. O roteiro completo da apresentação (15 minutos, com falas,
+> cliques, dados a digitar e páginas do PDF) está em
+> [`ROTEIRO_APRESENTACAO.md`](ROTEIRO_APRESENTACAO.md).
+
 Antes: `make env && make up && make seed` (já com tudo *healthy*). Abrir
 <http://localhost:8080> (ou <http://127.0.0.1:8080>) em uma janela e o painel
 do RabbitMQ em outra aba.
