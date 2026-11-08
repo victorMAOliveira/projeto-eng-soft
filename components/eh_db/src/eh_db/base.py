@@ -21,7 +21,14 @@ class Base(DeclarativeBase):
 
 
 class TimestampMixin:
-    """Adds ``created_at`` and ``updated_at`` columns maintained by the database."""
+    """Adds ``created_at`` and ``updated_at`` columns maintained by the database.
+
+    ``eager_defaults`` makes SQLAlchemy fetch the server-generated values with
+    ``RETURNING`` right after INSERT/UPDATE; otherwise reading ``updated_at``
+    after a flush would trigger implicit (forbidden) lazy IO in async code.
+    """
+
+    __mapper_args__ = {"eager_defaults": True}
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), nullable=False

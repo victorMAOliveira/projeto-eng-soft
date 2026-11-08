@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eh-db"
-version = "0.1.0"
+version = "0.1.1"
 description = "EstágioHub component: async SQLAlchemy 2 engine/session, base repository, Alembic helpers and SQL idempotency store."
 readme = "README.md"
 requires-python = ">=3.12"

@@ -53,6 +53,16 @@ async def test_repository_crud(db: Database):
         assert await WidgetRepository(session).count() == 2
 
 
+async def test_updated_at_is_available_after_update_without_lazy_io(db: Database):
+    async with db.session() as session:
+        widget = await WidgetRepository(session).add(Widget(name="w"))
+    async with db.session() as session:
+        widget = await WidgetRepository(session).get(widget.id)
+        widget.color = "green"
+        await session.flush()
+        assert widget.updated_at is not None  # would raise MissingGreenlet without eager_defaults
+
+
 async def test_session_rolls_back_on_error(db: Database):
     with pytest.raises(RuntimeError):
         async with db.session() as session:
