@@ -1,34 +1,39 @@
-::: capa
-::: {.instituicao custom-style="Capa"}
-Universidade Federal de Alagoas\
-Instituto de Computação\
+<div class="capa">
+
+<div class="instituicao" custom-style="Capa">
+
+**Universidade Federal de Alagoas**\
+**Instituto de Computação**\
 Disciplina: Engenharia de Software\
 Professor: Arturo Hernandez Dominguez
-:::
 
-::: {.titulo custom-style="Capa Titulo"}
-Um Sistema de Gerenciamento de Estágios Universitários Usando Microservices e Componentes de Software \[e AgentesAI\]
-:::
+</div>
 
-::: {.autores custom-style="Capa"}
+<div class="titulo" custom-style="Capa Titulo">
+
+**Um Sistema de Gerenciamento de Estágios Universitários Usando Microservices e Componentes de Software \[e AgentesAI\]**
+
+</div>
+
+<div class="autores" custom-style="Capa">
+
 Victor Moura Amaral de Oliveira\
 Lorenzo Holanda
 
 Repositório GitHub: [PREENCHER: URL do repositório GitHub]
-:::
 
-::: {.local custom-style="Capa"}
+</div>
+
+<div class="local" custom-style="Capa">
+
 Maceió\
 2026
-:::
-:::
 
-```{=openxml}
-<w:p><w:r><w:br w:type="page"/></w:r></w:p>
-<w:p><w:pPr><w:pStyle w:val="TOCHeading"/></w:pPr><w:r><w:t>Sumário</w:t></w:r></w:p>
-<w:sdt><w:sdtPr><w:docPartObj><w:docPartGallery w:val="Table of Contents"/><w:docPartUnique/></w:docPartObj></w:sdtPr><w:sdtContent><w:p><w:r><w:fldChar w:fldCharType="begin" w:dirty="true"/></w:r><w:r><w:instrText xml:space="preserve">TOC \o "1-2" \h \z \u</w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:t>Clique com o botão direito e escolha "Atualizar campo" para gerar o sumário.</w:t></w:r><w:r><w:fldChar w:fldCharType="end"/></w:r></w:p></w:sdtContent></w:sdt>
-<w:p><w:r><w:br w:type="page"/></w:r></w:p>
-```
+</div>
+
+</div>
+
+<!-- O sumário é gerado no build: campo de sumário no DOCX (report.lua) e lista no PDF. -->
 
 # 1 Enunciado
 
@@ -107,7 +112,7 @@ Table: Tabela 2 — Requisitos funcionais.
 
 Table: Tabela 3 — Requisitos não funcionais.
 
-# Parte 1 — Modelagem {.parte .unnumbered}
+# Parte 1 — Modelagem
 
 # 2 Metodologia
 
@@ -294,7 +299,7 @@ Table: Tabela 6 — Catálogo de componentes (versões lidas dos `pyproject.toml
 Table: Tabela 7 — Matriz de reuso componente × serviço (calculada por análise estática dos imports).
 <!-- END:reuse-matrix -->
 
-![Figura 1 — Componentes reutilizados por cada serviço.](img/diagrams/components.png){width=80%}
+![Figura 1 — Componentes reutilizados por cada serviço.](img/diagrams/components.png)
 
 ## 4.4 Métricas de reuso
 
@@ -449,13 +454,13 @@ consultas pontuais e de forma assíncrona (eventos via `eh_events`) para tudo
 que muda o estado de outro contexto (Figura 3). A Figura 4 mostra a saga do
 fluxo principal e a Figura 5, a máquina de estados que ela percorre.
 
-![Figura 2 — Diagrama de contêineres (Docker Compose).](img/diagrams/containers.png){width=100%}
+![Figura 2 — Diagrama de contêineres (Docker Compose).](img/diagrams/containers.png)
 
-![Figura 3 — Fluxo de eventos no RabbitMQ (topic exchange, filas e DLQ).](img/diagrams/events.png){width=100%}
+![Figura 3 — Fluxo de eventos no RabbitMQ (topic exchange, filas e DLQ).](img/diagrams/events.png)
 
-![Figura 4 — Sequência da saga coreografada: aprovação → TCE → coordenação → estágio ativo.](img/diagrams/saga.png){width=100%}
+![Figura 4 — Sequência da saga coreografada: aprovação → TCE → coordenação → estágio ativo.](img/diagrams/saga.png)
 
-![Figura 5 — Máquina de estados da candidatura e do estágio.](img/diagrams/state-machine.png){width=80%}
+![Figura 5 — Máquina de estados da candidatura e do estágio.](img/diagrams/state-machine.png)
 
 ## 6.2 API Gateway
 
@@ -1041,7 +1046,7 @@ consulta o banco de outro serviço. O algoritmo é um módulo puro
 (`recommender.py`), sem I/O, reutilizado pelos *endpoints* e pela avaliação
 offline (Figura 6).
 
-![Figura 6 — Pipeline do recomendador híbrido.](img/diagrams/recommender.png){width=100%}
+![Figura 6 — Pipeline do recomendador híbrido.](img/diagrams/recommender.png)
 
 **Algoritmo.**
 
@@ -1140,7 +1145,7 @@ A Figura 7 mostra a tela "Status dos Microsserviços", alimentada por
 versão, latência, banco, *uptime* e as verificações de banco e *broker* de
 cada serviço.
 
-![Figura 7 — Tela de status dos microsserviços (api-gateway).](img/screens/22-status-microsservicos.png){width=100%}
+![Figura 7 — Tela de status dos microsserviços (api-gateway).](img/screens/22-status-microsservicos.png)
 
 Saída de `docker compose ps` no momento da captura das telas:
 
@@ -1169,7 +1174,7 @@ estagiohub-web-frontend-1             estagiohub/web-frontend             Up 4 m
 
 [PREENCHER: print do terminal com `make up` e `docker compose ps`]
 
-# Parte 2 — Implementação {.parte .unnumbered}
+# Parte 2 — Implementação
 
 # 7 Tecnologias
 
@@ -1227,72 +1232,72 @@ O mesmo fluxo é verificado por `make e2e` diretamente na API.
 `user-service` valida a senha (argon2) e emite o JWT, guardado em *cookie*
 HttpOnly.
 
-![Figura 8 — Login. Serviços: web-frontend → api-gateway → user-service.](img/screens/01-login.png){width=90%}
+![Figura 8 — Login. Serviços: web-frontend → api-gateway → user-service.](img/screens/01-login.png)
 
 **Passo 2 — Dashboard da empresa** com a legenda dos microsserviços desta tela.
 
-![Figura 9 — Dashboard da empresa. Serviços: internship-service, application-service, notification-service; legenda via api-gateway (`GET /services`).](img/screens/02-dashboard-empresa.png){width=100%}
+![Figura 9 — Dashboard da empresa. Serviços: internship-service, application-service, notification-service; legenda via api-gateway (`GET /services`).](img/screens/02-dashboard-empresa.png)
 
 **Passo 3 — A empresa publica uma vaga** com requisitos, curso, período
 mínimo, carga horária, modalidade e bolsa. A jornada é validada no backend.
 
-![Figura 10 — Publicação de vaga. Serviço: internship-service (publica `internship.published`).](img/screens/03-empresa-publica-vaga.png){width=100%}
+![Figura 10 — Publicação de vaga. Serviço: internship-service (publica `internship.published`).](img/screens/03-empresa-publica-vaga.png)
 
-![Figura 11 — Vaga publicada. Serviço: internship-service.](img/screens/04-vaga-publicada.png){width=100%}
+![Figura 11 — Vaga publicada. Serviço: internship-service.](img/screens/04-vaga-publicada.png)
 
 **Passo 4 — O estudante vê as vagas recomendadas com a explicação do porquê.**
 O evento `internship.published` alimentou o modelo de leitura do
 `recommendation-service`.
 
-![Figura 12 — Dashboard do estudante com o top 3 recomendado. Serviços: user-service, internship-service, application-service, recommendation-service, notification-service.](img/screens/05-dashboard-estudante.png){width=100%}
+![Figura 12 — Dashboard do estudante com o top 3 recomendado. Serviços: user-service, internship-service, application-service, recommendation-service, notification-service.](img/screens/05-dashboard-estudante.png)
 
-![Figura 13 — Recomendações explicadas (habilidades em comum ✓, faltantes ✗, componentes do *score*). Serviço: recommendation-service.](img/screens/06-recomendacoes-explicadas.png){width=100%}
+![Figura 13 — Recomendações explicadas (habilidades em comum ✓, faltantes ✗, componentes do *score*). Serviço: recommendation-service.](img/screens/06-recomendacoes-explicadas.png)
 
-![Figura 14 — Assistente de Candidatura com a trilha de execução (ferramentas `get_profile` e `get_recommendations`) e rascunho de carta editável. Serviços: agent-service → user-service, recommendation-service.](img/screens/07-assistente-ia-trilha.png){width=100%}
+![Figura 14 — Assistente de Candidatura com a trilha de execução (ferramentas `get_profile` e `get_recommendations`) e rascunho de carta editável. Serviços: agent-service → user-service, recommendation-service.](img/screens/07-assistente-ia-trilha.png)
 
 **Passo 5 — O estudante se candidata** (publica `application.submitted`).
 
-![Figura 15 — Candidatura com carta de motivação. Serviços: internship-service (vaga), application-service (candidatura).](img/screens/08-estudante-candidata-se.png){width=100%}
+![Figura 15 — Candidatura com carta de motivação. Serviços: internship-service (vaga), application-service (candidatura).](img/screens/08-estudante-candidata-se.png)
 
 **Passo 6 — A empresa vê o ranking de candidatos e aprova um deles.**
 
-![Figura 16 — Ranking de candidatos da vaga. Serviços: recommendation-service (ranking), application-service (candidaturas).](img/screens/09-ranking-candidatos.png){width=100%}
+![Figura 16 — Ranking de candidatos da vaga. Serviços: recommendation-service (ranking), application-service (candidaturas).](img/screens/09-ranking-candidatos.png)
 
-![Figura 17 — Kanban de candidaturas da empresa. Serviço: application-service.](img/screens/10-kanban-empresa.png){width=100%}
+![Figura 17 — Kanban de candidaturas da empresa. Serviço: application-service.](img/screens/10-kanban-empresa.png)
 
-![Figura 18 — Aprovação com os termos do estágio e o seguro (regras da Lei 11.788 validadas pelo application-service).](img/screens/11-empresa-aprova-com-termos.png){width=100%}
+![Figura 18 — Aprovação com os termos do estágio e o seguro (regras da Lei 11.788 validadas pelo application-service).](img/screens/11-empresa-aprova-com-termos.png)
 
-![Figura 19 — Agente de Triagem resumindo o ranking. Serviços: agent-service → recommendation-service.](img/screens/12-triagem-ia.png){width=100%}
+![Figura 19 — Agente de Triagem resumindo o ranking. Serviços: agent-service → recommendation-service.](img/screens/12-triagem-ia.png)
 
 **Passo 7 — O TCE é gerado automaticamente em PDF** (saga: o
 `document-service` reage a `application.status_changed` e publica
 `agreement.generated`; o `application-service` move a candidatura para
 `agreement_pending`).
 
-![Figura 20 — Candidatura em "TCE pendente", com o histórico das transições (inclusive as feitas pelo sistema via eventos). Serviço: application-service.](img/screens/13-candidatura-tce-pendente.png){width=100%}
+![Figura 20 — Candidatura em "TCE pendente", com o histórico das transições (inclusive as feitas pelo sistema via eventos). Serviço: application-service.](img/screens/13-candidatura-tce-pendente.png)
 
 **Passo 8 — A coordenação aprova o termo e o estágio passa a "ativo".**
 
-![Figura 21 — Pré-visualização do TCE e aprovação pela coordenação. Serviço: document-service (PDF, *preview* e `agreement.approved`).](img/screens/14-tce-preview-aprovacao.png){width=100%}
+![Figura 21 — Pré-visualização do TCE e aprovação pela coordenação. Serviço: document-service (PDF, *preview* e `agreement.approved`).](img/screens/14-tce-preview-aprovacao.png)
 
-![Figura 22 — Dashboard da coordenação: TCEs pendentes, estágios ativos com prazos de relatório e notificações. Serviços: internship-service, document-service, application-service, notification-service.](img/screens/15-dashboard-coordenacao.png){width=100%}
+![Figura 22 — Dashboard da coordenação: TCEs pendentes, estágios ativos com prazos de relatório e notificações. Serviços: internship-service, document-service, application-service, notification-service.](img/screens/15-dashboard-coordenacao.png)
 
-![Figura 23 — Estágio ativo com o histórico completo da saga. Serviço: application-service.](img/screens/16-estagio-ativo-historico.png){width=100%}
+![Figura 23 — Estágio ativo com o histórico completo da saga. Serviço: application-service.](img/screens/16-estagio-ativo-historico.png)
 
 **Passo 9 — O estudante envia o relatório de atividades** e o agente de
 acompanhamento alerta sobre prazos (`report.due_soon`).
 
-![Figura 24 — Relatório enviado (versão 1) e prazos do estágio. Serviços: document-service (relatórios), application-service (prazos).](img/screens/17-relatorio-enviado.png){width=100%}
+![Figura 24 — Relatório enviado (versão 1) e prazos do estágio. Serviços: document-service (relatórios), application-service (prazos).](img/screens/17-relatorio-enviado.png)
 
-![Figura 25 — Kanban do estudante. Serviço: application-service.](img/screens/18-kanban-estudante.png){width=100%}
+![Figura 25 — Kanban do estudante. Serviço: application-service.](img/screens/18-kanban-estudante.png)
 
-![Figura 26 — Relatórios e prazos vistos pela coordenação (vencidos e a vencer). Serviços: document-service, application-service.](img/screens/20-relatorios-prazos.png){width=100%}
+![Figura 26 — Relatórios e prazos vistos pela coordenação (vencidos e a vencer). Serviços: document-service, application-service.](img/screens/20-relatorios-prazos.png)
 
-![Figura 27 — Agente de Acompanhamento: relatórios vencidos/a vencer, limite de 2 anos, notificação à coordenação e trilha. Serviços: agent-service → application-service, notification-service.](img/screens/21-agente-acompanhamento.png){width=100%}
+![Figura 27 — Agente de Acompanhamento: relatórios vencidos/a vencer, limite de 2 anos, notificação à coordenação e trilha. Serviços: agent-service → application-service, notification-service.](img/screens/21-agente-acompanhamento.png)
 
 **Passo 10 — Cada transição gerou notificações** para os atores envolvidos.
 
-![Figura 28 — Notificações do estudante, cada uma com o evento de origem. Serviço: notification-service.](img/screens/19-notificacoes-estudante.png){width=100%}
+![Figura 28 — Notificações do estudante, cada uma com o evento de origem. Serviço: notification-service.](img/screens/19-notificacoes-estudante.png)
 
 **Microsserviços em destaque e degradação graciosa.** A Figura 29 mostra a
 mesma tela da Figura 9 com o *toggle* desligado (apenas os *badges* discretos).
@@ -1300,13 +1305,13 @@ As Figuras 30 a 32 foram capturadas com o `recommendation-service` e o
 `agent-service` parados: o restante do sistema segue funcionando e a interface
 avisa qual serviço está indisponível.
 
-![Figura 29 — Dashboard com o *toggle* "Mostrar microsserviços" desligado.](img/screens/23-dashboard-toggle-desligado.png){width=100%}
+![Figura 29 — Dashboard com o *toggle* "Mostrar microsserviços" desligado.](img/screens/23-dashboard-toggle-desligado.png)
 
-![Figura 30 — Degradação graciosa no dashboard do estudante (recommendation-service parado).](img/screens/24-degradacao-dashboard.png){width=100%}
+![Figura 30 — Degradação graciosa no dashboard do estudante (recommendation-service parado).](img/screens/24-degradacao-dashboard.png)
 
-![Figura 31 — Página de recomendações com o serviço indisponível.](img/screens/25-degradacao-recomendacoes.png){width=100%}
+![Figura 31 — Página de recomendações com o serviço indisponível.](img/screens/25-degradacao-recomendacoes.png)
 
-![Figura 32 — Status com dois serviços fora do ar (circuit breaker do gateway e verificação de saúde).](img/screens/26-degradacao-status.png){width=100%}
+![Figura 32 — Status com dois serviços fora do ar (circuit breaker do gateway e verificação de saúde).](img/screens/26-degradacao-status.png)
 
 # 9 Repositório
 
@@ -1410,7 +1415,7 @@ Anthropic — Claude API (<https://docs.anthropic.com/>); Pandoc
 
 Não se aplica (o sistema não é um jogo).
 
-# Apêndice A — Checklist de conformidade {.unnumbered}
+# Apêndice A — Checklist de conformidade
 
 | Item do modelo | Seção | Evidência |
 |---|---|---|
