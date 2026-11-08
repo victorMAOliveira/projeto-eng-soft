@@ -25,7 +25,7 @@ from eh_ui.filters import (
 from eh_ui.paths import static_dir, templates_dir
 from eh_ui.services import SERVICES, ServiceMeta, service_color, service_label
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 __all__ = [
     "SERVICES",

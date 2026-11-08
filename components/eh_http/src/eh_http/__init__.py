@@ -12,7 +12,7 @@ Public interface:
 from eh_http.breaker import CircuitBreaker, CircuitState
 from eh_http.client import CircuitOpenError, ResilientClient, UpstreamUnavailableError
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 __all__ = [
     "CircuitBreaker",

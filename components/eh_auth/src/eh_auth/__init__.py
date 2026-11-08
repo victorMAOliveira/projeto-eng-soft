@@ -19,7 +19,7 @@ from eh_auth.dependencies import (
 from eh_auth.passwords import hash_password, needs_rehash, verify_password
 from eh_auth.tokens import JWTAuth, Principal, Role, TokenError
 
-__version__ = "0.1.0"
+__version__ = "1.0.0"
 
 __all__ = [
     "JWTAuth",

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eh-observability"
-version = "0.1.1"
+version = "1.0.0"
 description = "EstágioHub component: JSON logging, correlation-id middleware and health/ready/version routes."
 readme = "README.md"
 requires-python = ">=3.12"

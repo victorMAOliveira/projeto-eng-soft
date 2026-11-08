@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "eh-events"
-version = "0.2.0"
+version = "1.0.0"
 description = "EstágioHub component: event contracts (pydantic), async RabbitMQ publisher/consumer with retry, idempotency and DLQ."
 readme = "README.md"
 requires-python = ">=3.12"

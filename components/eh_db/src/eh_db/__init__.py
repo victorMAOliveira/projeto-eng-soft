@@ -18,7 +18,7 @@ from eh_db.idempotency import ProcessedEvent, SqlIdempotencyStore
 from eh_db.migrations import run_migrations
 from eh_db.repository import BaseRepository
 
-__version__ = "0.1.1"
+__version__ = "1.0.0"
 
 __all__ = [
     "Base",

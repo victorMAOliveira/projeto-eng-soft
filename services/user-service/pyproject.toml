@@ -1,6 +1,6 @@
 [project]
 name = "user-service"
-version = "0.1.0"
+version = "1.0.0"
 description = "EstágioHub user-service (accounts, roles, JWT, profiles)."
 requires-python = ">=3.12"
 

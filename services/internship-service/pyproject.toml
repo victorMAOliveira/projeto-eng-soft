@@ -1,6 +1,6 @@
 [project]
 name = "internship-service"
-version = "0.1.0"
+version = "1.0.0"
 description = "EstágioHub internship-service (vagas)."
 requires-python = ">=3.12"
 
