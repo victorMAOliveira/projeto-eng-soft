@@ -1,0 +1,69 @@
+# EstágioHub — full stack. `make up` builds and waits until every container is healthy.
+name: estagiohub
+
+x-app-healthcheck: &app-healthcheck
+  test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/ready', timeout=3)"]
+  interval: 5s
+  timeout: 4s
+  retries: 40
+  start_period: 15s
+
+x-app-env: &app-env
+  JWT_SECRET: ${JWT_SECRET:?JWT_SECRET ausente - rode make env}
+  RABBITMQ_URL: amqp://estagiohub:${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD ausente - rode make env}@rabbitmq:5672/
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+
+services:
+  # ------------------------------------------------------------------ broker
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: estagiohub
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD ausente - rode make env}
+    ports:
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    networks: [backend]
+
+  # ----------------------------------------------------------------- gateway
+  api-gateway:
+    build:
+      context: .
+      dockerfile: services/api-gateway/Dockerfile
+    image: estagiohub/api-gateway
+    environment:
+      <<: *app-env
+      CORS_ORIGINS: http://localhost:8080
+    ports:
+      - "8000:8000"
+    healthcheck: *app-healthcheck
+    networks: [backend, edge]
+
+  # ------------------------------------------------------- tooling (profile)
+  tools:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: scripts/tools.Dockerfile
+    image: estagiohub/tools
+    working_dir: /work
+    volumes:
+      - .:/work
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET ausente - rode make env}
+      GATEWAY_URL: http://api-gateway:8000
+      FRONTEND_URL: http://web-frontend:8080
+    networks: [edge]
+
+volumes:
+  rabbitmq-data:
+
+networks:
+  backend:
+  edge:

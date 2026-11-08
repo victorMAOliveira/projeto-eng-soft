@@ -1,0 +1,21 @@
+# Union of every service's runtime dependencies plus test/lint/report tooling.
+# Used by the `tools` image (make test / seed / e2e / eval / report).
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.4
+pydantic-settings==2.7.1
+httpx==0.28.1
+PyJWT==2.10.1
+argon2-cffi==23.1.0
+SQLAlchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+aio-pika==9.5.4
+Jinja2==3.1.5
+
+# test & lint
+pytest==8.3.4
+pytest-asyncio==0.25.0
+pytest-cov==6.0.0
+aiosqlite==0.20.0
+ruff==0.8.4
