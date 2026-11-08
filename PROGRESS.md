@@ -55,3 +55,27 @@ log de acesso, porta 8080 em IPv6 no host, acentos no curl do Git Bash, *overflo
 
 **Pendente**
 - Sprint 2: `application-service`, `document-service`, `notification-service`, saga do TCE.
+
+## Sprint 2 — Candidaturas e documentos
+
+**Feito**
+- `application-service`: máquina de estados completa (409 em transição inválida), regras legais (6 h/30 h,
+  2 anos cumulativos na mesma concedente exceto PcD, seguro obrigatório, relatório a cada 6 meses,
+  elegibilidade por curso/período/disponibilidade), histórico de transições, `/placements` com prazos;
+  consome `agreement.generated`, `agreement.approved`, `report.submitted`.
+- `document-service`: TCE em PDF (ReportLab) com cláusulas da lei, *preview* PNG (pypdfium2), aprovação
+  pela coordenação, relatórios com versões (PDF ≤ 5 MB) — MongoDB + volume.
+- `notification-service`: consome `#`, caixas por usuário e por papel no Redis, estado de leitura por usuário.
+- Saga coreografada validada ponta a ponta contra a stack real.
+- Frontend: candidatar-se, kanban, detalhe com linha do tempo, aprovação com termos, TCE com *preview*,
+  relatórios, notificações e sino com contador (HTMX).
+- ADR-008 e ADR-009; `eh_events` 0.2.0.
+
+**Decisões**
+- Regras legais em funções puras (`domain.py`) para teste exaustivo; serviços só orquestram.
+- Seguro verificado em dois serviços (defesa em profundidade).
+
+**Problemas encontrados** — ver `docs/scrum/sprint-2.md`.
+
+**Pendente**
+- Sprint 3: `recommendation-service` (+ avaliação offline) e `agent-service`.

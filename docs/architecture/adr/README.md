@@ -13,3 +13,5 @@ commit que introduziu o ADR (`git log --follow docs/architecture/adr/<arquivo>`)
 | [005](005-reuse-via-installable-components.md) | Reuso por componentes instaláveis com versão semântica | 0 | Aceito |
 | [006](006-tooling-in-containers.md) | Ferramentas em containers e host enxuto | 0 | Aceito |
 | [007](007-server-side-rendering-htmx.md) | Frontend renderizado no servidor com Jinja2 + HTMX | 1 | Aceito |
+| [008](008-documents-mongodb-and-volume.md) | Documentos: MongoDB para metadados e volume para arquivos | 2 | Aceito |
+| [009](009-notifications-redis-inbox.md) | Notificações em Redis, alimentadas por todos os eventos | 2 | Aceito |
