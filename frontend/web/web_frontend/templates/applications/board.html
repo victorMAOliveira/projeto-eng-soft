@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Candidaturas{% endblock %}
+{% block heading %}Candidaturas{% endblock %}
+{% block subheading %}<p class="topbar__sub">Kanban por status — máquina de estados do application-service</p>{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert(result.error, kind="warning", title="Degradação graciosa:") }}
+{% else %}
+<section class="board-wrap" data-service="{{ result.served_by }}" style="--svc: {{ result.served_by|service_color }}">
+  <div class="results__head">
+    <span class="muted">{{ result.data.total }} candidatura(s)</span>
+    {{ ui.service_badge(result.served_by) }}
+  </div>
+  <div class="board">
+    {% for key, label in columns %}
+      {% set cards = result.data.columns.get(key, []) %}
+      <div class="board__col board__col--{{ key }}">
+        <header><span>{{ label }}</span><span class="board__count">{{ cards|length }}</span></header>
+        {% for a in cards %}
+          <article class="kcard">
+            <a href="/candidaturas/{{ a.id }}" class="kcard__title">{{ a.internship_title }}</a>
+            <span class="kcard__who">{{ a.student_name if user.role != "student" else a.company_name }}</span>
+            {% if key == "closed" %}{{ ui.status_pill(a.status) }}{% endif %}
+            {% if a.placement and a.placement.next_report_due and a.status == "active" %}
+              <span class="small muted">Relatório até {{ a.placement.next_report_due|date_br }}</span>
+            {% endif %}
+            <div class="kcard__actions">
+              {% if user.role == "company" and "under_review" in a.allowed_transitions %}
+                <form method="post" action="/candidaturas/{{ a.id }}/analisar"><input type="hidden" name="back" value="/candidaturas"><button class="btn btn--sm">Analisar</button></form>
+              {% endif %}
+              {% if user.role == "company" and "approved" in a.allowed_transitions %}
+                <a class="btn btn--sm btn--success" href="/candidaturas/{{ a.id }}/aprovar">Aprovar</a>
+                <form method="post" action="/candidaturas/{{ a.id }}/rejeitar"><input type="hidden" name="back" value="/candidaturas"><button class="btn btn--sm btn--danger">Rejeitar</button></form>
+              {% endif %}
+              {% if user.role == "student" and "withdrawn" in a.allowed_transitions %}
+                <form method="post" action="/candidaturas/{{ a.id }}/retirar" onsubmit="return confirm('Retirar esta candidatura?')"><input type="hidden" name="back" value="/candidaturas"><button class="btn btn--sm btn--danger">Retirar</button></form>
+              {% endif %}
+              {% if a.status == "agreement_pending" and a.placement and a.placement.agreement_id %}
+                <a class="btn btn--sm" href="/termos/{{ a.placement.agreement_id }}">Ver TCE</a>
+              {% endif %}
+            </div>
+          </article>
+        {% else %}
+          <p class="board__empty">—</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

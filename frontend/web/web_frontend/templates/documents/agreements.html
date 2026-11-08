@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Termos de Compromisso{% endblock %}
+{% block heading %}Termos de Compromisso (TCE){% endblock %}
+{% block subheading %}<p class="topbar__sub">Gerados automaticamente pelo document-service após a aprovação do candidato</p>{% endblock %}
+{% block content %}
+<nav class="tabs">
+  <a href="/termos" class="tabs__item {{ 'is-active' if not status_filter }}">Todos</a>
+  <a href="/termos?status=pending_approval" class="tabs__item {{ 'is-active' if status_filter == 'pending_approval' }}">Aguardando coordenação</a>
+  <a href="/termos?status=approved" class="tabs__item {{ 'is-active' if status_filter == 'approved' }}">Aprovados</a>
+</nav>
+{% call ui.card("Termos", service=result.served_by) %}
+  {% if not result.ok %}
+    {{ ui.alert(result.error, kind="warning", title="Degradação graciosa:") }}
+  {% else %}
+    {% set rows = [] %}
+    {% for t in result.data %}
+      {% set _ = rows.append(['<a href="/termos/%s">%s</a>'|format(t.id, t.id)|safe, t.student_name, t.company_name, t.internship_title, "v" ~ t.version, ui.status_pill(t.status), t.created_at|datetime_br]) %}
+    {% endfor %}
+    {{ ui.table(["TCE", "Estagiário(a)", "Concedente", "Estágio", "Versão", "Status", "Gerado em"], rows, empty="Nenhum termo encontrado.") }}
+  {% endif %}
+{% endcall %}
+{% endblock %}

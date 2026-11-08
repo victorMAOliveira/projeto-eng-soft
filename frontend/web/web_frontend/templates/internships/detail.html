@@ -25,12 +25,21 @@
 
   <div class="stack">
     {% call ui.card("Ações") %}
-      {% if user.role == "student" %}
-        <p class="muted">Candidaturas serão habilitadas na próxima sprint.</p>
-      {% elif vaga.status == "open" and ((user.role == "company" and vaga.company_id == user.id) or user.role == "coordinator") %}
-        <form method="post" action="/vagas/{{ vaga.id }}/encerrar" onsubmit="return confirm('Encerrar esta vaga?')">
-          <button class="btn btn--danger" type="submit">Encerrar vaga</button>
+      {% if user.role == "student" and vaga.status == "open" %}
+        <form method="post" action="/vagas/{{ vaga.id }}/candidatar" class="form">
+          <label>Carta de motivação <small class="muted">(opcional)</small>
+            <textarea name="cover_letter" rows="5" maxlength="4000" placeholder="Por que esta vaga combina com você?"></textarea></label>
+          <button class="btn btn--primary btn--block" type="submit">Candidatar-me</button>
         </form>
+      {% elif (user.role == "company" and vaga.company_id == user.id) or user.role == "coordinator" %}
+        <div class="stack-sm">
+          <a class="btn btn--primary btn--block" href="/vagas/{{ vaga.id }}/candidatos">Ver candidatos</a>
+          {% if vaga.status == "open" %}
+          <form method="post" action="/vagas/{{ vaga.id }}/encerrar" onsubmit="return confirm('Encerrar esta vaga?')">
+            <button class="btn btn--danger btn--block" type="submit">Encerrar vaga</button>
+          </form>
+          {% endif %}
+        </div>
       {% else %}
         <p class="muted">Nenhuma ação disponível.</p>
       {% endif %}

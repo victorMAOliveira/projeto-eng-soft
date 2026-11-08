@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Relatórios{% endblock %}
+{% block heading %}Relatórios de atividades{% endblock %}
+{% block subheading %}<p class="topbar__sub">Periodicidade máxima de 6 meses (Lei 11.788/2008, art. 9º, VII)</p>{% endblock %}
+{% block content %}
+<div class="grid grid--detail">
+  {% call ui.card("Relatórios enviados", service=result.served_by) %}
+    {% if not result.ok %}
+      {{ ui.alert(result.error, kind="warning", title="Degradação graciosa:") }}
+    {% else %}
+      <div class="stack-sm">
+      {% for r in result.data %}
+        <article class="report">
+          <header>
+            <strong>{{ r.title }}</strong>{{ ui.status_pill(r.status) }}
+          </header>
+          <p class="small muted">{{ r.student_name }} · {{ r.internship_title }} · período {{ r.period_start|date_br }} a {{ r.period_end|date_br }}</p>
+          <p class="small">Versões:
+            {% for v in r.versions %}<a href="/relatorios/{{ r.id }}/versoes/{{ v.version }}" target="_blank" rel="noopener">v{{ v.version }}</a> ({{ v.uploaded_at|datetime_br }}){{ ", " if not loop.last }}{% endfor %}
+          </p>
+          {% if r.review_comment %}<p class="small">Comentário da coordenação: “{{ r.review_comment }}”</p>{% endif %}
+          {% if user.role == "coordinator" and r.status != "reviewed" %}
+            <form method="post" action="/relatorios/{{ r.id }}/revisar" class="inline-form">
+              <input name="comment" placeholder="Comentário da revisão">
+              <button class="btn btn--sm">Registrar revisão</button>
+            </form>
+          {% endif %}
+          {% if user.role == "student" %}
+            <form method="post" action="/relatorios/{{ r.id }}/versoes" enctype="multipart/form-data" class="inline-form">
+              <input type="file" name="file" accept="application/pdf" required>
+              <button class="btn btn--sm">Enviar nova versão</button>
+            </form>
+          {% endif %}
+        </article>
+      {% else %}
+        {{ ui.empty_state("Nenhum relatório enviado ainda.") }}
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endcall %}
+
+  <div class="stack">
+    {% call ui.card("Prazos dos estágios ativos", service=placements.served_by) %}
+      {% if not placements.ok %}
+        {{ ui.alert(placements.error, kind="warning") }}
+      {% else %}
+        <ul class="list">
+        {% for p in placements.data %}
+          <li><strong>{{ p.student_name }}</strong>
+            <span class="small">{{ p.internship_title }} — relatório até {{ p.next_report_due|date_br }}
+              {% if p.report_state == "overdue" %}<span class="eh-pill eh-pill--rejected">vencido</span>
+              {% elif p.report_state == "due_soon" %}<span class="eh-pill eh-pill--under_review">vence em {{ p.days_to_report }} dia(s)</span>{% endif %}
+            </span></li>
+        {% else %}<li class="muted">Nenhum estágio ativo.</li>{% endfor %}
+        </ul>
+      {% endif %}
+    {% endcall %}
+    {% if user.role == "student" and placements.ok and placements.data %}
+      {% call ui.card("Enviar relatório", service="document-service") %}
+        <form method="post" action="/relatorios" enctype="multipart/form-data" class="form">
+          <label>Estágio
+            <select name="application_id">{% for p in placements.data %}<option value="{{ p.application_id }}">{{ p.internship_title }} — {{ p.company_name }}</option>{% endfor %}</select></label>
+          <label>Título<input name="title" value="Relatório de atividades" required minlength="3"></label>
+          <label>Início do período<input type="date" name="period_start" required></label>
+          <label>Fim do período<input type="date" name="period_end" required></label>
+          <label>Arquivo (PDF, até 5 MB)<input type="file" name="file" accept="application/pdf" required></label>
+          <button class="btn btn--primary" type="submit">Enviar relatório</button>
+        </form>
+      {% endcall %}
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

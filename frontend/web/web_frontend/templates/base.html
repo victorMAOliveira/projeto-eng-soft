@@ -45,8 +45,10 @@
           <span class="svc-toggle__track" aria-hidden="true"></span>
           <span class="svc-toggle__label">Mostrar microsserviços</span>
         </label>
-        {% block topbar_extra %}{% endblock %}
         {% if user %}
+        <a href="/notificacoes" class="icon-btn" title="Notificações" aria-label="Notificações">
+          {{ icon("bell") }}<span id="bell-count" hx-get="/notificacoes/contador" hx-trigger="load, every 20s" hx-swap="innerHTML"></span>
+        </a>
         <span class="user-chip" title="{{ user.email or '' }}">
           <span class="user-chip__avatar">{{ user.name[:1] }}</span>
           <span class="user-chip__text"><strong>{{ user.first_name }}</strong><small>{{ user.role_label }}</small></span>

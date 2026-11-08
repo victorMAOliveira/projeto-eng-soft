@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Candidatura{% endblock %}
+{% block heading %}{{ app.internship_title if app else "Candidatura" }}{% endblock %}
+{% block subheading %}{% if app %}<p class="topbar__sub">{{ app.student_name }} · {{ app.company_name }}</p>{% endif %}{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+<div class="grid grid--detail">
+  <div class="stack">
+    {% call ui.card("Situação", service=result.served_by, subtitle="Transições validadas pela máquina de estados (inválida = HTTP 409)") %}
+      <p>{{ ui.status_pill(app.status) }} {% if app.status_reason %}<span class="muted small">— {{ app.status_reason }}</span>{% endif %}</p>
+      <ol class="timeline">
+        {% for h in app.history %}
+          <li><strong>{{ h.to_status|status_label }}</strong>
+            <span class="muted small">{{ h.created_at|datetime_br }} · {{ {"student": "estudante", "company": "empresa", "coordinator": "coordenação", "system": "sistema (evento)"}.get(h.actor_role, h.actor_role) }}</span>
+            {% if h.reason %}<span class="small">“{{ h.reason }}”</span>{% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    {% endcall %}
+    {% if app.placement %}
+      {% set p = app.placement %}
+      {% call ui.card("Termos do estágio", service=result.served_by) %}
+        <dl class="kv">
+          <dt>Vigência</dt><dd>{{ p.start_date|date_br }} a {{ p.end_date|date_br }}</dd>
+          <dt>Jornada</dt><dd>{{ p.hours_per_day }} h/dia · {{ p.hours_per_week }} h/semana</dd>
+          <dt>Bolsa</dt><dd>{{ p.stipend|brl }}</dd>
+          <dt>Seguro</dt><dd>{{ p.insurer }} — apólice {{ p.insurance_policy }}</dd>
+          <dt>Supervisor(a)</dt><dd>{{ p.supervisor_name }}</dd>
+          {% if p.next_report_due %}<dt>Próximo relatório</dt><dd>até {{ p.next_report_due|date_br }} ({{ p.reports_count }} enviado(s))</dd>{% endif %}
+        </dl>
+        {% if p.agreement_id %}<a class="btn btn--sm" href="/termos/{{ p.agreement_id }}">Ver Termo de Compromisso</a>{% endif %}
+      {% endcall %}
+    {% endif %}
+    {% if app.cover_letter %}
+      {% call ui.card("Carta de motivação", service=result.served_by) %}<p class="prewrap">{{ app.cover_letter }}</p>{% endcall %}
+    {% endif %}
+  </div>
+  {% call ui.card("Ações") %}
+    {% set t = app.allowed_transitions %}
+    <div class="stack-sm">
+      {% if user.role == "company" and "under_review" in t %}
+        <form method="post" action="/candidaturas/{{ app.id }}/analisar"><button class="btn btn--block">Iniciar análise</button></form>
+      {% endif %}
+      {% if user.role == "company" and "approved" in t %}
+        <a class="btn btn--success btn--block" href="/candidaturas/{{ app.id }}/aprovar">Aprovar e informar termos</a>
+        <form method="post" action="/candidaturas/{{ app.id }}/rejeitar" class="form">
+          <input name="reason" placeholder="Motivo (opcional)">
+          <button class="btn btn--danger btn--block">Rejeitar</button>
+        </form>
+      {% endif %}
+      {% if user.role == "student" and "withdrawn" in t %}
+        <form method="post" action="/candidaturas/{{ app.id }}/retirar" onsubmit="return confirm('Retirar esta candidatura?')"><button class="btn btn--danger btn--block">Retirar candidatura</button></form>
+      {% endif %}
+      {% if user.role in ("company", "coordinator") and "completed" in t %}
+        <form method="post" action="/candidaturas/{{ app.id }}/concluir"><button class="btn btn--block">Concluir estágio</button></form>
+        <form method="post" action="/candidaturas/{{ app.id }}/rescindir" onsubmit="return confirm('Rescindir o estágio?')"><button class="btn btn--danger btn--block">Rescindir</button></form>
+      {% endif %}
+      {% if not t %}<p class="muted small">Estado final — não há transições possíveis.</p>
+      {% elif app.status in ("approved", "agreement_pending") %}<p class="muted small">Aguardando a saga: geração do TCE e aprovação da coordenação.</p>{% endif %}
+    </div>
+  {% endcall %}
+</div>
+{% endif %}
+{% endblock %}

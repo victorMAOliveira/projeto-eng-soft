@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Aprovar candidato{% endblock %}
+{% block heading %}Aprovar candidato{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+{% call ui.card(app.student_name ~ " — " ~ app.internship_title, service=result.served_by, subtitle="Estes termos formam o Termo de Compromisso de Estágio (TCE)") %}
+  {% if error %}{{ ui.alert(error, kind="error", title="Regra legal não atendida:") }}{% endif %}
+  <form method="post" action="/candidaturas/{{ app.id }}/aprovar" class="form form--grid">
+    <label>Início<input type="date" name="start_date" value="{{ form.start_date or '' }}" required></label>
+    <label>Término <small class="muted">(máx. 2 anos, exceto PcD)</small><input type="date" name="end_date" value="{{ form.end_date or '' }}" required></label>
+    <label>Horas por dia <small class="muted">(padrão da vaga)</small><input type="number" name="hours_per_day" min="1" max="12" value="{{ form.hours_per_day or '' }}"></label>
+    <label>Horas por semana<input type="number" name="hours_per_week" min="1" max="60" value="{{ form.hours_per_week or '' }}"></label>
+    <label class="span-2">Supervisor(a) na concedente<input name="supervisor_name" value="{{ form.supervisor_name or '' }}" required minlength="3"></label>
+    <label>Seguradora <small class="muted">(seguro contra acidentes pessoais)</small><input name="insurer" value="{{ form.insurer or '' }}"></label>
+    <label>Nº da apólice<input name="insurance_policy" value="{{ form.insurance_policy or '' }}"></label>
+    <label class="span-2">Plano de atividades<textarea name="activities" rows="4">{{ form.activities or '' }}</textarea></label>
+    <div class="span-2 form__actions">
+      <a class="btn" href="/candidaturas/{{ app.id }}">Cancelar</a>
+      <button class="btn btn--success" type="submit">Aprovar candidato</button>
+    </div>
+  </form>
+{% endcall %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% block title %}Notificações{% endblock %}
+{% block heading %}Notificações{% endblock %}
+{% block subheading %}<p class="topbar__sub">Geradas pelo notification-service a partir dos eventos do RabbitMQ</p>{% endblock %}
+{% block content %}
+{% call ui.card("Caixa de entrada", service=result.served_by, actions='<form method="post" action="/notificacoes/ler-todas"><button class="btn btn--sm">Marcar todas como lidas</button></form>'|safe) %}
+  {% if not result.ok %}
+    {{ ui.alert(result.error, kind="warning", title="Degradação graciosa:") }}
+  {% else %}
+    <ul class="notices">
+    {% for n in result.data["items"] %}
+      <li class="notice notice--{{ n.kind }} {{ 'is-unread' if not n.read }}">
+        <span class="notice__icon">{{ icon("bell", 16) }}</span>
+        <div>
+          <strong>{% if n.link %}<a href="{{ n.link }}">{{ n.title }}</a>{% else %}{{ n.title }}{% endif %}</strong>
+          <p>{{ n.message }}</p>
+          <span class="small muted">{{ n.created_at|datetime_br }}{% if n.event_type %} · evento <code>{{ n.event_type }}</code>{% endif %}{% if n.recipient.startswith("role:") %} · para toda a coordenação{% endif %}</span>
+        </div>
+      </li>
+    {% else %}
+      <li>{{ ui.empty_state("Nenhuma notificação.") }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endcall %}
+{% endblock %}

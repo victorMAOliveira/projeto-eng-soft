@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Candidatos{% endblock %}
+{% block heading %}Candidatos{% if vaga.ok %} — {{ vaga.data.title }}{% endif %}{% endblock %}
+{% block content %}
+{% block ranking %}{% endblock %}
+{% call ui.card("Candidaturas recebidas", service=applications.served_by) %}
+  {% if not applications.ok %}
+    {{ ui.alert(applications.error, kind="warning") }}
+  {% else %}
+    {% set rows = [] %}
+    {% for a in applications.data %}
+      {% set _ = rows.append(['<a href="/candidaturas/%s">%s</a>'|format(a.id, a.student_name|e)|safe, a.student_course or "—", ui.status_pill(a.status), a.created_at|date_br]) %}
+    {% endfor %}
+    {{ ui.table(["Candidato(a)", "Curso", "Status", "Recebida em"], rows, empty="Nenhuma candidatura para esta vaga.") }}
+  {% endif %}
+{% endcall %}
+{% endblock %}

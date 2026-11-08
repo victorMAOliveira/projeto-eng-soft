@@ -12,7 +12,15 @@ from eh_observability import configure_logging, setup_observability
 from web_frontend import SERVICE_NAME, __version__
 from web_frontend.config import Settings
 from web_frontend.gateway import GatewayClient
-from web_frontend.routes import auth, dashboard, internships, profile
+from web_frontend.routes import (
+    applications,
+    auth,
+    dashboard,
+    documents,
+    internships,
+    notifications,
+    profile,
+)
 from web_frontend.web import LoginRequired, login_redirect, render
 
 STATIC_DIR = Path(__file__).parent / "static"
@@ -59,6 +67,6 @@ def create_app(
     async def _not_found(request: Request, exc: Exception):
         return render(request, "not_found.html", status_code=404, message="Página não encontrada.")
 
-    for module in (auth, dashboard, internships, profile):
+    for module in (auth, dashboard, internships, applications, documents, notifications, profile):
         app.include_router(module.router)
     return app

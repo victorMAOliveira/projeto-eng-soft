@@ -32,16 +32,25 @@ async def dashboard(request: Request) -> Response:
             "profile": ("/api/profiles/students/me", {}),
             "latest": ("/api/internships", {"size": 5}),
             "stats": ("/api/internships/stats", {}),
+            "apps": ("/api/applications/stats", {}),
+            "placements": ("/api/placements", {"status": "active"}),
+            "notices": ("/api/notifications", {"limit": 5}),
         }
     elif user.role == "company":
         calls = {
             "mine": ("/api/internships/mine", {}),
             "stats": ("/api/internships/stats", {}),
+            "apps": ("/api/applications/stats", {}),
+            "notices": ("/api/notifications", {"limit": 5}),
         }
     else:
         calls = {
             "stats": ("/api/internships/stats", {}),
             "latest": ("/api/internships", {"size": 5}),
+            "apps": ("/api/applications/stats", {}),
+            "pending": ("/api/agreements", {"status": "pending_approval"}),
+            "placements": ("/api/placements", {"status": "active"}),
+            "notices": ("/api/notifications", {"limit": 5}),
         }
     panels = await _panels(request, calls)
     unavailable = sorted({p.unavailable_service for p in panels.values() if p.unavailable_service})

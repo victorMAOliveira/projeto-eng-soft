@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}TCE{% endblock %}
+{% block heading %}Termo de Compromisso de Estágio{% endblock %}
+{% block subheading %}{% if tce %}<p class="topbar__sub">{{ tce.student_name }} · {{ tce.company_name }} · versão {{ tce.version }}</p>{% endif %}{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+<div class="grid grid--detail">
+  {% call ui.card("Pré-visualização do PDF", service=result.served_by, subtitle="1ª página renderizada pelo document-service (ReportLab + pypdfium2)") %}
+    <a href="/termos/{{ tce.id }}/pdf" target="_blank" rel="noopener" class="pdf-preview">
+      <img src="/termos/{{ tce.id }}/preview.png" alt="Pré-visualização do Termo de Compromisso">
+    </a>
+  {% endcall %}
+  <div class="stack">
+    {% call ui.card("Situação", service=result.served_by) %}
+      <p>{{ ui.status_pill(tce.status) }}</p>
+      <dl class="kv">
+        <dt>Estágio</dt><dd>{{ tce.internship_title }}</dd>
+        <dt>Vigência</dt><dd>{{ tce.terms.start_date|date_br }} a {{ tce.terms.end_date|date_br }}</dd>
+        <dt>Jornada</dt><dd>{{ tce.terms.hours_per_day }} h/dia · {{ tce.terms.hours_per_week }} h/sem</dd>
+        <dt>Seguro</dt><dd>{{ tce.terms.insurer }} ({{ tce.terms.insurance_policy }})</dd>
+        <dt>Gerado em</dt><dd>{{ tce.created_at|datetime_br }}</dd>
+        {% if tce.approved_at %}<dt>Aprovado em</dt><dd>{{ tce.approved_at|datetime_br }}</dd>{% endif %}
+      </dl>
+      <p><a class="btn btn--sm" href="/termos/{{ tce.id }}/pdf" target="_blank" rel="noopener">Abrir PDF</a>
+         <a class="btn btn--sm" href="/candidaturas/{{ tce.application_id }}">Ver candidatura</a></p>
+    {% endcall %}
+    {% if user.role == "coordinator" and tce.status == "pending_approval" %}
+      {% call ui.card("Aprovação da coordenação") %}
+        <p class="small">Ao aprovar, o document-service publica <code>agreement.approved</code> e o application-service ativa o estágio (saga coreografada).</p>
+        <form method="post" action="/termos/{{ tce.id }}/aprovar"><button class="btn btn--success btn--block" type="submit">Aprovar TCE</button></form>
+      {% endcall %}
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

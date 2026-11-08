@@ -40,17 +40,28 @@ NAV: dict[str, list[tuple[str, str, str]]] = {
     "student": [
         ("Painel", "/", "home"),
         ("Vagas", "/vagas", "briefcase"),
+        ("Candidaturas", "/candidaturas", "kanban"),
+        ("Termos (TCE)", "/termos", "file"),
+        ("Relatórios", "/relatorios", "report"),
+        ("Notificações", "/notificacoes", "bell"),
         ("Meu perfil", "/perfil", "user"),
     ],
     "company": [
         ("Painel", "/", "home"),
         ("Minhas vagas", "/vagas?mine=1", "briefcase"),
         ("Publicar vaga", "/vagas/nova", "plus"),
+        ("Candidaturas", "/candidaturas", "kanban"),
+        ("Termos (TCE)", "/termos", "file"),
+        ("Notificações", "/notificacoes", "bell"),
         ("Perfil da empresa", "/perfil", "user"),
     ],
     "coordinator": [
         ("Painel", "/", "home"),
         ("Vagas", "/vagas", "briefcase"),
+        ("Candidaturas", "/candidaturas", "kanban"),
+        ("Termos (TCE)", "/termos", "file"),
+        ("Relatórios", "/relatorios", "report"),
+        ("Notificações", "/notificacoes", "bell"),
     ],
 }
 
