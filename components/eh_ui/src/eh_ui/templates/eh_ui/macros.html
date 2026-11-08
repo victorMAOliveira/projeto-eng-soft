@@ -1,0 +1,82 @@
+{#- eh_ui macros — import with: {% import "eh_ui/macros.html" as ui %} -#}
+
+{% macro service_badge(service) -%}
+{%- if service -%}
+<span class="eh-badge-service" data-service-badge="{{ service }}" style="--svc: {{ service|service_color }}"
+      title="Dados fornecidos por {{ service }} (via api-gateway)">{{ service }}</span>
+{%- endif -%}
+{%- endmacro %}
+
+{% macro card(title, service=None, subtitle=None, id=None, classes="", actions=None) -%}
+<section class="eh-card {{ classes }}"{% if service %} data-service="{{ service }}" style="--svc: {{ service|service_color }}"{% endif %}{% if id %} id="{{ id }}"{% endif %}>
+  <header class="eh-card__header">
+    <div>
+      <h2 class="eh-card__title">{{ title }}</h2>
+      {%- if subtitle %}<p class="eh-card__subtitle">{{ subtitle }}</p>{% endif %}
+    </div>
+    <div class="eh-card__meta">{% if actions %}{{ actions }}{% endif %}{{ service_badge(service) }}</div>
+  </header>
+  <div class="eh-card__body">{{ caller() if caller else "" }}</div>
+</section>
+{%- endmacro %}
+
+{% macro table(headers, rows, empty="Nenhum registro encontrado.") -%}
+<div class="eh-table-wrap">
+  <table class="eh-table">
+    <thead><tr>{% for header in headers %}<th scope="col">{{ header }}</th>{% endfor %}</tr></thead>
+    <tbody>
+      {%- for row in rows %}
+      <tr>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>
+      {%- else %}
+      <tr><td colspan="{{ headers|length }}" class="eh-empty">{{ empty }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+</div>
+{%- endmacro %}
+
+{% macro alert(message, kind="info", title=None) -%}
+<div class="eh-alert eh-alert--{{ kind }}" role="{{ 'alert' if kind in ('error', 'warning') else 'status' }}">
+  {%- if title %}<strong>{{ title }}</strong> {% endif %}{{ message }}
+</div>
+{%- endmacro %}
+
+{% macro status_pill(status) -%}
+<span class="eh-pill eh-pill--{{ status }}">{{ status|status_label }}</span>
+{%- endmacro %}
+
+{% macro score_bar(score, label=None) -%}
+{%- set width = ((score or 0) * 100)|round(0)|int -%}
+<div class="eh-score" title="{{ label or 'Score' }}: {{ score|pct(1) }}">
+  <div class="eh-score__track"><div class="eh-score__fill" style="width: {{ [width, 100]|min }}%"></div></div>
+  <span class="eh-score__value">{{ score|pct }}</span>
+</div>
+{%- endmacro %}
+
+{% macro stat(label, value, service=None, hint=None) -%}
+<div class="eh-stat"{% if service %} data-service="{{ service }}" style="--svc: {{ service|service_color }}"{% endif %}>
+  <span class="eh-stat__value">{{ value }}</span>
+  <span class="eh-stat__label">{{ label }}</span>
+  {%- if hint %}<span class="eh-stat__hint">{{ hint }}</span>{% endif %}
+  {{ service_badge(service) }}
+</div>
+{%- endmacro %}
+
+{% macro service_card(name, status=None, detail=None) -%}
+{%- set meta = EH_SERVICES.get(name) -%}
+<article class="eh-service-card" data-service="{{ name }}" style="--svc: {{ name|service_color }}">
+  <span class="eh-service-card__dot eh-dot--{{ status or 'unknown' }}" aria-hidden="true"></span>
+  <div>
+    <strong>{{ meta.label if meta else name }}</strong>
+    <code>{{ name }}</code>
+    <small>{{ detail or (meta.description if meta else "") }}</small>
+  </div>
+</article>
+{%- endmacro %}
+
+{% macro empty_state(message, hint=None) -%}
+<div class="eh-empty-state">
+  <p>{{ message }}</p>
+  {%- if hint %}<small>{{ hint }}</small>{% endif %}
+</div>
+{%- endmacro %}
