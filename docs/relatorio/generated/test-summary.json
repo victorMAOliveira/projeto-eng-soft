@@ -1,0 +1,70 @@
+[
+  {
+    "kind": "lint",
+    "name": "ruff",
+    "ok": true
+  },
+  {
+    "kind": "component",
+    "name": "eh_auth",
+    "ok": true,
+    "seconds": 6.8,
+    "passed": 11,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "component",
+    "name": "eh_db",
+    "ok": true,
+    "seconds": 5.8,
+    "passed": 6,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "component",
+    "name": "eh_events",
+    "ok": true,
+    "seconds": 6.0,
+    "passed": 13,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "component",
+    "name": "eh_http",
+    "ok": true,
+    "seconds": 4.7,
+    "passed": 9,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "component",
+    "name": "eh_observability",
+    "ok": true,
+    "seconds": 6.8,
+    "passed": 10,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "component",
+    "name": "eh_ui",
+    "ok": true,
+    "seconds": 5.2,
+    "passed": 9,
+    "failed": 0,
+    "coverage": 100
+  },
+  {
+    "kind": "service",
+    "name": "api-gateway",
+    "ok": true,
+    "seconds": 9.4,
+    "passed": 11,
+    "failed": 0,
+    "coverage": 98
+  }
+]
