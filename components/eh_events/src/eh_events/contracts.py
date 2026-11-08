@@ -137,6 +137,9 @@ class AgreementGenerated(_Payload):
     student_id: int
     company_id: int
     version: int = 1
+    student_name: str = ""
+    company_name: str = ""
+    internship_title: str = ""
 
 
 class AgreementApproved(_Payload):
@@ -148,6 +151,8 @@ class AgreementApproved(_Payload):
     company_id: int
     approved_by: int
     approved_at: datetime
+    student_name: str = ""
+    internship_title: str = ""
 
 
 class ReportSubmitted(_Payload):
@@ -161,6 +166,8 @@ class ReportSubmitted(_Payload):
     period_start: date
     period_end: date
     submitted_at: datetime
+    student_name: str = ""
+    title: str = ""
 
 
 class ReportDueSoon(_Payload):
