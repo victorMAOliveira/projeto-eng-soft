@@ -1,0 +1,28 @@
+{% import "eh_ui/macros.html" as ui %}
+{% if not services.ok %}
+  {{ ui.alert("Não foi possível consultar o API Gateway (" ~ (services.error or "erro") ~ ").", kind="error", title="Gateway indisponível:") }}
+{% else %}
+  {% set d = services.data %}
+  <div class="status-summary status-summary--{{ d.status }}">
+    <strong>{{ {"up": "Todos os serviços operacionais", "degraded": "Operação degradada", "down": "Fora do ar"}[d.status] }}</strong>
+    <span>{{ d.counts.up }} operacional(is) · {{ d.counts.degraded }} degradado(s) · {{ d.counts.down }} fora do ar</span>
+    <span class="small muted">Atualizado automaticamente a cada 5 s · fonte: <code>GET /services</code> do api-gateway</span>
+  </div>
+  {% set rows = [] %}
+  {% for s in d.services %}
+    {% set uptime = s.uptime_seconds %}
+    {% set uptime_text = "—" if uptime is none else ((uptime // 3600)|int ~ "h " ~ ((uptime % 3600) // 60)|int ~ "min " ~ (uptime % 60)|int ~ "s") %}
+    {% set checks = [] %}
+    {% for name, c in s.checks.items() %}{% set _ = checks.append(('<span class="check check--%s">%s</span>'|format("ok" if c.ok else "fail", name))) %}{% endfor %}
+    {% set _ = rows.append([
+      ('<span class="svc-name" style="--svc: %s"><strong>%s</strong><code>%s</code></span>'|format(s.name|service_color, s.name|service_label, s.name))|safe,
+      ui.status_pill(s.status),
+      s.version or "—",
+      (("%.1f ms"|format(s.latency_ms)) if s.latency_ms is not none else "—"),
+      (s.database or (EH_SERVICES[s.name].database if s.name in EH_SERVICES else "—")),
+      uptime_text,
+      (checks|join(" ") or "—")|safe,
+    ]) %}
+  {% endfor %}
+  {{ ui.table(["Serviço", "Status", "Versão", "Latência", "Banco", "Uptime", "Verificações"], rows) }}
+{% endif %}

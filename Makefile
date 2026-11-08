@@ -53,8 +53,11 @@ eval:
 	$(TOOLS) python scripts/reuse_metrics.py
 
 screenshots:
-	$(COMPOSE) run --rm screenshots
 	$(COMPOSE) ps --format "table {{.Name}}\t{{.Image}}\t{{.Status}}" > $(GEN_DIR)/compose-ps.txt
+	$(COMPOSE) run --rm screenshots
+	$(COMPOSE) stop recommendation-service agent-service
+	$(COMPOSE) run --rm screenshots python scripts/capture_screenshots.py --degraded
+	$(COMPOSE) up -d --wait
 
 report:
 	$(TOOLS) python scripts/build_report.py prepare

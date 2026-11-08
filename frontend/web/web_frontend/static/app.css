@@ -20,7 +20,7 @@ code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; fo
 .span-all { grid-column: 1 / -1; }
 
 /* Layout --------------------------------------------------------------- */
-.layout { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; }
+.layout { display: grid; grid-template-columns: 248px 1fr; min-height: 100vh; background: linear-gradient(to right, #0f1d3d 248px, transparent 248px); }
 .sidebar {
   background: #0f1d3d;
   color: #cbd5e1;
@@ -203,7 +203,7 @@ textarea { resize: vertical; }
   .grid--detail { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
-  .layout { grid-template-columns: 1fr; }
+  .layout { grid-template-columns: 1fr; background: none; }
   .sidebar { position: fixed; inset: 0 auto 0 0; width: 260px; z-index: 20; transform: translateX(-100%); transition: transform .2s; }
   .sidebar.is-open { transform: none; box-shadow: 0 0 0 100vmax rgba(15, 23, 42, .4); }
   .topbar__menu { display: inline-grid; }
@@ -290,3 +290,18 @@ textarea { resize: vertical; }
 .htmx-indicator { display: none; }
 .htmx-request .htmx-indicator, .htmx-request.htmx-indicator { display: inline; }
 details.eh-card summary { cursor: pointer; }
+
+/* Status page & legend ----------------------------------------------------- */
+.status-summary { display: grid; gap: .15rem; padding: .8rem 1rem; border-radius: 10px; margin-bottom: 1rem; border: 1px solid; }
+.status-summary--up { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
+.status-summary--degraded { background: #fffbeb; border-color: #fde68a; color: #78350f; }
+.status-summary--down { background: #fef2f2; border-color: #fecaca; color: #7f1d1d; }
+.svc-name { display: grid; border-left: 4px solid var(--svc); padding-left: .55rem; }
+.svc-name code { color: var(--svc); font-size: .74rem; }
+.check { display: inline-block; font-size: .7rem; border-radius: 99px; padding: .05rem .45rem; margin: .1rem; }
+.check--ok { background: #dcfce7; color: #166534; }
+.check--fail { background: #fee2e2; color: #991b1b; }
+.legend { background: var(--eh-surface); border: 1px solid var(--eh-border); border-radius: var(--eh-radius); padding: .9rem 1rem; display: grid; gap: .7rem; }
+.legend__head { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: center; }
+.legend__head .btn { margin-left: auto; }
+.legend__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .5rem; }

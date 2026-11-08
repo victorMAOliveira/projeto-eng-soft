@@ -1,0 +1,147 @@
+{
+  "rows": [
+    {
+      "service": "agent-service",
+      "specific_loc": 1059,
+      "reused_loc": 1144,
+      "components": 5,
+      "reuse_ratio": 0.519
+    },
+    {
+      "service": "api-gateway",
+      "specific_loc": 317,
+      "reused_loc": 507,
+      "components": 3,
+      "reuse_ratio": 0.615
+    },
+    {
+      "service": "application-service",
+      "specific_loc": 982,
+      "reused_loc": 1144,
+      "components": 5,
+      "reuse_ratio": 0.538
+    },
+    {
+      "service": "document-service",
+      "specific_loc": 807,
+      "reused_loc": 980,
+      "components": 4,
+      "reuse_ratio": 0.548
+    },
+    {
+      "service": "internship-service",
+      "specific_loc": 322,
+      "reused_loc": 1011,
+      "components": 4,
+      "reuse_ratio": 0.758
+    },
+    {
+      "service": "notification-service",
+      "specific_loc": 375,
+      "reused_loc": 847,
+      "components": 3,
+      "reuse_ratio": 0.693
+    },
+    {
+      "service": "recommendation-service",
+      "specific_loc": 875,
+      "reused_loc": 1144,
+      "components": 5,
+      "reuse_ratio": 0.567
+    },
+    {
+      "service": "user-service",
+      "specific_loc": 492,
+      "reused_loc": 1011,
+      "components": 4,
+      "reuse_ratio": 0.673
+    },
+    {
+      "service": "web-frontend",
+      "specific_loc": 2320,
+      "reused_loc": 722,
+      "components": 3,
+      "reuse_ratio": 0.237
+    }
+  ],
+  "matrix": {
+    "agent-service": [
+      "eh_auth",
+      "eh_db",
+      "eh_events",
+      "eh_http",
+      "eh_observability"
+    ],
+    "api-gateway": [
+      "eh_auth",
+      "eh_http",
+      "eh_observability"
+    ],
+    "application-service": [
+      "eh_auth",
+      "eh_db",
+      "eh_events",
+      "eh_http",
+      "eh_observability"
+    ],
+    "document-service": [
+      "eh_auth",
+      "eh_events",
+      "eh_http",
+      "eh_observability"
+    ],
+    "internship-service": [
+      "eh_auth",
+      "eh_db",
+      "eh_events",
+      "eh_observability"
+    ],
+    "notification-service": [
+      "eh_auth",
+      "eh_events",
+      "eh_observability"
+    ],
+    "recommendation-service": [
+      "eh_auth",
+      "eh_db",
+      "eh_events",
+      "eh_http",
+      "eh_observability"
+    ],
+    "user-service": [
+      "eh_auth",
+      "eh_db",
+      "eh_events",
+      "eh_observability"
+    ],
+    "web-frontend": [
+      "eh_http",
+      "eh_observability",
+      "eh_ui"
+    ]
+  },
+  "summary": {
+    "component_loc": {
+      "eh_auth": 161,
+      "eh_events": 473,
+      "eh_db": 164,
+      "eh_observability": 213,
+      "eh_http": 133,
+      "eh_ui": 376
+    },
+    "component_usages": {
+      "eh_auth": 8,
+      "eh_events": 7,
+      "eh_db": 5,
+      "eh_observability": 9,
+      "eh_http": 6,
+      "eh_ui": 1
+    },
+    "total_specific_loc": 7549,
+    "total_reused_loc": 8510,
+    "overall_reuse_ratio": 0.53,
+    "loc_if_copied": 16059,
+    "loc_with_components": 9069,
+    "loc_saved": 6990
+  }
+}

@@ -1,0 +1,17 @@
+flowchart TB
+    subgraph comps["components/ — pacotes Python instaláveis (versão semântica)"]
+        A["eh_auth<br/>JWT · argon2 · require_role"]
+        E["eh_events<br/>contratos · publisher · consumer · DLQ"]
+        D["eh_db<br/>SQLAlchemy async · repositório · Alembic"]
+        O["eh_observability<br/>log JSON · correlation-id · health"]
+        H["eh_http<br/>timeout · retry · circuit breaker"]
+        U["eh_ui<br/>macros Jinja · badges · CSS"]
+    end
+    GW["api-gateway"]; US["user-service"]; IS["internship-service"]; AS["application-service"]
+    DS["document-service"]; NS["notification-service"]; RS["recommendation-service"]; AG["agent-service"]; WEB["web-frontend"]
+    A --> GW & US & IS & AS & DS & NS & RS & AG
+    E --> US & IS & AS & DS & NS & RS & AG
+    D --> US & IS & AS & RS & AG
+    O --> GW & US & IS & AS & DS & NS & RS & AG & WEB
+    H --> GW & AS & DS & RS & AG & WEB
+    U --> WEB

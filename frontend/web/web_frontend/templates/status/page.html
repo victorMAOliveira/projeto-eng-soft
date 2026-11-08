@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Status dos Microsserviços{% endblock %}
+{% block heading %}Status dos Microsserviços{% endblock %}
+{% block subheading %}<p class="topbar__sub">Health Check API: /health, /ready e /version de cada serviço, agregados pelo gateway</p>{% endblock %}
+{% block content %}
+{% call ui.card("Serviços em execução", service="api-gateway", subtitle="Nome, status, versão, latência, banco e uptime") %}
+  <div id="status-panel" hx-get="/status/painel" hx-trigger="every 5s" hx-swap="innerHTML">
+    {% include "status/_panel.html" %}
+  </div>
+{% endcall %}
+<div class="grid grid--2">
+  {% call ui.card("Tabela de rotas do API Gateway", service="api-gateway", subtitle="Prefixo público → microsserviço") %}
+    {% if routes.ok %}
+      {% set rows = [] %}
+      {% for r in routes.data %}{% set _ = rows.append([("<code>" ~ r.prefix ~ "/*</code>")|safe, r.service, "pública" if r.public else "JWT obrigatório"]) %}{% endfor %}
+      {{ ui.table(["Prefixo", "Serviço", "Acesso"], rows) }}
+    {% else %}{{ ui.alert(routes.error, kind="warning") }}{% endif %}
+  {% endcall %}
+  {% call ui.card("Infraestrutura") %}
+    <ul class="list">
+      <li><strong>RabbitMQ</strong><span class="muted">Broker de eventos — exchange <code>estagiohub.events</code> (topic) + DLX; painel em <a href="http://localhost:15672" target="_blank" rel="noopener">localhost:15672</a></span></li>
+      <li><strong>PostgreSQL × 5</strong><span class="muted">user-db, internship-db, application-db, recommendation-db, agent-db (Database per Service)</span></li>
+      <li><strong>MongoDB</strong><span class="muted">document-db — metadados de TCE e relatórios (+ volume de arquivos)</span></li>
+      <li><strong>Redis</strong><span class="muted">notification-redis — caixas de notificação</span></li>
+    </ul>
+    <p class="small muted">A verificação <code>broker</code> de cada serviço indica a conexão com o RabbitMQ; <code>database</code>, a conexão com o banco próprio.</p>
+  {% endcall %}
+</div>
+{% endblock %}

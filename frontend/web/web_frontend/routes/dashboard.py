@@ -53,6 +53,7 @@ async def dashboard(request: Request) -> Response:
             "placements": ("/api/placements", {"status": "active"}),
             "notices": ("/api/notifications", {"limit": 5}),
         }
+    calls["services"] = ("/services", {})
     panels = await _panels(request, calls)
     unavailable = sorted({p.unavailable_service for p in panels.values() if p.unavailable_service})
     return render(request, "dashboard.html", panels=panels, unavailable=unavailable)

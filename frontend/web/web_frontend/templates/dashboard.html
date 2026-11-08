@@ -37,6 +37,18 @@
 {%- endmacro %}
 
 {% block content %}
+{% if panels.services.ok %}
+<section class="legend" data-service="api-gateway" style="--svc: {{ 'api-gateway'|service_color }}">
+  <header class="legend__head">
+    <strong>Microsserviços desta tela</strong>
+    <span class="small muted">Cada painel mostra o serviço que forneceu seus dados (header <code>X-Served-By</code>). Ligue “Mostrar microsserviços” para destacar por cor.</span>
+    <a class="btn btn--sm" href="/status">Status detalhado</a>
+  </header>
+  <div class="legend__grid">
+    {% for s in panels.services.data.services %}{{ ui.service_card(s.name, status=s.status) }}{% endfor %}
+  </div>
+</section>
+{% endif %}
 {% if unavailable %}
   {{ ui.alert("Alguns microsserviços não responderam: " ~ unavailable|join(", ") ~ ". As demais seções seguem disponíveis.", kind="warning", title="Atenção:") }}
 {% endif %}

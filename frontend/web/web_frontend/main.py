@@ -21,6 +21,7 @@ from web_frontend.routes import (
     internships,
     notifications,
     profile,
+    status,
 )
 from web_frontend.web import LoginRequired, login_redirect, render
 
@@ -77,6 +78,7 @@ def create_app(
         notifications,
         intelligence,
         profile,
+        status,
     ):
         app.include_router(module.router)
     return app

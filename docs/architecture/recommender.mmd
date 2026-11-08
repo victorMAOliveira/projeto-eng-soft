@@ -1,0 +1,13 @@
+flowchart LR
+    P["Perfil do estudante<br/>(read model)"] --> F{"Filtros duros<br/>curso · período · disponibilidade<br/>vaga aberta · jornada legal"}
+    V["Vagas abertas<br/>(read model)"] --> F
+    F -- eliminadas --> X["Lista de filtradas<br/>+ motivo"]
+    F -- elegíveis --> CS{"Perfil vazio?"}
+    CS -- sim --> CO["Cold start<br/>0,6·recência + 0,4·popularidade"]
+    CS -- não --> T["TF-IDF + cosseno<br/>(habilidades+resumo × requisitos+descrição)"]
+    CS -- não --> J["Jaccard<br/>(habilidades × requisitos)"]
+    CS -- não --> PR["Preferências<br/>modalidade · cidade"]
+    T & J & PR --> S["score = 0,50·cos + 0,35·Jaccard + 0,15·pref"]
+    S --> R["Top-k ordenado<br/>(empate: id)"]
+    R --> EXP["Explicação<br/>em comum · faltantes · motivos"]
+    CO --> EXP

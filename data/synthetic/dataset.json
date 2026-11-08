@@ -1786,12 +1786,16 @@
    "key": "s1",
    "name": "Ana Beatriz Souza",
    "preferred_modality": "onsite",
-   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "resume_summary": "Estudante de Ciência da Computação interessada em desenvolvimento backend, APIs e arquitetura de software; monitora de Programação 2.",
    "semester": 6,
    "skills": [
+    "Python",
+    "SQL",
+    "FastAPI",
+    "Docker",
     "Git",
-    "Testes automatizados",
-    "Spring Boot"
+    "APIs REST",
+    "Inglês"
    ],
    "track": "backend",
    "weekly_availability_hours": 30

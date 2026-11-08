@@ -1,0 +1,29 @@
+sequenceDiagram
+    autonumber
+    actor E as Empresa
+    actor C as Coordenação
+    participant GW as api-gateway
+    participant AS as application-service
+    participant MQ as RabbitMQ
+    participant DS as document-service
+    participant NS as notification-service
+
+    E->>GW: POST /api/applications/{id}/approve (termos + seguro)
+    GW->>AS: valida JWT/papel e encaminha
+    AS->>AS: regras da Lei 11.788 (jornada, 2 anos/PcD, seguro)
+    AS-->>E: 200 status=approved
+    AS->>MQ: application.status_changed (approved, termos)
+    MQ->>DS: entrega (idempotente por event_id)
+    DS->>DS: gera TCE em PDF (exige seguro)
+    DS->>MQ: agreement.generated
+    MQ->>AS: entrega
+    AS->>AS: approved → agreement_pending
+    AS->>MQ: application.status_changed (agreement_pending)
+    MQ->>NS: notifica estudante, empresa e coordenação
+    C->>GW: POST /api/agreements/{id}/approve
+    GW->>DS: encaminha (papel coordinator)
+    DS->>MQ: agreement.approved
+    MQ->>AS: entrega
+    AS->>AS: agreement_pending → active (próximo relatório em 6 meses)
+    AS->>MQ: application.status_changed (active)
+    MQ->>NS: "TCE aprovado — estágio ativo!"

@@ -281,6 +281,38 @@ services:
       FRONTEND_URL: http://web-frontend:8080
     networks: [edge]
 
+  screenshots:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: scripts/screenshots.Dockerfile
+    image: estagiohub/screenshots
+    working_dir: /work
+    volumes:
+      - .:/work
+    environment:
+      FRONTEND_URL: http://web-frontend:8080
+      PYTHONDONTWRITEBYTECODE: "1"
+    ipc: host
+    command: ["python", "scripts/capture_screenshots.py"]
+    networks: [edge]
+
+  mermaid:
+    profiles: ["tools"]
+    image: minlag/mermaid-cli:11.4.2
+    working_dir: /work
+    volumes:
+      - .:/work
+    entrypoint: ["sh", "/work/scripts/render_diagrams.sh"]
+
+  pandoc:
+    profiles: ["tools"]
+    image: pandoc/core:3.6
+    working_dir: /work
+    volumes:
+      - .:/work
+    entrypoint: ["sh", "/work/scripts/render_pandoc.sh"]
+
 volumes:
   rabbitmq-data:
   user-db-data:

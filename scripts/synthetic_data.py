@@ -403,8 +403,13 @@ def generate(seed: int = SEED, n_students: int = 50, n_companies: int = 8) -> Da
             else f"Estudante de {spec['course']} buscando a primeira experiência profissional."
         )
         name = fake.name()
-        if i == 0:
+        if i == 0:  # fixed, coherent profile for the live demo account
             email, name = "estudante@ufal.test", "Ana Beatriz Souza"
+            skills = ["Python", "SQL", "FastAPI", "Docker", "Git", "APIs REST", "Inglês"]
+            summary = (
+                "Estudante de Ciência da Computação interessada em desenvolvimento backend, "
+                "APIs e arquitetura de software; monitora de Programação 2."
+            )
         else:
             email = f"estudante{i + 1:02d}@ufal.test"
         students.append(

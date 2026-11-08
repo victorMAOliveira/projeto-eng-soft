@@ -1,0 +1,44 @@
+flowchart TB
+    user(["Usuário — estudante · empresa · coordenação"]) -->|"HTTP :8080"| web["web-frontend<br/>FastAPI + Jinja2 + HTMX"]
+    web -->|"REST + JWT (único backend do frontend)"| gw["api-gateway :8000<br/>roteamento · JWT/papéis · timeout/retry · circuit breaker · GET /services"]
+
+    subgraph svcs["Microsserviços — Python 3.12 + FastAPI"]
+        direction LR
+        us["user-service"]
+        is["internship-service"]
+        as["application-service"]
+        ds["document-service"]
+        ns["notification-service"]
+        rs["recommendation-service"]
+        ags["agent-service"]
+    end
+
+    gw --> svcs
+    svcs <-->|"eventos (eh_events)"| mq{{"RabbitMQ :5672 · painel :15672<br/>topic exchange estagiohub.events + DLX"}}
+    ags -.->|"Messages API (opcional)"| claude(["Claude API"])
+
+    subgraph data["Database per Service"]
+        direction LR
+        udb[("user-db<br/>PostgreSQL")]
+        idb[("internship-db<br/>PostgreSQL")]
+        adb[("application-db<br/>PostgreSQL")]
+        ddb[("document-db<br/>MongoDB<br/>+ volume de arquivos")]
+        ndb[("notification-redis<br/>Redis")]
+        rdb[("recommendation-db<br/>PostgreSQL (read model)")]
+        agdb[("agent-db<br/>PostgreSQL")]
+    end
+
+    us --- udb
+    is --- idb
+    as --- adb
+    ds --- ddb
+    ns --- ndb
+    rs --- rdb
+    ags --- agdb
+
+    classDef db fill:#eef2ff,stroke:#6366f1,color:#1e1b4b
+    classDef svc fill:#ffffff,stroke:#334155,color:#0f172a
+    classDef edge fill:#e0f2fe,stroke:#0369a1,color:#0c4a6e
+    class udb,idb,adb,ddb,ndb,rdb,agdb db
+    class us,is,as,ds,ns,rs,ags svc
+    class web,gw edge

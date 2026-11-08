@@ -1,0 +1,28 @@
+flowchart LR
+    subgraph produtores["Produtores"]
+        US["user-service"]
+        IS["internship-service"]
+        AS["application-service"]
+        DS["document-service"]
+        AG["agent-service"]
+    end
+    EX{{"estagiohub.events<br/>(topic exchange)"}}
+    subgraph consumidores["Filas duráveis (+ DLQ cada)"]
+        QA["application-service.events"]
+        QD["document-service.events"]
+        QN["notification-service.events<br/>binding #"]
+        QR["recommendation-service.events"]
+    end
+    US -- "user.registered<br/>profile.updated" --> EX
+    IS -- "internship.published<br/>internship.closed" --> EX
+    AS -- "application.submitted<br/>application.status_changed" --> EX
+    DS -- "agreement.generated<br/>agreement.approved<br/>report.submitted" --> EX
+    AG -- "report.due_soon" --> EX
+    EX -- "agreement.generated<br/>agreement.approved<br/>report.submitted" --> QA
+    EX -- "application.status_changed" --> QD
+    EX -- "todos (#)" --> QN
+    EX -- "user.registered · profile.updated<br/>internship.* · application.*" --> QR
+    QA --> DLX[("estagiohub.events.dlx<br/>→ &lt;fila&gt;.dlq")]
+    QD --> DLX
+    QN --> DLX
+    QR --> DLX

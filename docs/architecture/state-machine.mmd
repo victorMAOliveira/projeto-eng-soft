@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> submitted: estudante se candidata
+    submitted --> under_review: empresa analisa
+    submitted --> withdrawn: estudante desiste
+    under_review --> approved: empresa aprova (termos + seguro)
+    under_review --> rejected: empresa rejeita
+    under_review --> withdrawn: estudante desiste
+    approved --> agreement_pending: agreement.generated (evento)
+    agreement_pending --> active: agreement.approved (evento)
+    active --> completed: conclusão
+    active --> terminated: rescisão
+    rejected --> [*]
+    withdrawn --> [*]
+    completed --> [*]
+    terminated --> [*]
+    note right of approved: qualquer outra transição → HTTP 409

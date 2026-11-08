@@ -23,7 +23,7 @@
     {
       "strategy": "Híbrido (0,50·cos + 0,35·Jaccard + 0,15·pref)",
       "precision_at_5": 0.725,
-      "ndcg_at_5": 0.968
+      "ndcg_at_5": 0.965
     },
     {
       "strategy": "Ablação: só conteúdo (TF-IDF/cosseno)",
@@ -33,7 +33,7 @@
     {
       "strategy": "Ablação: só atributos (Jaccard)",
       "precision_at_5": 0.725,
-      "ndcg_at_5": 0.97
+      "ndcg_at_5": 0.966
     }
   ]
 }
