@@ -12,6 +12,7 @@ asyncpg==0.30.0
 alembic==1.14.0
 aio-pika==9.5.4
 Jinja2==3.1.5
+python-multipart==0.0.20
 
 # test & lint
 pytest==8.3.4

@@ -20,3 +20,8 @@ ignore = [
 known-first-party = [
     "eh_auth", "eh_events", "eh_db", "eh_observability", "eh_http", "eh_ui",
 ]
+
+[tool.coverage.run]
+# SQLAlchemy's asyncio layer runs code inside greenlets; without this, lines
+# executed after a greenlet switch are reported as not covered.
+concurrency = ["thread", "greenlet"]

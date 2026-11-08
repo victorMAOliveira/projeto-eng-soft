@@ -8,6 +8,15 @@ x-app-healthcheck: &app-healthcheck
   retries: 40
   start_period: 15s
 
+x-postgres: &postgres
+  image: postgres:16-alpine
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U estagiohub -d $${POSTGRES_DB}"]
+    interval: 5s
+    timeout: 3s
+    retries: 30
+  networks: [backend]
+
 x-app-env: &app-env
   JWT_SECRET: ${JWT_SECRET:?JWT_SECRET ausente - rode make env}
   RABBITMQ_URL: amqp://estagiohub:${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD ausente - rode make env}@rabbitmq:5672/
@@ -31,6 +40,55 @@ services:
       retries: 30
     networks: [backend]
 
+  # --------------------------------------------------------------- databases
+  user-db:
+    <<: *postgres
+    environment:
+      POSTGRES_USER: estagiohub
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD ausente - rode make env}
+      POSTGRES_DB: users
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+
+  internship-db:
+    <<: *postgres
+    environment:
+      POSTGRES_USER: estagiohub
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD ausente - rode make env}
+      POSTGRES_DB: internships
+    volumes:
+      - internship-db-data:/var/lib/postgresql/data
+
+  # ---------------------------------------------------------------- services
+  user-service:
+    build:
+      context: .
+      dockerfile: services/user-service/Dockerfile
+    image: estagiohub/user-service
+    environment:
+      <<: *app-env
+      DATABASE_URL: postgresql+asyncpg://estagiohub:${POSTGRES_PASSWORD}@user-db:5432/users
+      JWT_EXPIRES_MINUTES: ${JWT_EXPIRES_MINUTES:-120}
+    depends_on:
+      user-db: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    healthcheck: *app-healthcheck
+    networks: [backend]
+
+  internship-service:
+    build:
+      context: .
+      dockerfile: services/internship-service/Dockerfile
+    image: estagiohub/internship-service
+    environment:
+      <<: *app-env
+      DATABASE_URL: postgresql+asyncpg://estagiohub:${POSTGRES_PASSWORD}@internship-db:5432/internships
+    depends_on:
+      internship-db: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    healthcheck: *app-healthcheck
+    networks: [backend]
+
   # ----------------------------------------------------------------- gateway
   api-gateway:
     build:
@@ -39,11 +97,34 @@ services:
     image: estagiohub/api-gateway
     environment:
       <<: *app-env
-      CORS_ORIGINS: http://localhost:8080
+      CORS_ORIGINS: http://localhost:8080,http://127.0.0.1:8080
     ports:
       - "8000:8000"
+    depends_on:
+      user-service: { condition: service_healthy }
+      internship-service: { condition: service_healthy }
     healthcheck: *app-healthcheck
     networks: [backend, edge]
+
+  # ---------------------------------------------------------------- frontend
+  web-frontend:
+    build:
+      context: .
+      dockerfile: frontend/web/Dockerfile
+    image: estagiohub/web-frontend
+    environment:
+      GATEWAY_URL: http://api-gateway:8000
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "8080:8080"
+    depends_on:
+      api-gateway: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/ready', timeout=3)"]
+      interval: 5s
+      timeout: 4s
+      retries: 30
+    networks: [edge]
 
   # ------------------------------------------------------- tooling (profile)
   tools:
@@ -63,6 +144,8 @@ services:
 
 volumes:
   rabbitmq-data:
+  user-db-data:
+  internship-db-data:
 
 networks:
   backend:

@@ -78,6 +78,7 @@ def main() -> int:
         if args.only and args.only != name:
             continue
         cmd = [sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider"]
+        cmd += [f"--cov-config={ROOT / 'pyproject.toml'}"]
         if kind == "component":
             cmd += [
                 f"--cov={name}",
