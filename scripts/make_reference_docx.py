@@ -69,7 +69,11 @@ def main() -> int:
     capa.font.size = Pt(13)
     capa.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.CENTER
     capa.paragraph_format.space_after = Pt(10)
-    titulo = styles.add_style("Capa Titulo", 1) if "Capa Titulo" not in [s.name for s in styles] else styles["Capa Titulo"]
+    titulo = (
+        styles.add_style("Capa Titulo", 1)
+        if "Capa Titulo" not in [s.name for s in styles]
+        else styles["Capa Titulo"]
+    )
     titulo.base_style = capa
     titulo.font.size = Pt(18)
     titulo.font.bold = True

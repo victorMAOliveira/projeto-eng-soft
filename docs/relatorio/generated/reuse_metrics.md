@@ -11,13 +11,4 @@
 | web-frontend | 2320 | 722 | 3 | 23,7% |
 | **Total** | **7549** | **8510** | — | **53,0%** |
 
-| Componente | LOC | Serviços que reutilizam |
-|---|---|---|
-| eh_auth | 161 | 8 |
-| eh_events | 473 | 7 |
-| eh_db | 164 | 5 |
-| eh_observability | 213 | 9 |
-| eh_http | 133 | 6 |
-| eh_ui | 376 | 1 |
-
 Sem componentes, o código comum seria copiado em cada serviço: 16059 LOC no total, contra 9069 LOC com componentes — **6990 LOC evitadas**.

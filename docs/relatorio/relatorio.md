@@ -263,19 +263,38 @@ Os detalhes (tarefas, estimativas, evidências e problemas) estão nos arquivos
 
 ## 4.2 Catálogo de componentes
 
-<!-- BEGIN:components -->
-<!-- END:components -->
+<!-- BEGIN:components | Tabela 6 — Catálogo de componentes (versões lidas dos `pyproject.toml`). -->
+| Componente | Versão | Descrição | LOC | Serviços que reutilizam |
+|---|---|---|---|---|
+| `eh_auth` | 1.0.0 | JWT creation/validation, argon2 password hashing and FastAPI role guards. | 161 | 8 |
+| `eh_db` | 1.0.0 | async SQLAlchemy 2 engine/session, base repository, Alembic helpers and SQL idempotency store. | 164 | 5 |
+| `eh_events` | 1.0.0 | event contracts (pydantic), async RabbitMQ publisher/consumer with retry, idempotency and DLQ. | 473 | 7 |
+| `eh_http` | 1.0.0 | resilient httpx client with timeout, retry/backoff and circuit breaker. | 133 | 6 |
+| `eh_observability` | 1.0.0 | JSON logging, correlation-id middleware and health/ready/version routes. | 213 | 9 |
+| `eh_ui` | 1.0.0 | reusable Jinja macros (cards, tables, service badge, alerts), filters and CSS. | 376 | 1 |
 
 Table: Tabela 6 — Catálogo de componentes (versões lidas dos `pyproject.toml`).
+<!-- END:components -->
 
 ## 4.3 Matriz de reuso
 
-<!-- BEGIN:reuse-matrix -->
-<!-- END:reuse-matrix -->
+<!-- BEGIN:reuse-matrix | Tabela 7 — Matriz de reuso componente × serviço (calculada por análise estática dos imports). -->
+| Serviço | eh_auth | eh_events | eh_db | eh_observability | eh_http | eh_ui |
+|---|---|---|---|---|---|---|
+| agent-service | ● | ● | ● | ● | ● |  |
+| api-gateway | ● |  |  | ● | ● |  |
+| application-service | ● | ● | ● | ● | ● |  |
+| document-service | ● | ● |  | ● | ● |  |
+| internship-service | ● | ● | ● | ● |  |  |
+| notification-service | ● | ● |  | ● |  |  |
+| recommendation-service | ● | ● | ● | ● | ● |  |
+| user-service | ● | ● | ● | ● |  |  |
+| web-frontend |  |  |  | ● | ● | ● |
 
 Table: Tabela 7 — Matriz de reuso componente × serviço (calculada por análise estática dos imports).
+<!-- END:reuse-matrix -->
 
-![Figura 1 — Componentes reutilizados por cada serviço.](img/diagrams/components.png){width=95%}
+![Figura 1 — Componentes reutilizados por cada serviço.](img/diagrams/components.png){width=80%}
 
 ## 4.4 Métricas de reuso
 
@@ -283,17 +302,51 @@ As métricas são calculadas por `scripts/reuse_metrics.py` (executado por
 `make eval`): conta linhas lógicas (sem linhas em branco, comentários e
 *docstrings*) de cada serviço e dos componentes que ele importa.
 
-<!-- BEGIN:reuse-metrics -->
-<!-- END:reuse-metrics -->
+<!-- BEGIN:reuse-metrics | Tabela 8 — Linhas reutilizadas dos componentes × linhas específicas de cada serviço. -->
+| Serviço | LOC específicas | LOC reutilizadas (componentes) | Componentes usados | Taxa de reuso |
+|---|---|---|---|---|
+| agent-service | 1059 | 1144 | 5 | 51,9% |
+| api-gateway | 317 | 507 | 3 | 61,5% |
+| application-service | 982 | 1144 | 5 | 53,8% |
+| document-service | 807 | 980 | 4 | 54,8% |
+| internship-service | 322 | 1011 | 4 | 75,8% |
+| notification-service | 375 | 847 | 3 | 69,3% |
+| recommendation-service | 875 | 1144 | 5 | 56,7% |
+| user-service | 492 | 1011 | 4 | 67,3% |
+| web-frontend | 2320 | 722 | 3 | 23,7% |
+| **Total** | **7549** | **8510** | — | **53,0%** |
 
 Table: Tabela 8 — Linhas reutilizadas dos componentes × linhas específicas de cada serviço.
 
+
+Sem componentes, o código comum seria copiado em cada serviço: 16059 LOC no total, contra 9069 LOC com componentes — **6990 LOC evitadas**.
+<!-- END:reuse-metrics -->
+
 ## 4.5 Qualidade: testes
 
-<!-- BEGIN:tests -->
-<!-- END:tests -->
+<!-- BEGIN:tests | Tabela 9 — Resultado de `make test` (lint, testes unitários e de API, cobertura). -->
+| Tipo | Pacote | Testes | Cobertura | Resultado |
+|---|---|---|---|---|
+| lint | ruff | — | — | aprovado |
+| componente | eh_auth | 11 | 100% | aprovado |
+| componente | eh_db | 7 | 100% | aprovado |
+| componente | eh_events | 13 | 100% | aprovado |
+| componente | eh_http | 9 | 100% | aprovado |
+| componente | eh_observability | 10 | 100% | aprovado |
+| componente | eh_ui | 9 | 100% | aprovado |
+| serviço | agent-service | 11 | 95% | aprovado |
+| serviço | api-gateway | 11 | 98% | aprovado |
+| serviço | application-service | 114 | 97% | aprovado |
+| serviço | document-service | 12 | 92% | aprovado |
+| serviço | internship-service | 12 | 98% | aprovado |
+| serviço | notification-service | 15 | 95% | aprovado |
+| serviço | recommendation-service | 14 | 98% | aprovado |
+| serviço | user-service | 16 | 97% | aprovado |
+| frontend | web-frontend | 31 | 98% | aprovado |
+| | **Total** | **295** | | |
 
 Table: Tabela 9 — Resultado de `make test` (lint, testes unitários e de API, cobertura).
+<!-- END:tests -->
 
 Além disso, `make e2e` executa o fluxo principal completo via gateway contra a
 stack do Compose (seção 8).
@@ -413,15 +466,50 @@ resiliência por upstream (*timeout*, *retry*, *circuit breaker*); conversão de
 falhas de upstream em 503 com o nome do serviço; agregação de saúde em
 `GET /services`; CORS restrito à origem do frontend.
 
-<!-- BEGIN:gateway-routes -->
-<!-- END:gateway-routes -->
+<!-- BEGIN:gateway-routes | Tabela 14 — Tabela de rotas do gateway (gerada de `api_gateway/routes.py`). -->
+| Prefixo público | Serviço de destino | Rota no serviço | Autenticação |
+|---|---|---|---|
+| `/api/auth/*` | user-service | `/auth/*` | pública |
+| `/api/users/*` | user-service | `/users/*` | JWT |
+| `/api/profiles/*` | user-service | `/profiles/*` | JWT |
+| `/api/internships/*` | internship-service | `/internships/*` | JWT |
+| `/api/applications/*` | application-service | `/applications/*` | JWT |
+| `/api/placements/*` | application-service | `/placements/*` | JWT |
+| `/api/agreements/*` | document-service | `/agreements/*` | JWT |
+| `/api/reports/*` | document-service | `/reports/*` | JWT |
+| `/api/notifications/*` | notification-service | `/notifications/*` | JWT |
+| `/api/recommendations/*` | recommendation-service | `/recommendations/*` | JWT |
+| `/api/agents/*` | agent-service | `/agents/*` | JWT |
+| `GET /services` | (gateway) | — | pública — agrega `/ready` e `/version` |
+| `GET /routes` | (gateway) | — | pública — esta tabela |
 
 Table: Tabela 14 — Tabela de rotas do gateway (gerada de `api_gateway/routes.py`).
+<!-- END:gateway-routes -->
 
-<!-- BEGIN:gateway-policies -->
-<!-- END:gateway-policies -->
+<!-- BEGIN:gateway-policies | Tabela 15 — Política de papéis aplicada na borda (demais rotas: qualquer usuário autenticado; os serviços revalidam). -->
+| Método | Caminho (regex) | Papéis permitidos |
+|---|---|---|
+| POST | `/api/internships` | empresa |
+| GET | `/api/internships/mine` | empresa |
+| POST | `/api/internships/\d+/close` | empresa, coordenação |
+| PUT | `/api/profiles/students/me` | estudante |
+| PUT | `/api/profiles/companies/me` | empresa |
+| POST | `/api/applications` | estudante |
+| POST | `/api/applications/\d+/(review|approve|reject)` | empresa |
+| POST | `/api/applications/\d+/withdraw` | estudante |
+| POST | `/api/applications/\d+/(complete|terminate)` | empresa, coordenação |
+| POST | `/api/agreements/[\w-]+/approve` | coordenação |
+| POST | `/api/reports(/[\w-]+/versions)?` | estudante |
+| POST | `/api/reports/[\w-]+/review` | coordenação |
+| GET | `/api/recommendations/students/\d+/internships` | estudante, coordenação |
+| GET | `/api/recommendations/internships/\d+/candidates` | empresa, coordenação |
+| POST | `/api/recommendations/rebuild` | coordenação |
+| * | `/api/agents/application-assistant(/.*)?` | estudante |
+| * | `/api/agents/screening(/.*)?` | empresa |
+| * | `/api/agents/follow-up(/.*)?` | coordenação |
 
 Table: Tabela 15 — Política de papéis aplicada na borda (demais rotas: qualquer usuário autenticado; os serviços revalidam).
+<!-- END:gateway-policies -->
 
 **Autenticação e autorização** — `services/api-gateway/api_gateway/proxy.py`:
 
@@ -508,10 +596,25 @@ empresa). Cadastro de coordenação exige token de coordenação ou de serviço.
 `profile.updated` (perfil completo, para o modelo de leitura). **Consumidos:**
 nenhum. **Componentes:** `eh_auth`, `eh_db`, `eh_events`, `eh_observability`.
 
-<!-- BEGIN:endpoints:user-service -->
-<!-- END:endpoints:user-service -->
+<!-- BEGIN:endpoints:user-service | Tabela 16 — Endpoints do user-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| POST | `/auth/register` | público (token opcional) | Cadastrar conta (estudante ou empresa; coordenação exige token de coordenação) |
+| POST | `/auth/login` | público | Login |
+| GET | `/users/me` | autenticado (qualquer papel) | Conta autenticada |
+| GET | `/users` | coordenação, serviço interno | Listar contas (coordenação/serviços) |
+| GET | `/users/{user_id}` | autenticado (qualquer papel) | Conta por id |
+| GET | `/profiles/students/me` | estudante | Meu perfil acadêmico |
+| PUT | `/profiles/students/me` | estudante | Atualizar meu perfil acadêmico (publica profile.updated) |
+| GET | `/profiles/students` | empresa, coordenação, serviço interno | Perfis de vários estudantes (empresa, coordenação, serviços) |
+| GET | `/profiles/students/{user_id}` | autenticado (qualquer papel) | Perfil de um estudante |
+| GET | `/profiles/companies/me` | empresa | Perfil da minha empresa |
+| PUT | `/profiles/companies/me` | empresa | Atualizar perfil da empresa |
+| GET | `/profiles/companies/{user_id}` | autenticado (qualquer papel) | Perfil público de uma empresa |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 16 — Endpoints do user-service.
+<!-- END:endpoints:user-service -->
 
 ```python
 @router.post("/auth/login", response_model=TokenResponse, tags=["auth"], summary="Login")
@@ -537,10 +640,19 @@ API (pydantic) e no banco (*check constraints*). **Banco:** PostgreSQL
 `internship.published` (vaga completa), `internship.closed`. **Consumidos:**
 nenhum. **Componentes:** `eh_auth`, `eh_db`, `eh_events`, `eh_observability`.
 
-<!-- BEGIN:endpoints:internship-service -->
-<!-- END:endpoints:internship-service -->
+<!-- BEGIN:endpoints:internship-service | Tabela 17 — Endpoints do internship-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| GET | `/internships` | autenticado (qualquer papel) | Buscar vagas |
+| GET | `/internships/mine` | empresa | Vagas da empresa |
+| GET | `/internships/stats` | autenticado (qualquer papel) | Indicadores |
+| GET | `/internships/{internship_id}` | autenticado (qualquer papel) | Detalhe |
+| POST | `/internships` | empresa | Publicar vaga (empresa; publica internship.published) |
+| POST | `/internships/{internship_id}/close` | empresa, coordenação | Encerrar vaga (empresa dona ou coordenação; publica internship.closed) |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 17 — Endpoints do internship-service.
+<!-- END:endpoints:internship-service -->
 
 ```python
 # Lei nº 11.788/2008, art. 10, II — higher education: up to 6 h/day and 30 h/week.
@@ -573,10 +685,25 @@ via REST resiliente ao receber uma candidatura. **Banco:** PostgreSQL
 `agreement.approved`, `report.submitted`. **Componentes:** `eh_auth`, `eh_db`,
 `eh_events`, `eh_http`, `eh_observability`.
 
-<!-- BEGIN:endpoints:application-service -->
-<!-- END:endpoints:application-service -->
+<!-- BEGIN:endpoints:application-service | Tabela 18 — Endpoints do application-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| POST | `/applications` | estudante | Candidatar-se a uma vaga (estudante; publica application.submitted) |
+| GET | `/applications` | autenticado (qualquer papel) | Listar candidaturas visíveis ao papel (filtros: vaga, status) |
+| GET | `/applications/board` | autenticado (qualquer papel) | Candidaturas agrupadas por status (kanban) |
+| GET | `/applications/stats` | autenticado (qualquer papel) | Contagem por status (escopo do papel) |
+| GET | `/applications/{application_id}` | autenticado (qualquer papel) | Detalhe da candidatura (com termos e histórico) |
+| POST | `/applications/{application_id}/review` | empresa | Iniciar análise (empresa): submitted → under_review |
+| POST | `/applications/{application_id}/approve` | empresa | Aprovar candidato com os termos do estágio (empresa): under_review → approved |
+| POST | `/applications/{application_id}/reject` | empresa | Rejeitar (empresa): under_review → rejected |
+| POST | `/applications/{application_id}/withdraw` | estudante | Desistir (estudante): submitted/under_review → withdrawn |
+| POST | `/applications/{application_id}/complete` | empresa, coordenação | Concluir estágio (empresa/coordenação): active → completed |
+| POST | `/applications/{application_id}/terminate` | empresa, coordenação | Rescindir estágio (empresa/coordenação): active → terminated |
+| GET | `/placements` | autenticado (qualquer papel) | Estágios (com prazos de relatório) visíveis ao papel |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 18 — Endpoints do application-service.
+<!-- END:endpoints:application-service -->
 
 ```python
 TRANSITIONS: dict[Status, frozenset[Status]] = {
@@ -612,10 +739,24 @@ arquivos. **Eventos publicados:** `agreement.generated`, `agreement.approved`,
 `report.submitted`. **Consumidos:** `application.status_changed`.
 **Componentes:** `eh_auth`, `eh_events`, `eh_http`, `eh_observability`.
 
-<!-- BEGIN:endpoints:document-service -->
-<!-- END:endpoints:document-service -->
+<!-- BEGIN:endpoints:document-service | Tabela 19 — Endpoints do document-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| GET | `/agreements` | autenticado (qualquer papel) | Listar TCEs visíveis ao papel |
+| GET | `/agreements/{agreement_id}` | autenticado (qualquer papel) | Metadados do TCE |
+| GET | `/agreements/{agreement_id}/pdf` | autenticado (qualquer papel) | PDF do TCE |
+| GET | `/agreements/{agreement_id}/preview.png` | autenticado (qualquer papel) | Pré-visualização (PNG da 1ª página) |
+| POST | `/agreements/{agreement_id}/approve` | coordenação | Aprovar TCE (coordenação; publica agreement.approved) |
+| POST | `/reports` | estudante | Enviar relatório de atividades (estudante; publica report.submitted) |
+| POST | `/reports/{report_id}/versions` | estudante | Enviar nova versão do relatório (versões anteriores são preservadas) |
+| GET | `/reports` | autenticado (qualquer papel) | Listar relatórios visíveis ao papel |
+| GET | `/reports/{report_id}` | autenticado (qualquer papel) | Detalhe do relatório |
+| GET | `/reports/{report_id}/versions/{version}/file` | autenticado (qualquer papel) | Baixar uma versão do relatório |
+| POST | `/reports/{report_id}/review` | coordenação | Registrar revisão da coordenação |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 19 — Endpoints do document-service.
+<!-- END:endpoints:document-service -->
 
 ```python
 class AgreementGenerator:
@@ -648,10 +789,18 @@ agentes. **Banco:** Redis (listas `inbox:*`, conjuntos `read:*`, marcadores
 `processed:*` com TTL). **Eventos publicados:** nenhum. **Consumidos:** todos.
 **Componentes:** `eh_auth`, `eh_events`, `eh_observability`.
 
-<!-- BEGIN:endpoints:notification-service -->
-<!-- END:endpoints:notification-service -->
+<!-- BEGIN:endpoints:notification-service | Tabela 20 — Endpoints do notification-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| GET | `/notifications` | autenticado (qualquer papel) | Minhas notificações (pessoais + do meu papel) |
+| GET | `/notifications/unread-count` | autenticado (qualquer papel) | Quantidade de não lidas |
+| POST | `/notifications/read` | autenticado (qualquer papel) | Marcar como lidas |
+| POST | `/notifications/read-all` | autenticado (qualquer papel) | Marcar todas como lidas |
+| POST | `/notifications` | coordenação, serviço interno | Enviar notificação direta (serviços internos e coordenação) |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 20 — Endpoints do notification-service.
+<!-- END:endpoints:notification-service -->
 
 ```python
 def notices_for(event: Event) -> list[Notice]:
@@ -681,10 +830,17 @@ publicados:** nenhum. **Consumidos:** `user.registered`, `profile.updated`,
 `application.status_changed`. **Componentes:** `eh_auth`, `eh_db`,
 `eh_events`, `eh_http`, `eh_observability`.
 
-<!-- BEGIN:endpoints:recommendation-service -->
-<!-- END:endpoints:recommendation-service -->
+<!-- BEGIN:endpoints:recommendation-service | Tabela 21 — Endpoints do recommendation-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| GET | `/recommendations/students/{student_id}/internships` | estudante, coordenação, serviço interno | Vagas recomendadas para um estudante (com explicação) |
+| GET | `/recommendations/internships/{internship_id}/candidates` | empresa, coordenação, serviço interno | Ranking de candidatos de uma vaga (empresa dona, coordenação) |
+| GET | `/recommendations/stats` | autenticado (qualquer papel) | Tamanho do modelo de leitura e pesos |
+| POST | `/recommendations/rebuild` | coordenação, serviço interno | Reconstruir o modelo de leitura a partir dos serviços de origem |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 21 — Endpoints do recommendation-service.
+<!-- END:endpoints:recommendation-service -->
 
 Arquivos: [`services/recommendation-service/recommendation_service/`](../../services/recommendation-service/recommendation_service/) (código na seção 6.4).
 
@@ -702,10 +858,19 @@ exibida como trilha de execução. **Banco:** PostgreSQL `agents` —
 `report.due_soon`. **Consumidos:** nenhum. **Componentes:** `eh_auth`, `eh_db`,
 `eh_events`, `eh_http`, `eh_observability`.
 
-<!-- BEGIN:endpoints:agent-service -->
-<!-- END:endpoints:agent-service -->
+<!-- BEGIN:endpoints:agent-service | Tabela 22 — Endpoints do agent-service. -->
+| Método | Rota | Papel exigido | Descrição |
+|---|---|---|---|
+| GET | `/agents/status` | autenticado (qualquer papel) | Modo dos agentes (IA ou regras), modelo e agendamento |
+| POST | `/agents/application-assistant/run` | estudante | Assistente de Candidatura (estudante) |
+| POST | `/agents/screening/run` | empresa | Agente de Triagem (empresa) |
+| POST | `/agents/follow-up/run` | coordenação | Agente de Acompanhamento sob demanda (coordenação) |
+| GET | `/agents/runs` | autenticado (qualquer papel) | Histórico de execuções |
+| GET | `/agents/runs/{run_id}` | autenticado (qualquer papel) | Execução com a trilha de ferramentas |
+| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |
 
 Table: Tabela 22 — Endpoints do agent-service.
+<!-- END:endpoints:agent-service -->
 
 ```python
 async def run_llm(spec, trail, prompt, llm, model, max_steps) -> AgentOutput:
@@ -893,10 +1058,11 @@ offline (Figura 6).
    partes é híbrida); +0,4 se a vaga é remota ou na cidade do estudante.
 5. **Score final:**
 
-$$score = w_1 \cdot \cos + w_2 \cdot Jaccard + w_3 \cdot pref, \quad w_1 = 0{,}50,\; w_2 = 0{,}35,\; w_3 = 0{,}15$$
+   $$score = w_1 \cdot \cos + w_2 \cdot Jaccard + w_3 \cdot pref, \quad w_1 = 0{,}50,\; w_2 = 0{,}35,\; w_3 = 0{,}15$$
 
    Os pesos são configuráveis por `REC_WEIGHT_CONTENT`,
    `REC_WEIGHT_ATTRIBUTES` e `REC_WEIGHT_PREFERENCE` e normalizados para somar 1.
+
 6. **Determinismo:** empates desfeitos pelo identificador; o mesmo estado gera
    sempre o mesmo resultado.
 
@@ -936,10 +1102,20 @@ ruidosas (parte vem de outra trilha do mesmo curso) e alguns resumos são
 genéricos. Métricas: precision@5 e nDCG@5 com ganhos 2^rel − 1 (JÄRVELIN;
 KEKÄLÄINEN, 2002).
 
-<!-- BEGIN:eval -->
-<!-- END:eval -->
+<!-- BEGIN:eval | Tabela 24 — Avaliação offline (dados sintéticos declarados). -->
+| Estratégia | Precision@5 | nDCG@5 |
+|---|---|---|
+| Baseline aleatório | 0,151 | 0,151 |
+| Baseline só filtros (mais recentes) | 0,708 | 0,825 |
+| Híbrido (0,50·cos + 0,35·Jaccard + 0,15·pref) | 0,725 | 0,965 |
+| Ablação: só conteúdo (TF-IDF/cosseno) | 0,721 | 0,978 |
+| Ablação: só atributos (Jaccard) | 0,725 | 0,966 |
 
 Table: Tabela 24 — Avaliação offline (dados sintéticos declarados).
+
+
+Dados **sintéticos** (seed 2026): 48 estudantes avaliados, 30 vagas, k = 5; baseline aleatório = média de 30 sorteios por estudante. Rótulos: 2 = mesma trilha latente e elegível; 1 = trilha adjacente e elegível; 0 = demais.
+<!-- END:eval -->
 
 **Discussão.** O híbrido supera o *baseline* aleatório por larga margem e o
 só-filtros na **ordenação** (nDCG@5). A precision@5 dos dois fica próxima
@@ -969,6 +1145,26 @@ cada serviço.
 Saída de `docker compose ps` no momento da captura das telas:
 
 <!-- BEGIN:compose-ps -->
+```text
+NAME                                  IMAGE                               STATUS
+estagiohub-agent-db-1                 postgres:16-alpine                  Up 5 minutes (healthy)
+estagiohub-agent-service-1            estagiohub/agent-service            Up 5 minutes (healthy)
+estagiohub-api-gateway-1              estagiohub/api-gateway              Up 4 minutes (healthy)
+estagiohub-application-db-1           postgres:16-alpine                  Up 5 minutes (healthy)
+estagiohub-application-service-1      estagiohub/application-service      Up 5 minutes (healthy)
+estagiohub-document-db-1              mongo:7.0                           Up 5 minutes (healthy)
+estagiohub-document-service-1         estagiohub/document-service         Up 5 minutes (healthy)
+estagiohub-internship-db-1            postgres:16-alpine                  Up 5 minutes (healthy)
+estagiohub-internship-service-1       estagiohub/internship-service       Up 5 minutes (healthy)
+estagiohub-notification-redis-1       redis:7.4-alpine                    Up 5 minutes (healthy)
+estagiohub-notification-service-1     estagiohub/notification-service     Up 5 minutes (healthy)
+estagiohub-rabbitmq-1                 rabbitmq:3.13-management-alpine     Up 5 minutes (healthy)
+estagiohub-recommendation-db-1        postgres:16-alpine                  Up 5 minutes (healthy)
+estagiohub-recommendation-service-1   estagiohub/recommendation-service   Up 5 minutes (healthy)
+estagiohub-user-db-1                  postgres:16-alpine                  Up 5 minutes (healthy)
+estagiohub-user-service-1             estagiohub/user-service             Up 5 minutes (healthy)
+estagiohub-web-frontend-1             estagiohub/web-frontend             Up 4 minutes (healthy)
+```
 <!-- END:compose-ps -->
 
 [PREENCHER: print do terminal com `make up` e `docker compose ps`]

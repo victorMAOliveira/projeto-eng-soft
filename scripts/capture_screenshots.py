@@ -85,8 +85,10 @@ def main_flow(browser) -> None:
     shot(company, "02-dashboard-empresa")
     company.goto(f"{BASE}/vagas/nova")
     company.fill("input[name=title]", title)
-    company.fill("textarea[name=description]",
-                 "Desenvolver APIs REST em Python com FastAPI, PostgreSQL e Docker em arquitetura de microsserviços.")
+    company.fill(
+        "textarea[name=description]",
+        "Desenvolver APIs REST em Python com FastAPI, PostgreSQL e Docker em arquitetura de microsserviços.",
+    )
     company.fill("input[name=requirements]", "Python, SQL, Docker, Git")
     company.select_option("select[name=course]", "Ciência da Computação")
     company.fill("input[name=min_semester]", "4")
@@ -108,8 +110,10 @@ def main_flow(browser) -> None:
     student.wait_for_selector("#run-result .trail")
     shot(student, "07-assistente-ia-trilha", full_page=True)
     student.goto(f"{BASE}/vagas/{internship_id}")
-    student.fill("textarea[name=cover_letter]",
-                 "Tenho experiência com Python e Docker em projetos acadêmicos e quero atuar com microsserviços.")
+    student.fill(
+        "textarea[name=cover_letter]",
+        "Tenho experiência com Python e Docker em projetos acadêmicos e quero atuar com microsserviços.",
+    )
     shot(student, "08-estudante-candidata-se")
     student.click("form[action$='/candidatar'] button[type=submit]")
     student.wait_for_url(f"{BASE}/candidaturas/*")
@@ -130,7 +134,9 @@ def main_flow(browser) -> None:
     company.fill("input[name=supervisor_name]", "Carla Mendes (fictícia)")
     company.fill("input[name=insurer]", "Seguradora Exemplo S.A. (fictícia)")
     company.fill("input[name=insurance_policy]", f"AP-DEMO-{stamp}")
-    company.fill("textarea[name=activities]", "Desenvolvimento de APIs, testes automatizados e documentação.")
+    company.fill(
+        "textarea[name=activities]", "Desenvolvimento de APIs, testes automatizados e documentação."
+    )
     shot(company, "11-empresa-aprova-com-termos", full_page=True)
     company.click("form[action$='/aprovar'] button[type=submit]")
     company.wait_for_url(f"{BASE}/candidaturas/{application_id}")
@@ -158,8 +164,10 @@ def main_flow(browser) -> None:
     student.fill("input[name=title]", "Relatório de atividades — 1º mês")
     student.fill("input[name=period_start]", start.isoformat())
     student.fill("input[name=period_end]", (start + timedelta(days=30)).isoformat())
-    student.set_input_files("input[name=file]", {"name": "relatorio.pdf", "mimeType": "application/pdf",
-                                                 "buffer": MINIMAL_PDF})
+    student.set_input_files(
+        "input[name=file]",
+        {"name": "relatorio.pdf", "mimeType": "application/pdf", "buffer": MINIMAL_PDF},
+    )
     student.click("form[action='/relatorios'] button[type=submit]")
     student.wait_for_url(f"{BASE}/relatorios")
     shot(student, "17-relatorio-enviado", full_page=True)

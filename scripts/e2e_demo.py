@@ -56,8 +56,14 @@ class Step:
 
 def expect(response: httpx.Response, *codes: int) -> dict | list:
     """Assert the status code and return the JSON body."""
-    assert response.status_code in codes, f"{response.request.method} {response.request.url.path} -> {response.status_code}: {response.text[:300]}"
-    return response.json() if response.content and "json" in response.headers.get("content-type", "") else {}
+    assert (
+        response.status_code in codes
+    ), f"{response.request.method} {response.request.url.path} -> {response.status_code}: {response.text[:300]}"
+    return (
+        response.json()
+        if response.content and "json" in response.headers.get("content-type", "")
+        else {}
+    )
 
 
 def poll(fetch, condition, timeout: float = 30.0, interval: float = 0.5):
@@ -75,7 +81,9 @@ def main() -> int:
     """Run the scenario."""
     tag = uuid.uuid4().hex[:8]
     api = httpx.Client(base_url=GATEWAY, timeout=60)
-    service = {"Authorization": f"Bearer {JWTAuth(os.environ['JWT_SECRET']).create_service_token('e2e')}"}
+    service = {
+        "Authorization": f"Bearer {JWTAuth(os.environ['JWT_SECRET']).create_service_token('e2e')}"
+    }
     print(f"E2E via {GATEWAY} (execução {tag})\n")
 
     def login(email: str) -> tuple[dict, int]:
@@ -84,14 +92,23 @@ def main() -> int:
 
     with Step("Cadastro e login com papéis (empresa, estudante, coordenação)"):
         accounts = {
-            "company": (f"e2e-empresa-{tag}@empresas.test", "E2E Engenharia de Software Ltda (fictícia)"),
+            "company": (
+                f"e2e-empresa-{tag}@empresas.test",
+                "E2E Engenharia de Software Ltda (fictícia)",
+            ),
             "student": (f"e2e-estudante-{tag}@ufal.test", "Estudante E2E (fictícia)"),
             "coordinator": (f"e2e-coord-{tag}@ufal.test", "Coordenação E2E (fictícia)"),
         }
         for role, (email, name) in accounts.items():
             headers = service if role == "coordinator" else {}
-            expect(api.post("/api/auth/register", headers=headers,
-                            json={"email": email, "password": PASSWORD, "full_name": name, "role": role}), 201)
+            expect(
+                api.post(
+                    "/api/auth/register",
+                    headers=headers,
+                    json={"email": email, "password": PASSWORD, "full_name": name, "role": role},
+                ),
+                201,
+            )
         company, _ = login(accounts["company"][0])
         student, student_id = login(accounts["student"][0])
         coordinator, _ = login(accounts["coordinator"][0])
@@ -102,22 +119,46 @@ def main() -> int:
             "title": f"Estágio em Engenharia de Software {tag}",
             "description": "Desenvolver microsserviços em Python com FastAPI, eventos e testes automatizados.",
             "requirements": ["Python", "FastAPI", "Docker", "RabbitMQ"],
-            "course": "Ciência da Computação", "min_semester": 4, "hours_per_day": 6,
-            "hours_per_week": 30, "modality": "hybrid", "city": "Maceió", "stipend": 1600,
+            "course": "Ciência da Computação",
+            "min_semester": 4,
+            "hours_per_day": 6,
+            "hours_per_week": 30,
+            "modality": "hybrid",
+            "city": "Maceió",
+            "stipend": 1600,
         }
-        expect(api.post("/api/internships", headers=company, json={**offer, "hours_per_day": 8}), 422)
+        expect(
+            api.post("/api/internships", headers=company, json={**offer, "hours_per_day": 8}), 422
+        )
         expect(api.post("/api/internships", headers=student, json=offer), 403)
         vaga = expect(api.post("/api/internships", headers=company, json=offer), 201)
 
     with Step("Estudante preenche o perfil e recebe a vaga recomendada com explicação"):
-        expect(api.put("/api/profiles/students/me", headers=student, json={
-            "course": "Ciência da Computação", "semester": 6, "skills": ["Python", "FastAPI", "Docker", "SQL"],
-            "resume_summary": "Desenvolvo APIs com Python e FastAPI e tenho interesse em microsserviços.",
-            "weekly_availability_hours": 30, "preferred_modality": "hybrid", "city": "Maceió",
-        }), 200)
+        expect(
+            api.put(
+                "/api/profiles/students/me",
+                headers=student,
+                json={
+                    "course": "Ciência da Computação",
+                    "semester": 6,
+                    "skills": ["Python", "FastAPI", "Docker", "SQL"],
+                    "resume_summary": "Desenvolvo APIs com Python e FastAPI e tenho interesse em microsserviços.",
+                    "weekly_availability_hours": 30,
+                    "preferred_modality": "hybrid",
+                    "city": "Maceió",
+                },
+            ),
+            200,
+        )
         recs = poll(
-            lambda: expect(api.get(f"/api/recommendations/students/{student_id}/internships",
-                                   headers=student, params={"k": 50}), 200),
+            lambda: expect(
+                api.get(
+                    f"/api/recommendations/students/{student_id}/internships",
+                    headers=student,
+                    params={"k": 50},
+                ),
+                200,
+            ),
             lambda body: any(i["internship_id"] == vaga["id"] for i in body["items"]),
         )
         item = next(i for i in recs["items"] if i["internship_id"] == vaga["id"])
@@ -126,27 +167,52 @@ def main() -> int:
         assert "3 de 4" in item["explanation"]
 
     with Step("Estudante se candidata; empresa vê o ranking e aprova com seguro"):
-        application = expect(api.post("/api/applications", headers=student,
-                                      json={"internship_id": vaga["id"], "cover_letter": "Quero participar."}), 201)
+        application = expect(
+            api.post(
+                "/api/applications",
+                headers=student,
+                json={"internship_id": vaga["id"], "cover_letter": "Quero participar."},
+            ),
+            201,
+        )
         app_id = application["id"]
         ranking = poll(
-            lambda: expect(api.get(f"/api/recommendations/internships/{vaga['id']}/candidates", headers=company), 200),
+            lambda: expect(
+                api.get(
+                    f"/api/recommendations/internships/{vaga['id']}/candidates", headers=company
+                ),
+                200,
+            ),
             lambda body: any(i["student_id"] == student_id for i in body["items"]),
         )
         assert ranking["items"][0]["application_id"] == app_id
         expect(api.post(f"/api/applications/{app_id}/review", headers=company), 200)
         start = date.today() + timedelta(days=7)
-        terms = {"start_date": start.isoformat(), "end_date": (start + timedelta(days=365)).isoformat(),
-                 "supervisor_name": "Supervisora E2E (fictícia)", "insurer": "Seguradora Exemplo (fictícia)",
-                 "insurance_policy": f"AP-E2E-{tag}"}
-        expect(api.post(f"/api/applications/{app_id}/approve", headers=company,
-                        json={**terms, "insurance_policy": None}), 422)  # TCE needs insurance
-        approved = expect(api.post(f"/api/applications/{app_id}/approve", headers=company, json=terms), 200)
+        terms = {
+            "start_date": start.isoformat(),
+            "end_date": (start + timedelta(days=365)).isoformat(),
+            "supervisor_name": "Supervisora E2E (fictícia)",
+            "insurer": "Seguradora Exemplo (fictícia)",
+            "insurance_policy": f"AP-E2E-{tag}",
+        }
+        expect(
+            api.post(
+                f"/api/applications/{app_id}/approve",
+                headers=company,
+                json={**terms, "insurance_policy": None},
+            ),
+            422,
+        )  # TCE needs insurance
+        approved = expect(
+            api.post(f"/api/applications/{app_id}/approve", headers=company, json=terms), 200
+        )
         assert approved["status"] == "approved"
 
     with Step("TCE gerado automaticamente em PDF (saga: approved → agreement_pending)"):
-        pending = poll(lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
-                       lambda body: body["status"] == "agreement_pending")
+        pending = poll(
+            lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
+            lambda body: body["status"] == "agreement_pending",
+        )
         agreement_id = pending["placement"]["agreement_id"]
         pdf = api.get(f"/api/agreements/{agreement_id}/pdf", headers=student)
         assert pdf.status_code == 200 and pdf.content.startswith(b"%PDF"), pdf.status_code
@@ -155,35 +221,65 @@ def main() -> int:
     with Step("Coordenação aprova o TCE e o estágio passa a ativo"):
         expect(api.post(f"/api/agreements/{agreement_id}/approve", headers=company), 403)
         expect(api.post(f"/api/agreements/{agreement_id}/approve", headers=coordinator), 200)
-        active = poll(lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
-                      lambda body: body["status"] == "active")
+        active = poll(
+            lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
+            lambda body: body["status"] == "active",
+        )
         assert active["placement"]["next_report_due"]
 
     with Step("Estudante envia relatório; agente de acompanhamento roda com trilha"):
-        report = expect(api.post(
-            "/api/reports", headers=student,
-            data={"application_id": str(app_id), "title": "Relatório parcial E2E",
-                  "period_start": start.isoformat(), "period_end": (start + timedelta(days=30)).isoformat()},
-            files={"file": ("relatorio.pdf", b"%PDF-1.4\n% relatorio e2e\n", "application/pdf")},
-        ), 201)
+        report = expect(
+            api.post(
+                "/api/reports",
+                headers=student,
+                data={
+                    "application_id": str(app_id),
+                    "title": "Relatório parcial E2E",
+                    "period_start": start.isoformat(),
+                    "period_end": (start + timedelta(days=30)).isoformat(),
+                },
+                files={
+                    "file": ("relatorio.pdf", b"%PDF-1.4\n% relatorio e2e\n", "application/pdf")
+                },
+            ),
+            201,
+        )
         assert report["versions"][0]["version"] == 1
-        poll(lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
-             lambda body: body["placement"]["reports_count"] == 1)
+        poll(
+            lambda: expect(api.get(f"/api/applications/{app_id}", headers=student), 200),
+            lambda body: body["placement"]["reports_count"] == 1,
+        )
         run = expect(api.post("/api/agents/follow-up/run", headers=coordinator), 200)
         assert run["status"] == "completed" and run["steps"], run
         assert any(s["tool_name"] == "check_deadlines" for s in run["steps"])
-        assistant = expect(api.post("/api/agents/application-assistant/run", headers=student,
-                                    json={"internship_id": vaga["id"]}), 200)
+        assistant = expect(
+            api.post(
+                "/api/agents/application-assistant/run",
+                headers=student,
+                json={"internship_id": vaga["id"]},
+            ),
+            200,
+        )
         assert assistant["status"] == "completed"
 
     with Step("Cada transição gerou notificações para os envolvidos"):
-        def titles(headers):
-            return [n["title"] for n in expect(api.get("/api/notifications", headers=headers, params={"limit": 100}), 200)["items"]]
 
-        student_titles = poll(lambda: titles(student), lambda t: "TCE aprovado — estágio ativo!" in t)
+        def titles(headers):
+            return [
+                n["title"]
+                for n in expect(
+                    api.get("/api/notifications", headers=headers, params={"limit": 100}), 200
+                )["items"]
+            ]
+
+        student_titles = poll(
+            lambda: titles(student), lambda t: "TCE aprovado — estágio ativo!" in t
+        )
         assert {"Candidatura enviada", "TCE gerado"} <= set(student_titles), student_titles
         company_titles = poll(lambda: titles(company), lambda t: "Relatório enviado" in t)
-        assert {"Vaga publicada", "Nova candidatura", "TCE aprovado"} <= set(company_titles), company_titles
+        assert {"Vaga publicada", "Nova candidatura", "TCE aprovado"} <= set(
+            company_titles
+        ), company_titles
         assert "TCE aguardando aprovação" in titles(coordinator)
 
     with Step("Transição inválida retorna 409 e todos os serviços estão no ar"):

@@ -104,24 +104,29 @@ log de acesso, porta 8080 em IPv6 no host, acentos no curl do Git Bash, *overflo
 **Pendente**
 - Sprint 4: tela de status, legenda de serviços, seed, e2e, prints, relatório, guia de estudo.
 
-## Sprint 4 — Qualidade e entrega (EM ANDAMENTO — sessão interrompida por limite de uso)
+## Sprint 4 — Qualidade e entrega
 
-**Feito (não taggeado ainda)**
-- Tela de status (`/status`, auto-refresh HTMX) e legenda de serviços no dashboard; 31 testes do frontend.
-- `scripts/seed.py` (idempotente, via gateway) e `scripts/e2e_demo.py` — ambos validados contra stack limpa (e2e: 9/9 etapas).
-- `scripts/reuse_metrics.py`, `scripts/capture_screenshots.py` (26 telas via Playwright dirigindo a UI; imagem própria
-  `scripts/screenshots.Dockerfile`), diagramas Mermaid em `docs/architecture/*.mmd` (render via `scripts/render_diagrams.sh`).
-- `scripts/build_report.py` (prepare/pdf), `scripts/render_pandoc.sh`, `docs/relatorio/style.css`, `reference.docx`,
-  `docs/relatorio/relatorio.md` (conteúdo completo, com marcadores de blocos gerados).
+**Feito**
+- Tela `/status` (auto-refresh HTMX, rotas do gateway) e legenda de serviços no dashboard; *toggle* e *badges*.
+- `scripts/seed.py` (idempotente, via gateway; estados de demonstração), `scripts/e2e_demo.py` (9 etapas).
+- `scripts/capture_screenshots.py`: 23 telas do fluxo executado pela própria interface + 3 de degradação.
+- `scripts/reuse_metrics.py`; diagramas Mermaid (contêineres, eventos, saga, máquina de estados, componentes,
+  recomendador); pipeline do relatório (`build_report.py` prepare/pdf, `render_pandoc.sh`, `reference.docx`,
+  `style.css`) com tabelas geradas a partir do código (rotas, endpoints com papéis, testes, métricas).
+- `docs/relatorio/relatorio.md` → `build/relatorio.docx` e `build/relatorio.pdf`; `docs/STUDY_GUIDE.md`; README.
+- Versão 1.0.0 de todos os componentes e serviços.
 
-**Próximos passos (retomar daqui)**
-1. Legendas de tabela: mover cada linha `Table: ...` que vem logo após um `<!-- END:x -->` para dentro do marcador
-   (`<!-- BEGIN:x | legenda -->`) e aplicar em `scripts/build_report.py` a função `with_caption`/novo `replace_block`
-   (a tentativa falhou porque os blocos estão vazios: o regex precisa aceitar conteúdo vazio). Também incluir LOC e
-   nº de serviços por componente em `components_table()` e remover a 2ª tabela de `reuse_metrics.py`.
-2. `make report` (prepare → mermaid → pandoc → pdf) e conferir DOCX/PDF.
-3. `docs/STUDY_GUIDE.md` (visão geral, caminho de uma requisição, trade-offs, perguntas do professor com respostas,
-   roteiro de demo de 5 min) e README completo (contas demo, 3 comandos, alvos do Makefile).
-4. Versões 1.0.0 em componentes e serviços; `docs/scrum/sprint-4.md`; ADR se necessário.
-5. Gate final completo (clean → env → up → seed → test → e2e → eval → screenshots → report), commit, tag `sprint-4`,
-   `git status` limpo.
+**Decisões**
+- Prints gerados dirigindo a UI (evidência de uso real) e não montados à mão.
+- Legendas de tabelas geradas ficam nos marcadores do relatório.
+
+**Problemas encontrados** — ver `docs/scrum/sprint-4.md`.
+
+## Pendências para a equipe ([PREENCHER])
+
+- URL do repositório GitHub (capa, seção 9 e checklist do relatório).
+- Horários reais de cada sprint (`git log` por tag) no relatório e nos `sprint-N.md`.
+- Retrospectivas das sprints e forma de condução das sincronizações diárias.
+- Print do terminal com `make up` / `docker compose ps` (seção 6.5).
+- `docs/modelo-relatorio.pdf` não estava no repositório: conferir títulos e numeração das seções com o modelo.
+- Opcional: `ANTHROPIC_API_KEY` no `.env` para os agentes usarem o Claude (sem ela, modo regras).

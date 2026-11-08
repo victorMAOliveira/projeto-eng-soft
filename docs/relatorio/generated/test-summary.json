@@ -2,13 +2,13 @@
   {
     "kind": "lint",
     "name": "ruff",
-    "ok": false
+    "ok": true
   },
   {
     "kind": "component",
     "name": "eh_auth",
     "ok": true,
-    "seconds": 12.6,
+    "seconds": 10.1,
     "passed": 11,
     "failed": 0,
     "coverage": 100
@@ -17,7 +17,7 @@
     "kind": "component",
     "name": "eh_db",
     "ok": true,
-    "seconds": 10.5,
+    "seconds": 7.2,
     "passed": 7,
     "failed": 0,
     "coverage": 100
@@ -26,7 +26,7 @@
     "kind": "component",
     "name": "eh_events",
     "ok": true,
-    "seconds": 9.3,
+    "seconds": 6.3,
     "passed": 13,
     "failed": 0,
     "coverage": 100
@@ -35,7 +35,7 @@
     "kind": "component",
     "name": "eh_http",
     "ok": true,
-    "seconds": 8.6,
+    "seconds": 5.3,
     "passed": 9,
     "failed": 0,
     "coverage": 100
@@ -44,7 +44,7 @@
     "kind": "component",
     "name": "eh_observability",
     "ok": true,
-    "seconds": 12.2,
+    "seconds": 8.1,
     "passed": 10,
     "failed": 0,
     "coverage": 100
@@ -53,7 +53,7 @@
     "kind": "component",
     "name": "eh_ui",
     "ok": true,
-    "seconds": 9.2,
+    "seconds": 6.3,
     "passed": 9,
     "failed": 0,
     "coverage": 100
@@ -62,7 +62,7 @@
     "kind": "service",
     "name": "agent-service",
     "ok": true,
-    "seconds": 31.1,
+    "seconds": 24.3,
     "passed": 11,
     "failed": 0,
     "coverage": 95
@@ -71,7 +71,7 @@
     "kind": "service",
     "name": "api-gateway",
     "ok": true,
-    "seconds": 15.8,
+    "seconds": 9.9,
     "passed": 11,
     "failed": 0,
     "coverage": 98
@@ -80,7 +80,7 @@
     "kind": "service",
     "name": "application-service",
     "ok": true,
-    "seconds": 25.8,
+    "seconds": 17.7,
     "passed": 114,
     "failed": 0,
     "coverage": 97
@@ -89,7 +89,7 @@
     "kind": "service",
     "name": "document-service",
     "ok": true,
-    "seconds": 22.8,
+    "seconds": 16.8,
     "passed": 12,
     "failed": 0,
     "coverage": 92
@@ -98,7 +98,7 @@
     "kind": "service",
     "name": "internship-service",
     "ok": true,
-    "seconds": 19.7,
+    "seconds": 13.3,
     "passed": 12,
     "failed": 0,
     "coverage": 98
@@ -107,7 +107,7 @@
     "kind": "service",
     "name": "notification-service",
     "ok": true,
-    "seconds": 17.4,
+    "seconds": 10.1,
     "passed": 15,
     "failed": 0,
     "coverage": 95
@@ -116,7 +116,7 @@
     "kind": "service",
     "name": "recommendation-service",
     "ok": true,
-    "seconds": 26.7,
+    "seconds": 17.3,
     "passed": 14,
     "failed": 0,
     "coverage": 98
@@ -125,7 +125,7 @@
     "kind": "service",
     "name": "user-service",
     "ok": true,
-    "seconds": 27.2,
+    "seconds": 18.3,
     "passed": 16,
     "failed": 0,
     "coverage": 97
@@ -134,8 +134,8 @@
     "kind": "frontend",
     "name": "web-frontend",
     "ok": true,
-    "seconds": 29.6,
-    "passed": 28,
+    "seconds": 18.5,
+    "passed": 31,
     "failed": 0,
     "coverage": 98
   }
