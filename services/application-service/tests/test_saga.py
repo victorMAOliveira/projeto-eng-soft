@@ -44,10 +44,7 @@ async def test_saga_steps_drive_the_state_machine(client, db, publisher):
     active = (await client.get(f"/applications/{app_id}", headers=COMPANY)).json()
     assert active["status"] == "active"
     start = date.fromisoformat(active["placement"]["start_date"])
-    assert (
-        active["placement"]["next_report_due"]
-        == next_report_due(max(start, date.today())).isoformat()
-    )
+    assert active["placement"]["next_report_due"] == next_report_due(start).isoformat()
     statuses = [e.payload["to_status"] for e in publisher.of_type("application.status_changed")]
     assert statuses[-2:] == ["agreement_pending", "active"]
 

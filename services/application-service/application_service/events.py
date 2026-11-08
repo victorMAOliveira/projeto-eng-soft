@@ -6,7 +6,7 @@
 """
 
 import logging
-from datetime import UTC, date, datetime
+from datetime import UTC, datetime
 
 from application_service.domain import InvalidTransitionError, Status, next_report_due
 from application_service.models import Application
@@ -89,8 +89,9 @@ class SagaHandlers:
             placement = application.placement
             if placement is not None:
                 placement.activated_at = datetime.now(UTC)
-                reference = max(placement.start_date, date.today())
-                placement.next_report_due = next_report_due(reference)
+                # The 6-month period counts from the start of the internship (art. 9, VII);
+                # retroactive registrations may therefore already be due or overdue.
+                placement.next_report_due = next_report_due(placement.start_date)
 
         await self._advance(payload.application_id, Status.ACTIVE, activate)
 
