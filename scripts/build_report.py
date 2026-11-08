@@ -30,16 +30,39 @@ SERVICE_MODULES = {
     "recommendation-service": "recommendation_service.api",
     "agent-service": "agent_service.api",
 }
-ROLE_PT = {"student": "estudante", "company": "empresa", "coordinator": "coordenação", "service": "serviço interno"}
+ROLE_PT = {
+    "student": "estudante",
+    "company": "empresa",
+    "coordinator": "coordenação",
+    "service": "serviço interno",
+}
+
+
+def with_caption(content: str, caption: str | None) -> str:
+    """Put ``Table: caption`` right after the first table (pandoc needs adjacency)."""
+    lines = content.strip("\n").splitlines()
+    first = next((i for i, line in enumerate(lines) if line.startswith("|")), None)
+    if not caption or first is None:
+        return "\n".join(lines)
+    last = first
+    while last + 1 < len(lines) and lines[last + 1].startswith("|"):
+        last += 1
+    rest = lines[last + 1 :]
+    return "\n".join([*lines[: last + 1], "", f"Table: {caption}", *(["", *rest] if rest else [])])
 
 
 def replace_block(text: str, name: str, content: str) -> str:
-    """Replace the content between the markers of block ``name``."""
-    pattern = re.compile(rf"(<!-- BEGIN:{re.escape(name)} -->\n).*?(\n<!-- END:{re.escape(name)} -->)", re.DOTALL)
-    if not pattern.search(text):
+    """Replace what is between ``<!-- BEGIN:name [| caption] -->`` and ``<!-- END:name -->``."""
+    pattern = re.compile(
+        rf"(<!-- BEGIN:{re.escape(name)}(?: \| (?P<caption>[^\n]*?))? -->\n)(?P<body>.*?)(<!-- END:{re.escape(name)} -->)",
+        re.DOTALL,
+    )
+    match = pattern.search(text)
+    if not match:
         print(f"  (marcador {name} ausente)")
         return text
-    return pattern.sub(lambda m: m.group(1) + content.strip("\n") + m.group(2), text)
+    body = with_caption(content, match.group("caption")).strip("\n") + "\n"
+    return text[: match.start()] + match.group(1) + body + match.group(4) + text[match.end() :]
 
 
 def roles_of(route) -> str:
@@ -55,7 +78,11 @@ def roles_of(route) -> str:
         call = dep.call
         for cell in getattr(call, "__closure__", None) or ():
             contents = cell.cell_contents
-            if isinstance(contents, frozenset) and contents and all(isinstance(r, Role) for r in contents):
+            if (
+                isinstance(contents, frozenset)
+                and contents
+                and all(isinstance(r, Role) for r in contents)
+            ):
                 order = ["student", "company", "coordinator", "service"]
                 return ", ".join(ROLE_PT[r] for r in order if Role(r) in contents)
         if call is get_current_principal:
@@ -74,7 +101,9 @@ def endpoints_table(service: str) -> str:
         methods = "/".join(sorted(route.methods - {"HEAD"}))
         summary = (route.summary or route.name).replace("|", "/")
         lines.append(f"| {methods} | `{route.path}` | {roles_of(route)} | {summary} |")
-    lines.append("| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |")
+    lines.append(
+        "| GET | `/health`, `/ready`, `/version` | público | Health Check API (`eh_observability`) |"
+    )
     return "\n".join(lines)
 
 
@@ -83,9 +112,14 @@ def gateway_tables() -> tuple[str, str]:
     sys.path.insert(0, str(ROOT / "services" / "api-gateway"))
     from api_gateway.routes import POLICIES, ROUTES
 
-    routes = ["| Prefixo público | Serviço de destino | Rota no serviço | Autenticação |", "|---|---|---|---|"]
+    routes = [
+        "| Prefixo público | Serviço de destino | Rota no serviço | Autenticação |",
+        "|---|---|---|---|",
+    ]
     for r in ROUTES:
-        routes.append(f"| `{r.prefix}/*` | {r.service} | `{r.prefix.removeprefix('/api')}/*` | {'pública' if r.public else 'JWT'} |")
+        routes.append(
+            f"| `{r.prefix}/*` | {r.service} | `{r.prefix.removeprefix('/api')}/*` | {'pública' if r.public else 'JWT'} |"
+        )
     routes += [
         "| `GET /services` | (gateway) | — | pública — agrega `/ready` e `/version` |",
         "| `GET /routes` | (gateway) | — | pública — esta tabela |",
@@ -104,32 +138,53 @@ def tests_table() -> str:
     if not path.exists():
         return "_Execute `make test` para gerar esta tabela._"
     rows = json.loads(path.read_text(encoding="utf-8"))
-    kinds = {"lint": "lint", "component": "componente", "service": "serviço", "frontend": "frontend"}
+    kinds = {
+        "lint": "lint",
+        "component": "componente",
+        "service": "serviço",
+        "frontend": "frontend",
+    }
     lines = ["| Tipo | Pacote | Testes | Cobertura | Resultado |", "|---|---|---|---|---|"]
     total = 0
     for r in rows:
         total += r.get("passed", 0) or 0
         coverage = f"{r['coverage']}%" if r.get("coverage") is not None else "—"
         passed = r.get("passed", "—") if r["kind"] != "lint" else "—"
-        lines.append(f"| {kinds[r['kind']]} | {r['name']} | {passed} | {coverage} | {'aprovado' if r['ok'] else 'falhou'} |")
+        lines.append(
+            f"| {kinds[r['kind']]} | {r['name']} | {passed} | {coverage} | {'aprovado' if r['ok'] else 'falhou'} |"
+        )
     lines.append(f"| | **Total** | **{total}** | | |")
     return "\n".join(lines)
 
 
 def components_table() -> str:
-    """Name, version and description of each component (from pyproject.toml)."""
-    lines = ["| Componente | Versão | Descrição |", "|---|---|---|"]
+    """Name, version, description, size and reuse count of each component."""
+    metrics = GENERATED / "reuse_metrics.json"
+    summary = json.loads(metrics.read_text(encoding="utf-8"))["summary"] if metrics.exists() else {}
+    loc, usages = summary.get("component_loc", {}), summary.get("component_usages", {})
+    lines = [
+        "| Componente | Versão | Descrição | LOC | Serviços que reutilizam |",
+        "|---|---|---|---|---|",
+    ]
     for path in sorted((ROOT / "components").glob("*/pyproject.toml")):
         project = tomllib.loads(path.read_text(encoding="utf-8"))["project"]
         description = project["description"].removeprefix("EstágioHub component: ")
-        lines.append(f"| `{path.parent.name}` | {project['version']} | {description} |")
+        name = path.parent.name
+        lines.append(
+            f"| `{name}` | {project['version']} | {description} | {loc.get(name, '—')} | {usages.get(name, '—')} |"
+        )
     return "\n".join(lines)
 
 
 def service_versions_table() -> str:
     """Microservice → version table (from each pyproject.toml)."""
     lines = []
-    for path in sorted([*(ROOT / "services").glob("*/pyproject.toml"), ROOT / "frontend" / "web" / "pyproject.toml"]):
+    for path in sorted(
+        [
+            *(ROOT / "services").glob("*/pyproject.toml"),
+            ROOT / "frontend" / "web" / "pyproject.toml",
+        ]
+    ):
         project = tomllib.loads(path.read_text(encoding="utf-8"))["project"]
         lines.append(f"{project['name']}={project['version']}")
     return ", ".join(lines)
@@ -146,15 +201,21 @@ def prepare() -> int:
     text = REPORT.read_text(encoding="utf-8")
     text = replace_block(text, "tests", tests_table())
     text = replace_block(text, "eval", read_generated("eval_metrics.md", "_Execute `make eval`._"))
-    text = replace_block(text, "reuse-metrics", read_generated("reuse_metrics.md", "_Execute `make eval`._"))
-    text = replace_block(text, "reuse-matrix", read_generated("reuse_matrix.md", "_Execute `make eval`._"))
+    text = replace_block(
+        text, "reuse-metrics", read_generated("reuse_metrics.md", "_Execute `make eval`._")
+    )
+    text = replace_block(
+        text, "reuse-matrix", read_generated("reuse_matrix.md", "_Execute `make eval`._")
+    )
     text = replace_block(text, "components", components_table())
     routes, policies = gateway_tables()
     text = replace_block(text, "gateway-routes", routes)
     text = replace_block(text, "gateway-policies", policies)
     for service in SERVICE_MODULES:
         text = replace_block(text, f"endpoints:{service}", endpoints_table(service))
-    compose_ps = read_generated("compose-ps.txt", "Execute `make screenshots` (gera a saída de docker compose ps).")
+    compose_ps = read_generated(
+        "compose-ps.txt", "Execute `make screenshots` (gera a saída de docker compose ps)."
+    )
     text = replace_block(text, "compose-ps", "```text\n" + compose_ps.strip() + "\n```")
     REPORT.write_bytes(text.encode("utf-8"))
     BUILD.mkdir(parents=True, exist_ok=True)

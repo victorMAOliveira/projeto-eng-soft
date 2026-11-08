@@ -47,4 +47,5 @@ blockquote { border-left: 3px solid #94a3b8; margin: .8em 0; padding: .2em .9em;
 #TOC li { margin: .15em 0; }
 .sumario-titulo { break-before: avoid; }
 .page-break { break-after: page; }
+.capa, h1, h2, h3, h4, caption, figcaption, th { hyphens: manual; }
 .pendente { background: #fef3c7; }

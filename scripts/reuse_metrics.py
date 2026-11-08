@@ -32,12 +32,23 @@ def logical_lines(path: Path) -> int:
     for node in ast.walk(ast.parse(text)):
         if isinstance(node, ast.Module | ast.ClassDef | ast.FunctionDef | ast.AsyncFunctionDef):
             body = node.body
-            if body and isinstance(body[0], ast.Expr) and isinstance(getattr(body[0], "value", None), ast.Constant) and isinstance(body[0].value.value, str):
+            if (
+                body
+                and isinstance(body[0], ast.Expr)
+                and isinstance(getattr(body[0], "value", None), ast.Constant)
+                and isinstance(body[0].value.value, str)
+            ):
                 docstring_lines.update(range(body[0].lineno, body[0].end_lineno + 1))
     code_lines: set[int] = set()
     for token in tokenize.generate_tokens(io.StringIO(text).readline):
-        if token.type in (tokenize.COMMENT, tokenize.NL, tokenize.NEWLINE, tokenize.INDENT,
-                          tokenize.DEDENT, tokenize.ENDMARKER):
+        if token.type in (
+            tokenize.COMMENT,
+            tokenize.NL,
+            tokenize.NEWLINE,
+            tokenize.INDENT,
+            tokenize.DEDENT,
+            tokenize.ENDMARKER,
+        ):
             continue
         code_lines.update(range(token.start[0], token.end[0] + 1))
     return len(code_lines - docstring_lines)
@@ -46,7 +57,12 @@ def logical_lines(path: Path) -> int:
 def package_files(package_dir: Path) -> list[Path]:
     """Source files of a package (Python, plus templates/static for the UI)."""
     files = [p for p in package_dir.rglob("*.py")]
-    files += [p for ext in ("*.html", "*.css", "*.js") for p in package_dir.rglob(ext) if "vendor" not in p.parts]
+    files += [
+        p
+        for ext in ("*.html", "*.css", "*.js")
+        for p in package_dir.rglob(ext)
+        if "vendor" not in p.parts
+    ]
     return sorted(files)
 
 
@@ -85,10 +101,15 @@ def main() -> int:
         used = imported_components(files)
         reused = sum(component_loc[c] for c in used)
         matrix[name] = sorted(used)
-        rows.append({
-            "service": name, "specific_loc": specific, "reused_loc": reused,
-            "components": len(used), "reuse_ratio": round(reused / (reused + specific), 3),
-        })
+        rows.append(
+            {
+                "service": name,
+                "specific_loc": specific,
+                "reused_loc": reused,
+                "components": len(used),
+                "reuse_ratio": round(reused / (reused + specific), 3),
+            }
+        )
     total_specific = sum(r["specific_loc"] for r in rows)
     total_reused = sum(r["reused_loc"] for r in rows)
     usages = {c: sum(1 for used in matrix.values() if c in used) for c in COMPONENTS}
@@ -106,7 +127,8 @@ def main() -> int:
     }
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUT_DIR / "reuse_metrics.json").write_text(
-        json.dumps({"rows": rows, "matrix": matrix, "summary": summary}, indent=2) + "\n", encoding="utf-8"
+        json.dumps({"rows": rows, "matrix": matrix, "summary": summary}, indent=2) + "\n",
+        encoding="utf-8",
     )
 
     def pct(x: float) -> str:
@@ -115,12 +137,11 @@ def main() -> int:
     lines = [
         "| Serviço | LOC específicas | LOC reutilizadas (componentes) | Componentes usados | Taxa de reuso |",
         "|---|---|---|---|---|",
-        *[f"| {r['service']} | {r['specific_loc']} | {r['reused_loc']} | {r['components']} | {pct(r['reuse_ratio'])} |" for r in rows],
+        *[
+            f"| {r['service']} | {r['specific_loc']} | {r['reused_loc']} | {r['components']} | {pct(r['reuse_ratio'])} |"
+            for r in rows
+        ],
         f"| **Total** | **{total_specific}** | **{total_reused}** | — | **{pct(summary['overall_reuse_ratio'])}** |",
-        "",
-        "| Componente | LOC | Serviços que reutilizam |",
-        "|---|---|---|",
-        *[f"| {c} | {component_loc[c]} | {usages[c]} |" for c in COMPONENTS],
         "",
         f"Sem componentes, o código comum seria copiado em cada serviço: {without} LOC no total, "
         f"contra {with_components} LOC com componentes — **{summary['loc_saved']} LOC evitadas**.",
@@ -128,7 +149,10 @@ def main() -> int:
     matrix_lines = [
         "| Serviço | " + " | ".join(COMPONENTS) + " |",
         "|---|" + "---|" * len(COMPONENTS),
-        *[f"| {name} | " + " | ".join("●" if c in used else "" for c in COMPONENTS) + " |" for name, used in matrix.items()],
+        *[
+            f"| {name} | " + " | ".join("●" if c in used else "" for c in COMPONENTS) + " |"
+            for name, used in matrix.items()
+        ],
     ]
     (OUT_DIR / "reuse_metrics.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (OUT_DIR / "reuse_matrix.md").write_text("\n".join(matrix_lines) + "\n", encoding="utf-8")
