@@ -17,6 +17,7 @@ from web_frontend.routes import (
     auth,
     dashboard,
     documents,
+    intelligence,
     internships,
     notifications,
     profile,
@@ -67,6 +68,15 @@ def create_app(
     async def _not_found(request: Request, exc: Exception):
         return render(request, "not_found.html", status_code=404, message="Página não encontrada.")
 
-    for module in (auth, dashboard, internships, applications, documents, notifications, profile):
+    for module in (
+        auth,
+        dashboard,
+        internships,
+        applications,
+        documents,
+        notifications,
+        intelligence,
+        profile,
+    ):
         app.include_router(module.router)
     return app

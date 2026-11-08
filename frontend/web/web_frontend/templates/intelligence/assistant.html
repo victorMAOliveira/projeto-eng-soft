@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% set titles = {"student": "Assistente de Candidatura", "company": "Agente de Triagem", "coordinator": "Agente de Acompanhamento"} %}
+{% block title %}{{ titles[user.role] }}{% endblock %}
+{% block heading %}{{ titles[user.role] }}{% endblock %}
+{% block subheading %}<p class="topbar__sub">Agentes de IA (Claude, tool use) — leem, sugerem e notificam; nunca decidem por você</p>{% endblock %}
+{% block content %}
+{% if not status.ok %}
+  {{ ui.alert("O agent-service está indisponível. Todas as outras funções seguem disponíveis.", kind="warning", title="Degradação graciosa:") }}
+{% else %}
+<div class="grid grid--detail">
+  <div class="stack">
+    {% call ui.card("Executar", service=status.served_by, actions=('<span class="ai-badge ai-badge--rules">IA em modo regras</span>' if status.data.mode == "rules" else '<span class="ai-badge">IA: ' ~ status.data.model ~ '</span>')|safe) %}
+      <form method="post" action="/assistente/executar" class="form" hx-post="/assistente/executar" hx-target="#run-result" hx-swap="innerHTML" hx-indicator="#run-spinner">
+        {% if user.role == "student" %}
+          <label>Vaga
+            <select name="internship_id">
+              <option value="">A mais recomendada para mim</option>
+              {% if options and options.ok %}{% for r in options.data["items"] %}<option value="{{ r.internship_id }}" {{ 'selected' if selected == r.internship_id }}>{{ r.title }} — {{ r.company_name }}</option>{% endfor %}{% endif %}
+            </select></label>
+          <label>Pergunta (opcional)<input name="question" maxlength="500" placeholder="Ex.: o que devo estudar para esta vaga?"></label>
+          <p class="small muted">O assistente explica por que a vaga combina com seu perfil, sugere melhorias e escreve um rascunho de carta de motivação.</p>
+        {% elif user.role == "company" %}
+          <label>Vaga
+            <select name="internship_id" required>
+              {% if options and options.ok %}{% for v in options.data %}<option value="{{ v.id }}" {{ 'selected' if selected == v.id }}>{{ v.title }}</option>{% endfor %}{% endif %}
+            </select></label>
+          <p class="small muted">O agente resume o ranking do recommendation-service com justificativas. A decisão de aprovar é sempre sua.</p>
+        {% else %}
+          <p class="small">Verifica relatórios a vencer ou vencidos, termos perto do limite de 2 anos e jornada acima do permitido; publica <code>report.due_soon</code> e notifica os envolvidos.</p>
+          <p class="small muted">Também roda automaticamente a cada {{ status.data.follow_up_schedule.interval_minutes }} min{% if status.data.follow_up_schedule.next_run %} (próxima: {{ status.data.follow_up_schedule.next_run|datetime_br }} UTC){% endif %}.</p>
+        {% endif %}
+        <button class="btn btn--primary" type="submit">{{ icon("bot", 16) }} Executar agente</button>
+        <span id="run-spinner" class="htmx-indicator small muted">Executando…</span>
+      </form>
+    {% endcall %}
+    {% call ui.card("Execuções recentes", service=runs.served_by) %}
+      {% if runs.ok %}
+        <ul class="list">
+        {% for r in runs.data %}
+          <li><a href="/assistente?run_id={{ r.id }}">#{{ r.id }} — {{ r.title }}</a>
+            <span class="small muted">{{ r.started_at|datetime_br }} · modo {{ "IA" if r.mode == "llm" else "regras" }} · {{ r.steps_count }} passo(s){% if r.input.trigger == "scheduled" %} · agendada{% endif %}</span></li>
+        {% else %}<li class="muted">Nenhuma execução ainda.</li>{% endfor %}
+        </ul>
+      {% else %}{{ ui.alert(runs.error, kind="warning") }}{% endif %}
+    {% endcall %}
+  </div>
+  <div id="run-result">{% include "intelligence/_run.html" %}</div>
+</div>
+{% endif %}
+{% endblock %}

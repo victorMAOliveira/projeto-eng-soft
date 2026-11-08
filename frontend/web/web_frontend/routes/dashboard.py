@@ -35,6 +35,7 @@ async def dashboard(request: Request) -> Response:
             "apps": ("/api/applications/stats", {}),
             "placements": ("/api/placements", {"status": "active"}),
             "notices": ("/api/notifications", {"limit": 5}),
+            "recs": (f"/api/recommendations/students/{user.id}/internships", {"k": 3}),
         }
     elif user.role == "company":
         calls = {

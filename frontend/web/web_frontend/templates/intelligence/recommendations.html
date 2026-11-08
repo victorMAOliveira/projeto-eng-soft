@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% block title %}Recomendações{% endblock %}
+{% block heading %}Vagas recomendadas para você{% endblock %}
+{% block subheading %}<p class="topbar__sub">Híbrido e explicável: filtros + TF-IDF/cosseno + Jaccard + preferências</p>{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert("O serviço de recomendação está indisponível no momento. As demais funções (vagas, candidaturas, documentos) continuam funcionando — use a busca de vagas enquanto isso.", kind="warning", title="Degradação graciosa:") }}
+  <p><a class="btn" href="/vagas">Buscar vagas</a></p>
+{% else %}
+  {% set data = result.data %}
+  {% if data.strategy == "cold_start" %}
+    {{ ui.alert("Seu perfil ainda está vazio, então mostramos vagas recentes e populares (cold start). Complete o perfil para recomendações personalizadas.", kind="info", title="Cold start:") }}
+  {% endif %}
+  <section class="results" data-service="{{ result.served_by }}" style="--svc: {{ result.served_by|service_color }}">
+    <div class="results__head">
+      <span class="muted small">Pesos: conteúdo {{ data.weights.content }} · atributos {{ data.weights.attributes }} · preferências {{ data.weights.preference }} — {{ data.filtered_count }} vaga(s) eliminada(s) pelos filtros</span>
+      {{ ui.service_badge(result.served_by) }}
+    </div>
+    {% for r in data["items"] %}
+      <article class="rec">
+        <div class="rec__rank">{{ loop.index }}</div>
+        <div class="rec__body">
+          <header>
+            <a href="/vagas/{{ r.internship_id }}" class="job__title">{{ r.title }}</a>
+            <span class="muted">{{ r.company_name }} · {{ r.city }} · {{ r.modality|modality_label }} · {{ r.stipend|brl }}</span>
+          </header>
+          {{ ui.score_bar(r.score, "Score final") }}
+          {% if r.strategy != "cold_start" %}
+          <div class="rec__components small muted">
+            cosseno {{ r.components.cosine|pct }} · Jaccard {{ r.components.jaccard|pct }} · preferências {{ r.components.preference|pct }}
+          </div>
+          <div class="tags">
+            {% for s in r.matched_skills %}<span class="tag tag--ok">✓ {{ s }}</span>{% endfor %}
+            {% for s in r.missing_skills %}<span class="tag tag--missing">✗ {{ s }}</span>{% endfor %}
+          </div>
+          {% endif %}
+          <p class="rec__why"><strong>Por quê:</strong> {{ r.explanation }}</p>
+          <div class="rec__actions">
+            <a class="btn btn--sm btn--primary" href="/vagas/{{ r.internship_id }}">Ver e candidatar-se</a>
+            <a class="btn btn--sm" href="/assistente?internship_id={{ r.internship_id }}">Perguntar ao assistente IA</a>
+          </div>
+        </div>
+      </article>
+    {% else %}
+      {{ ui.empty_state("Nenhuma vaga compatível agora.", hint="Você já se candidatou às vagas compatíveis ou os filtros eliminaram as demais.") }}
+    {% endfor %}
+  </section>
+  {% if data.filtered %}
+  <details class="eh-card">
+    <summary><strong>Vagas eliminadas pelos filtros ({{ data.filtered|length }})</strong> — veja o motivo de cada uma</summary>
+    <ul class="list">
+      {% for f in data.filtered %}<li><strong>{{ f.title }}</strong> <span class="muted">{{ f.company_name }}</span><span class="small">{{ f.eliminated_by|join(" ") }}</span></li>{% endfor %}
+    </ul>
+  </details>
+  {% endif %}
+{% endif %}
+{% endblock %}

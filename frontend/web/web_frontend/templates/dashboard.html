@@ -65,6 +65,20 @@
     {% endcall %}
     {{ notices_panel(panels.notices) }}
   </div>
+  {% call ui.card("Recomendadas para você", service=panels.recs.served_by, subtitle="Top 3 do sistema de recomendação, com o porquê", actions='<a class="btn btn--sm" href="/recomendacoes">Ver todas</a>'|safe) %}
+    {% if panels.recs.ok %}
+      <div class="grid grid--3">
+      {% for r in panels.recs.data["items"] %}
+        <article class="mini-rec">
+          <a href="/vagas/{{ r.internship_id }}" class="job__title">{{ r.title }}</a>
+          <span class="small muted">{{ r.company_name }}</span>
+          {{ ui.score_bar(r.score) }}
+          <p class="small">{{ r.explanation|truncate(150) }}</p>
+        </article>
+      {% else %}<p class="muted">Nenhuma recomendação no momento.</p>{% endfor %}
+      </div>
+    {% else %}{{ unavailable_panel(panels.recs) }}{% endif %}
+  {% endcall %}
   <div class="grid grid--2">
     {% call ui.card("Vagas recentes", service=panels.latest.served_by, subtitle="Últimas publicadas") %}
       {% if panels.latest.ok %}

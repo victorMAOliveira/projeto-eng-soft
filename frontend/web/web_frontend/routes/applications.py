@@ -115,11 +115,17 @@ async def candidates(request: Request, internship_id: int) -> Response:
     applications = await api.get(
         "/api/applications", token=user.token, params={"internship_id": internship_id}
     )
+    ranking = await api.get(
+        f"/api/recommendations/internships/{internship_id}/candidates",
+        token=user.token,
+        params={"k": 20},
+    )
     return render(
         request,
         "applications/candidates.html",
         vaga=vaga,
         applications=applications,
+        ranking=ranking,
         internship_id=internship_id,
     )
 

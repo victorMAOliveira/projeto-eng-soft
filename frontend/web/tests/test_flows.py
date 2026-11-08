@@ -210,7 +210,7 @@ async def test_candidates_page(client, gw):
     login_as(client, "company", 5, "ACME")
     page = await client.get("/vagas/3/candidatos")
     assert "Ana Souza" in page.text
-    assert gw.calls[-1].url.params["internship_id"] == "3"
+    assert gw.calls[-2].url.params["internship_id"] == "3"
 
 
 async def test_agreements_pages_and_binary_proxy(client, gw):

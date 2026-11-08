@@ -1,0 +1,31 @@
+{% import "eh_ui/macros.html" as ui %}
+{% if run and not run.ok %}
+  {{ ui.alert(run.error or "Não foi possível executar o agente.", kind="warning", title="Agentes indisponíveis:") }}
+{% elif run %}
+  {% set r = run.data %}
+  {% call ui.card(r.title ~ " — execução #" ~ r.id, service=run.served_by, subtitle=("Modo " ~ ("IA (" ~ r.model ~ ")" if r.mode == "llm" else "regras")) ~ " · " ~ r.steps_count ~ " passo(s) · " ~ ("falhou" if r.status == "failed" else "concluída")) %}
+    {% if r.error %}{{ ui.alert(r.error, kind="warning") }}{% endif %}
+    <div class="agent-output">{{ r.output }}</div>
+    {% if r.cover_letter %}
+      <label class="form"><strong>Rascunho de carta de motivação (editável)</strong>
+        <textarea rows="9" class="cover-letter">{{ r.cover_letter }}</textarea>
+      </label>
+      <p class="small muted">Copie e ajuste o texto antes de usar na sua candidatura — o agente só sugere.</p>
+    {% endif %}
+    <h3>Trilha de execução</h3>
+    <ol class="trail">
+      {% for s in r.steps %}
+        <li class="trail__step trail__step--{{ s.kind }} {{ '' if s.ok else 'is-error' }}">
+          <span class="trail__kind">{{ {"llm": "Chamada ao modelo", "tool_call": "Ferramenta", "final": "Fim"}.get(s.kind, s.kind) }}</span>
+          {% if s.tool_name %}<code>{{ s.tool_name }}</code>{% endif %}
+          <span class="small muted">{{ s.duration_ms }} ms{{ "" if s.ok else " · erro" }}</span>
+          {% if s.tool_input or s.tool_output %}
+            <details><summary class="small">entrada / saída</summary>
+              <pre>{{ {"entrada": s.tool_input, "saida": s.tool_output}|tojson(indent=2) }}</pre>
+            </details>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ol>
+  {% endcall %}
+{% endif %}

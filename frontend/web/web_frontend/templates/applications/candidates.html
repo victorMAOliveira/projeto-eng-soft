@@ -3,7 +3,27 @@
 {% block title %}Candidatos{% endblock %}
 {% block heading %}Candidatos{% if vaga.ok %} — {{ vaga.data.title }}{% endif %}{% endblock %}
 {% block content %}
-{% block ranking %}{% endblock %}
+{% set screening_link = '<a class="btn btn--sm" href="/assistente?internship_id=' ~ internship_id ~ '">Triagem com IA</a>' if user.role == "company" else "" %}
+{% call ui.card("Ranking de candidatos", service=ranking.served_by, subtitle="Calculado pelo recommendation-service (mesmo algoritmo das recomendações)", actions=screening_link|safe) %}
+  {% if not ranking.ok %}
+    {{ ui.alert("Ranking indisponível no momento (" ~ (ranking.unavailable_service or "recommendation-service") ~ "). A lista de candidaturas abaixo continua disponível.", kind="warning", title="Degradação graciosa:") }}
+  {% else %}
+    <ol class="ranking">
+    {% for c in ranking.data["items"] %}
+      <li class="{{ 'is-eliminated' if c.eliminated_by }}">
+        <div class="ranking__head">
+          <strong>{% if c.application_id %}<a href="/candidaturas/{{ c.application_id }}">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</strong>
+          <span class="small muted">{{ c.course or "" }}{% if c.semester %} · {{ c.semester }}º período{% endif %}</span>
+          {% if c.application_status %}{{ ui.status_pill(c.application_status) }}{% endif %}
+        </div>
+        {{ ui.score_bar(c.score, "Score") }}
+        <div class="tags">{% for s in c.matched_skills %}<span class="tag tag--ok">✓ {{ s }}</span>{% endfor %}{% for s in c.missing_skills %}<span class="tag tag--missing">✗ {{ s }}</span>{% endfor %}</div>
+        <p class="small">{{ c.explanation }}</p>
+      </li>
+    {% else %}<li class="muted">Nenhum candidato ainda.</li>{% endfor %}
+    </ol>
+  {% endif %}
+{% endcall %}
 {% call ui.card("Candidaturas recebidas", service=applications.served_by) %}
   {% if not applications.ok %}
     {{ ui.alert(applications.error, kind="warning") }}
