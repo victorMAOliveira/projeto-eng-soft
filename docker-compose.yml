@@ -68,6 +68,24 @@ services:
     volumes:
       - application-db-data:/var/lib/postgresql/data
 
+  recommendation-db:
+    <<: *postgres
+    environment:
+      POSTGRES_USER: estagiohub
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD ausente - rode make env}
+      POSTGRES_DB: recommendations
+    volumes:
+      - recommendation-db-data:/var/lib/postgresql/data
+
+  agent-db:
+    <<: *postgres
+    environment:
+      POSTGRES_USER: estagiohub
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD ausente - rode make env}
+      POSTGRES_DB: agents
+    volumes:
+      - agent-db-data:/var/lib/postgresql/data
+
   document-db:
     image: mongo:7.0
     environment:
@@ -171,6 +189,40 @@ services:
     healthcheck: *app-healthcheck
     networks: [backend]
 
+  recommendation-service:
+    build:
+      context: .
+      dockerfile: services/recommendation-service/Dockerfile
+    image: estagiohub/recommendation-service
+    environment:
+      <<: *app-env
+      DATABASE_URL: postgresql+asyncpg://estagiohub:${POSTGRES_PASSWORD}@recommendation-db:5432/recommendations
+      REC_WEIGHT_CONTENT: ${REC_WEIGHT_CONTENT:-0.5}
+      REC_WEIGHT_ATTRIBUTES: ${REC_WEIGHT_ATTRIBUTES:-0.35}
+      REC_WEIGHT_PREFERENCE: ${REC_WEIGHT_PREFERENCE:-0.15}
+    depends_on:
+      recommendation-db: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    healthcheck: *app-healthcheck
+    networks: [backend]
+
+  agent-service:
+    build:
+      context: .
+      dockerfile: services/agent-service/Dockerfile
+    image: estagiohub/agent-service
+    environment:
+      <<: *app-env
+      DATABASE_URL: postgresql+asyncpg://estagiohub:${POSTGRES_PASSWORD}@agent-db:5432/agents
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-claude-haiku-5-5}
+      FOLLOWUP_INTERVAL_MINUTES: ${FOLLOWUP_INTERVAL_MINUTES:-60}
+    depends_on:
+      agent-db: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    healthcheck: *app-healthcheck
+    networks: [backend]
+
   # ----------------------------------------------------------------- gateway
   api-gateway:
     build:
@@ -188,6 +240,8 @@ services:
       application-service: { condition: service_healthy }
       document-service: { condition: service_healthy }
       notification-service: { condition: service_healthy }
+      recommendation-service: { condition: service_healthy }
+      agent-service: { condition: service_healthy }
     healthcheck: *app-healthcheck
     networks: [backend, edge]
 
@@ -235,6 +289,8 @@ volumes:
   document-db-data:
   document-files:
   notification-redis-data:
+  recommendation-db-data:
+  agent-db-data:
 
 networks:
   backend:

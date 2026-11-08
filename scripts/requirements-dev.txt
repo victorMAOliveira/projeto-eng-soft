@@ -18,6 +18,11 @@ reportlab==4.2.5
 pypdfium2==4.30.0
 Pillow==11.0.0
 redis==5.2.1
+scikit-learn==1.6.0
+numpy==2.2.1
+anthropic>=0.40,<2
+APScheduler==3.11.0
+Faker==33.1.0
 
 # test & lint
 pytest==8.3.4
