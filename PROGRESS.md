@@ -124,7 +124,6 @@ log de acesso, porta 8080 em IPv6 no host, acentos no curl do Git Bash, *overflo
 
 ## Pendências para a equipe ([PREENCHER])
 
-- URL do repositório GitHub (capa, seção 9 e checklist do relatório).
 - Horários reais de cada sprint (`git log` por tag) no relatório e nos `sprint-N.md`.
 - Retrospectivas das sprints e forma de condução das sincronizações diárias.
 - Print do terminal com `make up` / `docker compose ps` (seção 6.5).

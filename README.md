@@ -6,7 +6,7 @@ construído com **microsserviços**, **componentes de software** e **agentes de 
 > Projeto da disciplina Engenharia de Software — Universidade Federal de
 > Alagoas, Instituto de Computação. Professor: Arturo Hernandez Dominguez.
 > Equipe: Victor Moura Amaral de Oliveira (Product Owner) e Lorenzo Holanda
-> (Scrum Master).
+> (Scrum Master). Repositório: <https://github.com/victorMAOliveira/projeto-eng-soft>.
 
 O sistema cobre o ciclo completo: a empresa publica a vaga, o estudante recebe
 recomendações explicadas e se candidata, a empresa aprova com os termos do

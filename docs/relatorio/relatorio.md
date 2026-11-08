@@ -20,7 +20,7 @@ Professor: Arturo Hernandez Dominguez
 Victor Moura Amaral de Oliveira\
 Lorenzo Holanda
 
-Repositório GitHub: [PREENCHER: URL do repositório GitHub]
+Repositório GitHub: <https://github.com/victorMAOliveira/projeto-eng-soft>
 
 </div>
 
@@ -1315,7 +1315,7 @@ avisa qual serviço está indisponível.
 
 # 9 Repositório
 
-- **Link:** [PREENCHER: URL do repositório GitHub]
+- **Link:** <https://github.com/victorMAOliveira/projeto-eng-soft>
 - **Pré-requisitos:** Docker com Compose v2, Git e GNU Make. Testes, seed,
   prints e relatório rodam em containers.
 - **Executar em três comandos:**
@@ -1419,7 +1419,7 @@ Não se aplica (o sistema não é um jogo).
 
 | Item do modelo | Seção | Evidência |
 |---|---|---|
-| Capa com UFAL, disciplina, professor, título, integrantes, link do GitHub, local/ano | Capa | Capa deste documento (link: [PREENCHER]) |
+| Capa com UFAL, disciplina, professor, título, integrantes, link do GitHub, local/ano | Capa | Capa deste documento (link: <https://github.com/victorMAOliveira/projeto-eng-soft>) |
 | Sumário | Sumário | Gerado automaticamente |
 | 1 Enunciado (problema, objetivo, escopo, atores, RF, RNF) | 1 | Tabelas 1–3 |
 | 2 Metodologia (Scrum, justificativa, papéis, cerimônias, duração) | 2 | Tabelas 4–5; `docs/scrum/` |
@@ -1438,7 +1438,7 @@ Não se aplica (o sistema não é um jogo).
 | 6.5 Serviços em execução: print do Status, `docker compose ps`, print do terminal | 6.5 | Figura 7, saída de `docker compose ps`; print do terminal: [PREENCHER] |
 | 7 Tecnologias (tabela de serviços e infraestrutura com versões) | 7 | Tabelas 25–26 |
 | 8 Funcionamento (passo a passo com prints e serviços envolvidos, *toggle* ligado) | 8 | Figuras 8–32; `make screenshots`, `make e2e` |
-| 9 Repositório (link e como executar) | 9 | Link: [PREENCHER]; README.md |
+| 9 Repositório (link e como executar) | 9 | Link: <https://github.com/victorMAOliveira/projeto-eng-soft>; README.md |
 | 10 Referências (ABNT, obras reais) | 10 | Lista acima |
 | 11 Vídeo | 11 | "Não se aplica" |
 
