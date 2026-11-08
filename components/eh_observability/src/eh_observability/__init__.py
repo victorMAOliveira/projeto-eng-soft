@@ -21,7 +21,7 @@ from eh_observability.logging import JsonFormatter, configure_logging
 from eh_observability.middleware import ObservabilityMiddleware
 from eh_observability.setup import setup_observability
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 __all__ = [
     "CORRELATION_HEADER",

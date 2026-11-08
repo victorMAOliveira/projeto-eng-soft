@@ -147,7 +147,8 @@ def test_configure_logging_writes_json_to_stdout(capsys):
     doc = json.loads(line)
     assert doc["message"] == "started"
     assert doc["port"] == 8000
-    assert logging.getLogger("uvicorn.access").propagate is True
+    assert logging.getLogger("uvicorn.access").propagate is False
+    assert logging.getLogger("uvicorn.error").propagate is True
 
 
 @pytest.fixture(autouse=True)

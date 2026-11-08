@@ -51,10 +51,15 @@ def configure_logging(service_name: str, level: str = "INFO") -> logging.Logger:
     root = logging.getLogger()
     root.handlers[:] = [handler]
     root.setLevel(level.upper())
-    for name in ("uvicorn", "uvicorn.error", "uvicorn.access"):
+    for name in ("uvicorn", "uvicorn.error"):
         uvicorn_logger = logging.getLogger(name)
         uvicorn_logger.handlers[:] = []
         uvicorn_logger.propagate = True
+    # ObservabilityMiddleware already writes one structured access line per
+    # request (and skips health probes), so uvicorn's own access log is muted.
+    access = logging.getLogger("uvicorn.access")
+    access.handlers[:] = []
+    access.propagate = False
     for noisy in ("aiormq", "aio_pika", "httpx", "httpcore", "apscheduler"):
         logging.getLogger(noisy).setLevel(logging.WARNING)
     return logging.getLogger(service_name)
