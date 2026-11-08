@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Vagas{% endblock %}
+{% block heading %}{{ "Minhas vagas" if mine else "Vagas de estágio" }}{% endblock %}
+{% block subheading %}<p class="topbar__sub">Busca e filtros servidos pelo internship-service</p>{% endblock %}
+{% block content %}
+{% if not mine %}
+<form class="filters" hx-get="/vagas" hx-target="#vagas-results" hx-push-url="true" hx-trigger="submit, change from:select, keyup changed delay:400ms from:input[name=q]">
+  <input type="search" name="q" value="{{ filters.q }}" placeholder="Buscar por título, empresa ou habilidade" aria-label="Buscar">
+  <select name="course" aria-label="Curso">
+    <option value="">Todos os cursos</option>
+    {% for c in courses %}<option {{ 'selected' if filters.course == c }}>{{ c }}</option>{% endfor %}
+  </select>
+  <select name="modality" aria-label="Modalidade">
+    <option value="">Todas as modalidades</option>
+    {% for value, label in [("onsite", "Presencial"), ("remote", "Remoto"), ("hybrid", "Híbrido")] %}
+      <option value="{{ value }}" {{ 'selected' if filters.modality == value }}>{{ label }}</option>
+    {% endfor %}
+  </select>
+  <input name="city" value="{{ filters.city }}" placeholder="Cidade" aria-label="Cidade">
+  <button class="btn" type="submit">Filtrar</button>
+</form>
+{% elif user.role == "company" %}
+<p><a class="btn btn--primary" href="/vagas/nova">Publicar nova vaga</a></p>
+{% endif %}
+<div id="vagas-results">{% include "internships/_results.html" %}</div>
+{% endblock %}

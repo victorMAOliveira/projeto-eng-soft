@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% block title %}{{ vaga.title if vaga else "Vaga" }}{% endblock %}
+{% block heading %}{{ vaga.title if vaga else "Vaga" }}{% endblock %}
+{% block content %}
+{% if not result.ok %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+<div class="grid grid--detail">
+  {% call ui.card(vaga.company_name, service=result.served_by, subtitle=vaga.course ~ " · a partir do " ~ vaga.min_semester ~ "º período") %}
+    <div class="detail-meta">
+      <span>{{ icon("map", 16) }} {{ vaga.city }} · {{ vaga.modality|modality_label }}</span>
+      <span>{{ icon("clock", 16) }} {{ vaga.hours_per_day }} h/dia · {{ vaga.hours_per_week }} h/semana</span>
+      <span>{{ icon("cash", 16) }} Bolsa {{ vaga.stipend|brl }}</span>
+      <span>{{ vaga.positions }} vaga(s)</span>
+      {{ ui.status_pill(vaga.status) }}
+    </div>
+    <h3>Descrição</h3>
+    <p class="prewrap">{{ vaga.description }}</p>
+    <h3>Requisitos</h3>
+    <div class="tags">{% for r in vaga.requirements %}<span class="tag">{{ r }}</span>{% endfor %}</div>
+    <p class="muted small">Publicada em {{ vaga.published_at|datetime_br }}{% if vaga.closed_at %} · encerrada em {{ vaga.closed_at|datetime_br }}{% endif %}</p>
+  {% endcall %}
+
+  <div class="stack">
+    {% call ui.card("Ações") %}
+      {% if user.role == "student" %}
+        <p class="muted">Candidaturas serão habilitadas na próxima sprint.</p>
+      {% elif vaga.status == "open" and ((user.role == "company" and vaga.company_id == user.id) or user.role == "coordinator") %}
+        <form method="post" action="/vagas/{{ vaga.id }}/encerrar" onsubmit="return confirm('Encerrar esta vaga?')">
+          <button class="btn btn--danger" type="submit">Encerrar vaga</button>
+        </form>
+      {% else %}
+        <p class="muted">Nenhuma ação disponível.</p>
+      {% endif %}
+    {% endcall %}
+    {% call ui.card("Base legal") %}
+      <p class="small">Jornada limitada a <strong>6 h diárias e 30 h semanais</strong> para o ensino superior (Lei nº 11.788/2008, art. 10). A validação é feita no backend.</p>
+    {% endcall %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}

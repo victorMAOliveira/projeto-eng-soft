@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Meu perfil{% endblock %}
+{% block heading %}Meu perfil acadêmico{% endblock %}
+{% block content %}
+{% if not result.ok and not error %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+<div class="grid grid--detail">
+  {% call ui.card("Dados acadêmicos", service=result.served_by, subtitle="Ao salvar, o user-service publica o evento profile.updated") %}
+    {% if error %}{{ ui.alert(error, kind="error", title="Não foi possível salvar:") }}{% endif %}
+    <form method="post" action="/perfil" class="form form--grid">
+      <label>Curso
+        <select name="course" required>
+          <option value="">Selecione…</option>
+          {% for c in courses %}<option {{ 'selected' if form.course == c }}>{{ c }}</option>{% endfor %}
+        </select></label>
+      <label>Período<input type="number" name="semester" min="1" max="12" value="{{ form.semester or '' }}" required></label>
+      <label>Matrícula<input name="enrollment" value="{{ form.enrollment or '' }}"></label>
+      <label>Disponibilidade (h/semana, máx. 30)<input type="number" name="weekly_availability_hours" min="4" max="30" value="{{ form.weekly_availability_hours or 30 }}" required></label>
+      <label class="span-2">Habilidades <small class="muted">(separadas por vírgula)</small>
+        <input name="skills" value="{{ (form.skills or [])|join(', ') }}" placeholder="Python, SQL, Comunicação"></label>
+      <label class="span-2">Resumo do currículo<textarea name="resume_summary" rows="4" maxlength="2000">{{ form.resume_summary or '' }}</textarea></label>
+      <label>Modalidade preferida
+        <select name="preferred_modality">
+          <option value="">Sem preferência</option>
+          {% for value, label in [("onsite", "Presencial"), ("remote", "Remoto"), ("hybrid", "Híbrido")] %}
+            <option value="{{ value }}" {{ 'selected' if form.preferred_modality == value }}>{{ label }}</option>
+          {% endfor %}
+        </select></label>
+      <label>Cidade<input name="city" value="{{ form.city or '' }}"></label>
+      <label class="checkbox span-2"><input type="checkbox" name="is_pcd" {{ 'checked' if form.is_pcd }}> Sou pessoa com deficiência (PcD) — afeta o limite de 2 anos de estágio</label>
+      <div class="span-2 form__actions"><button class="btn btn--primary" type="submit">Salvar perfil</button></div>
+    </form>
+  {% endcall %}
+  {% call ui.card("Completude do perfil", service=result.served_by) %}
+    {{ ui.score_bar(form.completeness or 0, "Completude") }}
+    <p class="small muted">Curso, período, habilidades, resumo e disponibilidade alimentam o sistema de recomendação (TF-IDF + Jaccard).</p>
+  {% endcall %}
+</div>
+{% endif %}
+{% endblock %}

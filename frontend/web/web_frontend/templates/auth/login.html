@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Entrar · EstágioHub</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/eh_ui/eh_ui.css">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+{%- import "eh_ui/macros.html" as ui %}
+{%- from "_icons.html" import icon %}
+<body class="auth-page">
+  <main class="auth">
+    <section class="auth__hero">
+      <span class="brand__logo brand__logo--lg">{{ icon("layers", 30) }}</span>
+      <h1>EstágioHub</h1>
+      <p>Vagas, candidaturas, termo de compromisso e relatórios de estágio em um só lugar — conforme a Lei nº 11.788/2008.</p>
+      <ul class="auth__bullets">
+        <li>{{ icon("star") }} Recomendações explicáveis de vagas</li>
+        <li>{{ icon("file") }} TCE gerado automaticamente em PDF</li>
+        <li>{{ icon("bot") }} Agentes de IA para acompanhar prazos</li>
+      </ul>
+    </section>
+    <section class="auth__card">
+      <h2>Entrar</h2>
+      {% if flash %}{{ ui.alert(flash[1], kind=flash[0]) }}{% endif %}
+      {% if error %}{{ ui.alert(error, kind="error") }}{% endif %}
+      <form method="post" action="/login" class="form">
+        <input type="hidden" name="next" value="{{ next or '/' }}">
+        <label>E-mail<input type="email" name="email" value="{{ email or '' }}" required autocomplete="username" autofocus></label>
+        <label>Senha<input type="password" name="password" required autocomplete="current-password"></label>
+        <button class="btn btn--primary btn--block" type="submit">Entrar</button>
+      </form>
+      <p class="muted center">Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+      <p class="muted center small"><a href="/status">Status dos microsserviços</a></p>
+    </section>
+  </main>
+</body>
+</html>

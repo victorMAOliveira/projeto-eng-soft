@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Não encontrado{% endblock %}
+{% block heading %}Não encontrado{% endblock %}
+{% block content %}
+{% call ui.card("Ops!") %}
+  {{ ui.empty_state(message or "Página não encontrada.", hint="Verifique o endereço ou volte ao painel.") }}
+  <p class="center"><a class="btn" href="/">Voltar ao painel</a></p>
+{% endcall %}
+{% endblock %}

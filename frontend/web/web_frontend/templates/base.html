@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}EstágioHub{% endblock %} · EstágioHub</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/eh_ui/eh_ui.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <script src="/static/vendor/htmx.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+{%- from "_icons.html" import icon %}
+<body class="{{ 'show-services' if show_services else '' }}">
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="/">
+      <span class="brand__logo">{{ icon("layers", 22) }}</span>
+      <span><strong>EstágioHub</strong><small>Gestão de estágios</small></span>
+    </a>
+    {% if user %}
+    <nav class="nav" aria-label="Menu principal">
+      {% for label, href, ico in nav %}
+        <a href="{{ href }}" class="nav__item {{ 'is-active' if href == active_href }}">
+          {{ icon(ico) }}<span>{{ label }}</span>
+        </a>
+      {% endfor %}
+    </nav>
+    {% endif %}
+    <div class="sidebar__footer">
+      <a href="/status" class="nav__item {{ 'is-active' if current_path == '/status' }}">{{ icon("pulse") }}<span>Status dos serviços</span></a>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn topbar__menu" type="button" onclick="document.getElementById('sidebar').classList.toggle('is-open')" aria-label="Abrir menu">{{ icon("menu") }}</button>
+      <div class="topbar__title">
+        <h1>{% block heading %}{% endblock %}</h1>
+        {% block subheading %}{% endblock %}
+      </div>
+      <div class="topbar__actions">
+        <label class="svc-toggle" title="Destaca cada painel com a cor do microsserviço que forneceu os dados">
+          <input type="checkbox" id="toggle-services" {{ 'checked' if show_services }}>
+          <span class="svc-toggle__track" aria-hidden="true"></span>
+          <span class="svc-toggle__label">Mostrar microsserviços</span>
+        </label>
+        {% block topbar_extra %}{% endblock %}
+        {% if user %}
+        <span class="user-chip" title="{{ user.email or '' }}">
+          <span class="user-chip__avatar">{{ user.name[:1] }}</span>
+          <span class="user-chip__text"><strong>{{ user.first_name }}</strong><small>{{ user.role_label }}</small></span>
+        </span>
+        <form method="post" action="/logout">
+          <button class="icon-btn" type="submit" title="Sair" aria-label="Sair">{{ icon("logout") }}</button>
+        </form>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="content">
+      {% import "eh_ui/macros.html" as ui %}
+      {% if flash %}{{ ui.alert(flash[1], kind=flash[0]) }}{% endif %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+      EstágioHub · UFAL · Engenharia de Software — o frontend consome apenas o <code>api-gateway</code>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

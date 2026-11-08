@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Publicar vaga{% endblock %}
+{% block heading %}Publicar vaga{% endblock %}
+{% block content %}
+{% call ui.card("Nova vaga de estágio", subtitle="Os limites legais de jornada são validados pelo internship-service") %}
+  {% if error %}{{ ui.alert(error, kind="error", title="Não foi possível publicar:") }}{% endif %}
+  <form method="post" action="/vagas" class="form form--grid">
+    <label class="span-2">Título<input name="title" value="{{ form.title or '' }}" required minlength="3" maxlength="150"></label>
+    <label class="span-2">Descrição<textarea name="description" rows="5" required minlength="10">{{ form.description or '' }}</textarea></label>
+    <label class="span-2">Requisitos <small class="muted">(separados por vírgula)</small>
+      <input name="requirements" value="{{ form.requirements or '' }}" placeholder="Python, SQL, Git" required></label>
+    <label>Curso
+      <select name="course" required>{% for c in courses %}<option {{ 'selected' if form.course == c }}>{{ c }}</option>{% endfor %}</select></label>
+    <label>Período mínimo<input type="number" name="min_semester" min="1" max="12" value="{{ form.min_semester or 3 }}" required></label>
+    <label>Horas por dia <small class="muted">(máx. 6)</small><input type="number" name="hours_per_day" min="1" max="8" value="{{ form.hours_per_day or 6 }}" required></label>
+    <label>Horas por semana <small class="muted">(máx. 30)</small><input type="number" name="hours_per_week" min="1" max="40" value="{{ form.hours_per_week or 30 }}" required></label>
+    <label>Modalidade
+      <select name="modality">
+        {% for value, label in [("onsite", "Presencial"), ("remote", "Remoto"), ("hybrid", "Híbrido")] %}
+          <option value="{{ value }}" {{ 'selected' if form.modality == value }}>{{ label }}</option>
+        {% endfor %}
+      </select></label>
+    <label>Cidade<input name="city" value="{{ form.city or 'Maceió' }}" required></label>
+    <label>Bolsa (R$)<input name="stipend" inputmode="decimal" value="{{ form.stipend or '1200' }}" required></label>
+    <label>Número de vagas<input type="number" name="positions" min="1" max="50" value="{{ form.positions or 1 }}"></label>
+    <div class="span-2 form__actions">
+      <a class="btn" href="/vagas?mine=1">Cancelar</a>
+      <button class="btn btn--primary" type="submit">Publicar vaga</button>
+    </div>
+  </form>
+{% endcall %}
+{% endblock %}

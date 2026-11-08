@@ -1,0 +1,41 @@
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% if not result.ok %}
+  {{ ui.alert(result.error or "Não foi possível carregar as vagas.", kind="warning" if result.unavailable else "error") }}
+{% else %}
+<section class="results" data-service="{{ result.served_by }}" style="--svc: {{ result.served_by|service_color }}">
+  <div class="results__head">
+    <span class="muted">{{ page_data.total }} vaga(s) encontrada(s)</span>
+    {{ ui.service_badge(result.served_by) }}
+  </div>
+  <div class="grid grid--cards">
+  {% for v in page_data["items"] %}
+    <article class="job">
+      <header>
+        <a href="/vagas/{{ v.id }}" class="job__title">{{ v.title }}</a>
+        {{ ui.status_pill(v.status) }}
+      </header>
+      <p class="job__company">{{ v.company_name }}</p>
+      <ul class="job__meta">
+        <li>{{ icon("map", 14) }} {{ v.city }} · {{ v.modality|modality_label }}</li>
+        <li>{{ icon("clock", 14) }} {{ v.hours_per_day }} h/dia · {{ v.hours_per_week }} h/sem</li>
+        <li>{{ icon("cash", 14) }} {{ v.stipend|brl }}</li>
+      </ul>
+      <div class="tags">{% for r in v.requirements[:5] %}<span class="tag">{{ r }}</span>{% endfor %}</div>
+      <footer class="muted small">{{ v.course }} · a partir do {{ v.min_semester }}º período</footer>
+    </article>
+  {% else %}
+    <div class="span-all">{{ ui.empty_state("Nenhuma vaga encontrada.", hint="Ajuste os filtros da busca.") }}</div>
+  {% endfor %}
+  </div>
+  {% set pages = ((page_data.total + page_data.size - 1) // page_data.size) if page_data.size else 1 %}
+  {% if pages > 1 %}
+  <nav class="pager">
+    {% for n in range(1, pages + 1) %}
+      <a href="/vagas?page={{ n }}&q={{ filters.q|urlencode }}&course={{ filters.course|urlencode }}&modality={{ filters.modality }}&city={{ filters.city|urlencode }}"
+         class="pager__item {{ 'is-active' if n == page_data.page }}">{{ n }}</a>
+    {% endfor %}
+  </nav>
+  {% endif %}
+</section>
+{% endif %}

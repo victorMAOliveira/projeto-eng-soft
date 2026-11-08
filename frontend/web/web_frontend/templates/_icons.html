@@ -1,0 +1,27 @@
+{#- Minimal inline SVG icon set (stroke icons, 20x20). Usage: {{ icon("home") }} -#}
+{% macro icon(name, size=18) -%}
+<svg class="icon" width="{{ size }}" height="{{ size }}" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+{%- if name == "home" -%}<path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>
+{%- elif name == "briefcase" -%}<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/>
+{%- elif name == "user" -%}<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/>
+{%- elif name == "plus" -%}<path d="M12 5v14M5 12h14"/>
+{%- elif name == "star" -%}<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/>
+{%- elif name == "kanban" -%}<rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="10" rx="1"/><rect x="17" y="4" width="4" height="13" rx="1"/>
+{%- elif name == "file" -%}<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/>
+{%- elif name == "report" -%}<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>
+{%- elif name == "bell" -%}<path d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/>
+{%- elif name == "bot" -%}<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 13h.01M15 13h.01M9 17h6"/>
+{%- elif name == "pulse" -%}<path d="M3 12h4l3-8 4 16 3-8h4"/>
+{%- elif name == "logout" -%}<path d="M15 4h4v16h-4"/><path d="M10 8l-4 4 4 4"/><path d="M6 12h10"/>
+{%- elif name == "menu" -%}<path d="M4 6h16M4 12h16M4 18h16"/>
+{%- elif name == "check" -%}<path d="m5 12 5 5 9-10"/>
+{%- elif name == "x" -%}<path d="M6 6l12 12M18 6 6 18"/>
+{%- elif name == "map" -%}<path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>
+{%- elif name == "clock" -%}<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+{%- elif name == "cash" -%}<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>
+{%- elif name == "layers" -%}<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>
+{%- else -%}<circle cx="12" cy="12" r="3"/>
+{%- endif -%}
+</svg>
+{%- endmacro %}

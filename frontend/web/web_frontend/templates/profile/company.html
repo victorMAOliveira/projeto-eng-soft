@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% block title %}Perfil da empresa{% endblock %}
+{% block heading %}Perfil da empresa{% endblock %}
+{% block content %}
+{% if not result.ok and not error %}
+  {{ ui.alert(result.error, kind="warning") }}
+{% else %}
+{% call ui.card("Dados da concedente", service=result.served_by) %}
+  {% if error %}{{ ui.alert(error, kind="error", title="Não foi possível salvar:") }}{% endif %}
+  <form method="post" action="/perfil" class="form form--grid">
+    <label class="span-2">Nome fantasia<input name="trade_name" value="{{ form.trade_name or '' }}" required minlength="2"></label>
+    <label>CNPJ <small class="muted">(fictício na demonstração)</small><input name="cnpj" value="{{ form.cnpj or '' }}"></label>
+    <label>Setor<input name="sector" value="{{ form.sector or '' }}"></label>
+    <label>Cidade<input name="city" value="{{ form.city or '' }}"></label>
+    <label>Site<input name="website" value="{{ form.website or '' }}"></label>
+    <label class="span-2">Descrição<textarea name="description" rows="4">{{ form.description or '' }}</textarea></label>
+    <div class="span-2 form__actions"><button class="btn btn--primary" type="submit">Salvar</button></div>
+  </form>
+{% endcall %}
+{% endif %}
+{% endblock %}

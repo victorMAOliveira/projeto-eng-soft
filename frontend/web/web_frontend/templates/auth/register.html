@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro · EstágioHub</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/eh_ui/eh_ui.css">
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+{%- import "eh_ui/macros.html" as ui %}
+{%- from "_icons.html" import icon %}
+<body class="auth-page">
+  <main class="auth auth--single">
+    <section class="auth__card">
+      <a class="brand brand--dark" href="/login"><span class="brand__logo">{{ icon("layers", 22) }}</span><strong>EstágioHub</strong></a>
+      <h2>Criar conta</h2>
+      {% if error %}{{ ui.alert(error, kind="error") }}{% endif %}
+      <form method="post" action="/cadastro" class="form">
+        <fieldset class="segmented">
+          <legend>Eu sou</legend>
+          <label><input type="radio" name="role" value="student" {{ 'checked' if form.get('role', 'student') == 'student' }}> Estudante</label>
+          <label><input type="radio" name="role" value="company" {{ 'checked' if form.get('role') == 'company' }}> Empresa concedente</label>
+        </fieldset>
+        <label>Nome completo (ou razão social)<input name="full_name" value="{{ form.get('full_name', '') }}" required minlength="2"></label>
+        <label>E-mail<input type="email" name="email" value="{{ form.get('email', '') }}" required autocomplete="username"></label>
+        <label>Senha <small class="muted">(mínimo 8 caracteres)</small><input type="password" name="password" required minlength="8" autocomplete="new-password"></label>
+        <button class="btn btn--primary btn--block" type="submit">Cadastrar</button>
+      </form>
+      <p class="muted center">Já tem conta? <a href="/login">Entrar</a></p>
+      <p class="muted small center">Contas da coordenação de estágio são criadas pela instituição.</p>
+    </section>
+  </main>
+</body>
+</html>

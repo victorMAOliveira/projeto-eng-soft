@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% import "eh_ui/macros.html" as ui %}
+{% from "_icons.html" import icon %}
+{% block title %}Painel{% endblock %}
+{% block heading %}Olá, {{ user.first_name }}{% endblock %}
+{% block subheading %}<p class="topbar__sub">Painel {{ user.role_label | lower }}</p>{% endblock %}
+
+{% macro unavailable_panel(result) -%}
+  {{ ui.alert("Os dados deste painel estão temporariamente indisponíveis (" ~ (result.unavailable_service or "serviço") ~ "). O restante do sistema continua funcionando.", kind="warning", title="Degradação graciosa:") }}
+{%- endmacro %}
+
+{% block content %}
+{% if unavailable %}
+  {{ ui.alert("Alguns microsserviços não responderam: " ~ unavailable|join(", ") ~ ". As demais seções seguem disponíveis.", kind="warning", title="Atenção:") }}
+{% endif %}
+
+{% if user.role == "student" %}
+  {% set profile = panels.profile %}
+  {% set stats = panels.stats %}
+  <div class="grid grid--stats">
+    {{ ui.stat("Vagas abertas", stats.data.open if stats.ok else "—", service=stats.served_by) }}
+    {{ ui.stat("Perfil completo", (profile.data.completeness|pct) if profile.ok else "—", service=profile.served_by, hint="quanto mais completo, melhores as recomendações") }}
+  </div>
+  <div class="grid grid--2">
+    {% call ui.card("Meu perfil acadêmico", service=profile.served_by, subtitle="Base das recomendações") %}
+      {% if profile.ok %}
+        {% set p = profile.data %}
+        <dl class="kv">
+          <dt>Curso</dt><dd>{{ p.course or "—" }}</dd>
+          <dt>Período</dt><dd>{{ p.semester ~ "º" if p.semester else "—" }}</dd>
+          <dt>Disponibilidade</dt><dd>{{ p.weekly_availability_hours ~ " h/semana" if p.weekly_availability_hours else "—" }}</dd>
+          <dt>Modalidade</dt><dd>{{ p.preferred_modality|modality_label }}</dd>
+        </dl>
+        <div class="tags">{% for s in p.skills %}<span class="tag">{{ s }}</span>{% else %}<span class="muted">Nenhuma habilidade cadastrada.</span>{% endfor %}</div>
+        <p><a class="btn btn--sm" href="/perfil">Editar perfil</a></p>
+      {% else %}{{ unavailable_panel(profile) }}{% endif %}
+    {% endcall %}
+    {% call ui.card("Vagas recentes", service=panels.latest.served_by, subtitle="Últimas publicadas") %}
+      {% if panels.latest.ok %}
+        <ul class="list">
+        {% for v in panels.latest.data["items"] %}
+          <li><a href="/vagas/{{ v.id }}"><strong>{{ v.title }}</strong></a><span class="muted">{{ v.company_name }} · {{ v.city }} · {{ v.modality|modality_label }}</span></li>
+        {% else %}<li class="muted">Nenhuma vaga aberta.</li>{% endfor %}
+        </ul>
+        <p><a class="btn btn--sm" href="/vagas">Ver todas</a></p>
+      {% else %}{{ unavailable_panel(panels.latest) }}{% endif %}
+    {% endcall %}
+  </div>
+
+{% elif user.role == "company" %}
+  {% set mine = panels.mine %}
+  <div class="grid grid--stats">
+    {{ ui.stat("Minhas vagas abertas", (mine.data|selectattr("status", "equalto", "open")|list|length) if mine.ok else "—", service=mine.served_by) }}
+    {{ ui.stat("Vagas encerradas", (mine.data|selectattr("status", "equalto", "closed")|list|length) if mine.ok else "—", service=mine.served_by) }}
+    {{ ui.stat("Vagas abertas na plataforma", panels.stats.data.open if panels.stats.ok else "—", service=panels.stats.served_by) }}
+  </div>
+  {% call ui.card("Minhas vagas", service=mine.served_by, actions='<a class="btn btn--sm btn--primary" href="/vagas/nova">Publicar vaga</a>'|safe) %}
+    {% if mine.ok %}
+      {% set rows = [] %}
+      {% for v in mine.data %}
+        {% set _ = rows.append(['<a href="/vagas/%s">%s</a>'|format(v.id, v.title|e)|safe, v.course, ui.status_pill(v.status), v.published_at|date_br]) %}
+      {% endfor %}
+      {{ ui.table(["Vaga", "Curso", "Status", "Publicada em"], rows, empty="Você ainda não publicou vagas.") }}
+    {% else %}{{ unavailable_panel(mine) }}{% endif %}
+  {% endcall %}
+
+{% else %}
+  {% set stats = panels.stats %}
+  <div class="grid grid--stats">
+    {{ ui.stat("Vagas abertas", stats.data.open if stats.ok else "—", service=stats.served_by) }}
+    {{ ui.stat("Vagas encerradas", stats.data.closed if stats.ok else "—", service=stats.served_by) }}
+  </div>
+  <div class="grid grid--2">
+    {% call ui.card("Vagas por curso", service=stats.served_by) %}
+      {% if stats.ok %}
+        {% set rows = [] %}{% for course, n in stats.data.by_course.items() %}{% set _ = rows.append([course, n]) %}{% endfor %}
+        {{ ui.table(["Curso", "Vagas abertas"], rows) }}
+      {% else %}{{ unavailable_panel(stats) }}{% endif %}
+    {% endcall %}
+    {% call ui.card("Vagas recentes", service=panels.latest.served_by) %}
+      {% if panels.latest.ok %}
+        <ul class="list">{% for v in panels.latest.data["items"] %}<li><a href="/vagas/{{ v.id }}"><strong>{{ v.title }}</strong></a><span class="muted">{{ v.company_name }}</span></li>{% else %}<li class="muted">Nenhuma vaga.</li>{% endfor %}</ul>
+      {% else %}{{ unavailable_panel(panels.latest) }}{% endif %}
+    {% endcall %}
+  </div>
+{% endif %}
+{% endblock %}
