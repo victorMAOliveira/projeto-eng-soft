@@ -1,0 +1,2800 @@
+{
+ "companies": [
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de tecnologia criada para a demonstração.",
+   "email": "rh@techsolucoes.test",
+   "key": "c1",
+   "name": "Campos Tecnologia Ltda (fictícia)",
+   "sector": "Tecnologia"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de consultoria criada para a demonstração.",
+   "email": "empresa2@empresas.test",
+   "key": "c2",
+   "name": "Dias Engenharia Ltda (fictícia)",
+   "sector": "Consultoria"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de indústria criada para a demonstração.",
+   "email": "empresa3@empresas.test",
+   "key": "c3",
+   "name": "Montenegro Digital Ltda (fictícia)",
+   "sector": "Indústria"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de varejo criada para a demonstração.",
+   "email": "empresa4@empresas.test",
+   "key": "c4",
+   "name": "Moraes Digital Ltda (fictícia)",
+   "sector": "Varejo"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de construção criada para a demonstração.",
+   "email": "empresa5@empresas.test",
+   "key": "c5",
+   "name": "Ramos Tecnologia Ltda (fictícia)",
+   "sector": "Construção"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de saúde criada para a demonstração.",
+   "email": "empresa6@empresas.test",
+   "key": "c6",
+   "name": "Caldeira Soluções Ltda (fictícia)",
+   "sector": "Saúde"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de educação criada para a demonstração.",
+   "email": "empresa7@empresas.test",
+   "key": "c7",
+   "name": "Câmara Digital Ltda (fictícia)",
+   "sector": "Educação"
+  },
+  {
+   "city": "Maceió",
+   "description": "Empresa fictícia do setor de finanças criada para a demonstração.",
+   "email": "empresa8@empresas.test",
+   "key": "c8",
+   "name": "Peixoto Digital Ltda (fictícia)",
+   "sector": "Finanças"
+  }
+ ],
+ "internships": [
+  {
+   "city": "Maceió",
+   "company_key": "c1",
+   "course": "Ciência da Computação",
+   "description": "Atuar com desenvolvimento de APIs REST, integração com bancos de dados relacionais e testes automatizados. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Spring Boot, Git.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v1",
+   "min_semester": 2,
+   "modality": "onsite",
+   "published_at": "2026-10-17T12:00:00+00:00",
+   "requirements": [
+    "Spring Boot",
+    "Git",
+    "Docker",
+    "Testes automatizados",
+    "APIs REST"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em Engenharia de Software (Backend)",
+   "track": "backend"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c2",
+   "course": "Ciência da Computação",
+   "description": "Atuar com análise exploratória, construção de dashboards e modelos preditivos com dados reais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Python, Visualização de dados.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v2",
+   "min_semester": 5,
+   "modality": "hybrid",
+   "published_at": "2026-10-16T01:00:00+00:00",
+   "requirements": [
+    "Python",
+    "Visualização de dados",
+    "Machine Learning",
+    "SQL"
+   ],
+   "stipend": 1800.0,
+   "title": "Estágio em Análise de Dados",
+   "track": "dados"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c3",
+   "course": "Ciência da Computação",
+   "description": "Atuar com automação de deploy, pipelines de CI/CD, containers e observabilidade em nuvem. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Redes, Docker.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v3",
+   "min_semester": 6,
+   "modality": "remote",
+   "published_at": "2026-10-03T08:00:00+00:00",
+   "requirements": [
+    "Redes",
+    "Docker",
+    "AWS"
+   ],
+   "stipend": 1800.0,
+   "title": "Estágio em SRE",
+   "track": "devops"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c4",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com construção de interfaces web responsivas e acessíveis com React e TypeScript. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Acessibilidade, Git.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v4",
+   "min_semester": 2,
+   "modality": "remote",
+   "published_at": "2026-09-24T19:00:00+00:00",
+   "requirements": [
+    "Acessibilidade",
+    "Git",
+    "Figma",
+    "JavaScript"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em Desenvolvimento Web",
+   "track": "frontend"
+  },
+  {
+   "city": "Recife",
+   "company_key": "c5",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com desenvolvimento de aplicativos móveis nativos e multiplataforma. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Firebase, Git.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v5",
+   "min_semester": 6,
+   "modality": "onsite",
+   "published_at": "2026-09-25T21:00:00+00:00",
+   "requirements": [
+    "Firebase",
+    "Git",
+    "Swift",
+    "UI mobile"
+   ],
+   "stipend": 1000.0,
+   "title": "Estágio em Flutter",
+   "track": "mobile"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c6",
+   "course": "Engenharia de Computação",
+   "description": "Atuar com firmware para microcontroladores, sensores e dispositivos de Internet das Coisas. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: C, Sistemas digitais.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v6",
+   "min_semester": 3,
+   "modality": "remote",
+   "published_at": "2026-09-22T23:00:00+00:00",
+   "requirements": [
+    "C",
+    "Sistemas digitais",
+    "C++"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em IoT",
+   "track": "embarcados"
+  },
+  {
+   "city": "Arapiraca",
+   "company_key": "c7",
+   "course": "Administração",
+   "description": "Atuar com controle orçamentário, análise de custos e relatórios financeiros gerenciais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: ERP, Inglês.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v7",
+   "min_semester": 6,
+   "modality": "hybrid",
+   "published_at": "2026-10-12T19:00:00+00:00",
+   "requirements": [
+    "ERP",
+    "Inglês",
+    "Power BI",
+    "Planejamento",
+    "Análise de custos"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio Financeiro",
+   "track": "financas"
+  },
+  {
+   "city": "Arapiraca",
+   "company_key": "c8",
+   "course": "Administração",
+   "description": "Atuar com campanhas digitais, produção de conteúdo e análise de métricas de engajamento. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Google Analytics, SEO.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v8",
+   "min_semester": 5,
+   "modality": "hybrid",
+   "published_at": "2026-10-22T16:00:00+00:00",
+   "requirements": [
+    "Google Analytics",
+    "SEO",
+    "CRM",
+    "Marketing digital"
+   ],
+   "stipend": 1200.0,
+   "title": "Estágio em Growth",
+   "track": "marketing"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c1",
+   "course": "Engenharia Civil",
+   "description": "Atuar com acompanhamento de obras, modelagem BIM e orçamentação. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Topografia, Normas técnicas.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v9",
+   "min_semester": 2,
+   "modality": "remote",
+   "published_at": "2026-09-30T23:00:00+00:00",
+   "requirements": [
+    "Topografia",
+    "Normas técnicas",
+    "Excel"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Planejamento de Obras",
+   "track": "obras"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c2",
+   "course": "Design",
+   "description": "Atuar com pesquisa com usuários, prototipação e evolução do design system. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Ilustração, Acessibilidade.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v10",
+   "min_semester": 5,
+   "modality": "onsite",
+   "published_at": "2026-10-20T23:00:00+00:00",
+   "requirements": [
+    "Ilustração",
+    "Acessibilidade",
+    "Usabilidade"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Design Digital",
+   "track": "ux"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c3",
+   "course": "Ciência da Computação",
+   "description": "Atuar com desenvolvimento de APIs REST, integração com bancos de dados relacionais e testes automatizados. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Java, PostgreSQL.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v11",
+   "min_semester": 5,
+   "modality": "hybrid",
+   "published_at": "2026-11-01T10:00:00+00:00",
+   "requirements": [
+    "Java",
+    "PostgreSQL",
+    "Spring Boot",
+    "Testes automatizados"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em Desenvolvimento Backend",
+   "track": "backend"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c4",
+   "course": "Ciência da Computação",
+   "description": "Atuar com análise exploratória, construção de dashboards e modelos preditivos com dados reais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Power BI, Excel.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v12",
+   "min_semester": 4,
+   "modality": "onsite",
+   "published_at": "2026-10-14T15:00:00+00:00",
+   "requirements": [
+    "Power BI",
+    "Excel",
+    "SQL",
+    "Estatística",
+    "Python"
+   ],
+   "stipend": 1200.0,
+   "title": "Estágio em BI",
+   "track": "dados"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c5",
+   "course": "Ciência da Computação",
+   "description": "Atuar com automação de deploy, pipelines de CI/CD, containers e observabilidade em nuvem. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Terraform, Monitoramento.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v13",
+   "min_semester": 6,
+   "modality": "remote",
+   "published_at": "2026-09-25T08:00:00+00:00",
+   "requirements": [
+    "Terraform",
+    "Monitoramento",
+    "Kubernetes",
+    "AWS",
+    "Docker"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em SRE",
+   "track": "devops"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c6",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com construção de interfaces web responsivas e acessíveis com React e TypeScript. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: React, Next.js.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v14",
+   "min_semester": 5,
+   "modality": "onsite",
+   "published_at": "2026-10-22T20:00:00+00:00",
+   "requirements": [
+    "React",
+    "Next.js",
+    "CSS",
+    "Git",
+    "HTML"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Desenvolvimento Frontend",
+   "track": "frontend"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c7",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com desenvolvimento de aplicativos móveis nativos e multiplataforma. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Kotlin, React Native.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v15",
+   "min_semester": 4,
+   "modality": "hybrid",
+   "published_at": "2026-10-30T20:00:00+00:00",
+   "requirements": [
+    "Kotlin",
+    "React Native",
+    "Git"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Apps Android",
+   "track": "mobile"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c8",
+   "course": "Engenharia de Computação",
+   "description": "Atuar com firmware para microcontroladores, sensores e dispositivos de Internet das Coisas. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: C++, Python.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v16",
+   "min_semester": 6,
+   "modality": "onsite",
+   "published_at": "2026-10-22T08:00:00+00:00",
+   "requirements": [
+    "C++",
+    "Python",
+    "Sistemas digitais",
+    "Eletrônica"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em Firmware",
+   "track": "embarcados"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c1",
+   "course": "Administração",
+   "description": "Atuar com controle orçamentário, análise de custos e relatórios financeiros gerenciais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: ERP, Análise de custos.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v17",
+   "min_semester": 3,
+   "modality": "onsite",
+   "published_at": "2026-10-30T06:00:00+00:00",
+   "requirements": [
+    "ERP",
+    "Análise de custos",
+    "Contabilidade",
+    "Power BI"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio Financeiro",
+   "track": "financas"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c2",
+   "course": "Administração",
+   "description": "Atuar com campanhas digitais, produção de conteúdo e análise de métricas de engajamento. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Google Analytics, Pesquisa de mercado.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v18",
+   "min_semester": 3,
+   "modality": "onsite",
+   "published_at": "2026-09-29T06:00:00+00:00",
+   "requirements": [
+    "Google Analytics",
+    "Pesquisa de mercado",
+    "Marketing digital",
+    "Redes sociais"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Growth",
+   "track": "marketing"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c3",
+   "course": "Engenharia Civil",
+   "description": "Atuar com acompanhamento de obras, modelagem BIM e orçamentação. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: MS Project, Excel.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v19",
+   "min_semester": 4,
+   "modality": "onsite",
+   "published_at": "2026-10-08T03:00:00+00:00",
+   "requirements": [
+    "MS Project",
+    "Excel",
+    "Segurança do trabalho",
+    "Normas técnicas"
+   ],
+   "stipend": 1400.0,
+   "title": "Estágio em Obras",
+   "track": "obras"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c4",
+   "course": "Design",
+   "description": "Atuar com pesquisa com usuários, prototipação e evolução do design system. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Adobe XD, Usabilidade.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v20",
+   "min_semester": 2,
+   "modality": "hybrid",
+   "published_at": "2026-09-28T21:00:00+00:00",
+   "requirements": [
+    "Adobe XD",
+    "Usabilidade",
+    "Ilustração",
+    "UX Research"
+   ],
+   "stipend": 1200.0,
+   "title": "Estágio em Product Design",
+   "track": "ux"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c5",
+   "course": "Ciência da Computação",
+   "description": "Atuar com desenvolvimento de APIs REST, integração com bancos de dados relacionais e testes automatizados. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: PostgreSQL, Testes automatizados.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v21",
+   "min_semester": 5,
+   "modality": "hybrid",
+   "published_at": "2026-10-02T16:00:00+00:00",
+   "requirements": [
+    "PostgreSQL",
+    "Testes automatizados",
+    "Python"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em APIs e Microsserviços",
+   "track": "backend"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c6",
+   "course": "Ciência da Computação",
+   "description": "Atuar com análise exploratória, construção de dashboards e modelos preditivos com dados reais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Pandas, Machine Learning.",
+   "hours_per_day": 6,
+   "hours_per_week": 30,
+   "key": "v22",
+   "min_semester": 6,
+   "modality": "hybrid",
+   "published_at": "2026-09-17T04:00:00+00:00",
+   "requirements": [
+    "Pandas",
+    "Machine Learning",
+    "Power BI",
+    "Python"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em BI",
+   "track": "dados"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c7",
+   "course": "Ciência da Computação",
+   "description": "Atuar com automação de deploy, pipelines de CI/CD, containers e observabilidade em nuvem. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Terraform, AWS.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v23",
+   "min_semester": 2,
+   "modality": "hybrid",
+   "published_at": "2026-10-25T23:00:00+00:00",
+   "requirements": [
+    "Terraform",
+    "AWS",
+    "Kubernetes",
+    "Linux"
+   ],
+   "stipend": 1200.0,
+   "title": "Estágio em DevOps",
+   "track": "devops"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c8",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com construção de interfaces web responsivas e acessíveis com React e TypeScript. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: React, TypeScript.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v24",
+   "min_semester": 4,
+   "modality": "remote",
+   "published_at": "2026-10-14T02:00:00+00:00",
+   "requirements": [
+    "React",
+    "TypeScript",
+    "Acessibilidade",
+    "Next.js",
+    "CSS"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em Desenvolvimento Frontend",
+   "track": "frontend"
+  },
+  {
+   "city": "Rio Largo",
+   "company_key": "c1",
+   "course": "Sistemas de Informação",
+   "description": "Atuar com desenvolvimento de aplicativos móveis nativos e multiplataforma. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Swift, Firebase.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v25",
+   "min_semester": 2,
+   "modality": "onsite",
+   "published_at": "2026-10-17T12:00:00+00:00",
+   "requirements": [
+    "Swift",
+    "Firebase",
+    "Kotlin",
+    "APIs REST"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em Apps Android",
+   "track": "mobile"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c2",
+   "course": "Engenharia de Computação",
+   "description": "Atuar com firmware para microcontroladores, sensores e dispositivos de Internet das Coisas. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: IoT, Python.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v26",
+   "min_semester": 5,
+   "modality": "remote",
+   "published_at": "2026-09-24T06:00:00+00:00",
+   "requirements": [
+    "IoT",
+    "Python",
+    "C",
+    "Microcontroladores"
+   ],
+   "stipend": 1800.0,
+   "title": "Estágio em Firmware",
+   "track": "embarcados"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c3",
+   "course": "Administração",
+   "description": "Atuar com controle orçamentário, análise de custos e relatórios financeiros gerenciais. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Planejamento, Power BI.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v27",
+   "min_semester": 5,
+   "modality": "onsite",
+   "published_at": "2026-10-28T13:00:00+00:00",
+   "requirements": [
+    "Planejamento",
+    "Power BI",
+    "Matemática financeira",
+    "Finanças corporativas"
+   ],
+   "stipend": 1800.0,
+   "title": "Estágio Financeiro",
+   "track": "financas"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c4",
+   "course": "Administração",
+   "description": "Atuar com campanhas digitais, produção de conteúdo e análise de métricas de engajamento. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: SEO, Redes sociais.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v28",
+   "min_semester": 6,
+   "modality": "remote",
+   "published_at": "2026-10-11T18:00:00+00:00",
+   "requirements": [
+    "SEO",
+    "Redes sociais",
+    "Inglês",
+    "Comunicação"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em Marketing Digital",
+   "track": "marketing"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c5",
+   "course": "Engenharia Civil",
+   "description": "Atuar com acompanhamento de obras, modelagem BIM e orçamentação. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Revit, BIM.",
+   "hours_per_day": 4,
+   "hours_per_week": 20,
+   "key": "v29",
+   "min_semester": 4,
+   "modality": "hybrid",
+   "published_at": "2026-10-30T08:00:00+00:00",
+   "requirements": [
+    "Revit",
+    "BIM",
+    "Segurança do trabalho"
+   ],
+   "stipend": 800.0,
+   "title": "Estágio em Planejamento de Obras",
+   "track": "obras"
+  },
+  {
+   "city": "Maceió",
+   "company_key": "c6",
+   "course": "Design",
+   "description": "Atuar com pesquisa com usuários, prototipação e evolução do design system. O(a) estagiário(a) terá mentoria semanal e participará de rituais ágeis. Desejável: Tipografia, Prototipação.",
+   "hours_per_day": 5,
+   "hours_per_week": 25,
+   "key": "v30",
+   "min_semester": 3,
+   "modality": "onsite",
+   "published_at": "2026-10-08T05:00:00+00:00",
+   "requirements": [
+    "Tipografia",
+    "Prototipação",
+    "Design System",
+    "Design de interação"
+   ],
+   "stipend": 1600.0,
+   "title": "Estágio em Product Design",
+   "track": "ux"
+  }
+ ],
+ "labels": [
+  {
+   "internship": "v1",
+   "relevance": 2,
+   "student": "s1"
+  },
+  {
+   "internship": "v2",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v3",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v11",
+   "relevance": 2,
+   "student": "s1"
+  },
+  {
+   "internship": "v12",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v13",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v21",
+   "relevance": 2,
+   "student": "s1"
+  },
+  {
+   "internship": "v22",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v23",
+   "relevance": 1,
+   "student": "s1"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s2"
+  },
+  {
+   "internship": "v2",
+   "relevance": 2,
+   "student": "s2"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s2"
+  },
+  {
+   "internship": "v12",
+   "relevance": 2,
+   "student": "s2"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s2"
+  },
+  {
+   "internship": "v22",
+   "relevance": 2,
+   "student": "s2"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s3"
+  },
+  {
+   "internship": "v3",
+   "relevance": 2,
+   "student": "s3"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s3"
+  },
+  {
+   "internship": "v13",
+   "relevance": 2,
+   "student": "s3"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s3"
+  },
+  {
+   "internship": "v23",
+   "relevance": 2,
+   "student": "s3"
+  },
+  {
+   "internship": "v4",
+   "relevance": 2,
+   "student": "s4"
+  },
+  {
+   "internship": "v5",
+   "relevance": 1,
+   "student": "s4"
+  },
+  {
+   "internship": "v14",
+   "relevance": 2,
+   "student": "s4"
+  },
+  {
+   "internship": "v15",
+   "relevance": 1,
+   "student": "s4"
+  },
+  {
+   "internship": "v24",
+   "relevance": 2,
+   "student": "s4"
+  },
+  {
+   "internship": "v25",
+   "relevance": 1,
+   "student": "s4"
+  },
+  {
+   "internship": "v4",
+   "relevance": 1,
+   "student": "s5"
+  },
+  {
+   "internship": "v5",
+   "relevance": 2,
+   "student": "s5"
+  },
+  {
+   "internship": "v14",
+   "relevance": 1,
+   "student": "s5"
+  },
+  {
+   "internship": "v15",
+   "relevance": 2,
+   "student": "s5"
+  },
+  {
+   "internship": "v24",
+   "relevance": 1,
+   "student": "s5"
+  },
+  {
+   "internship": "v25",
+   "relevance": 2,
+   "student": "s5"
+  },
+  {
+   "internship": "v6",
+   "relevance": 2,
+   "student": "s6"
+  },
+  {
+   "internship": "v17",
+   "relevance": 2,
+   "student": "s7"
+  },
+  {
+   "internship": "v8",
+   "relevance": 2,
+   "student": "s8"
+  },
+  {
+   "internship": "v17",
+   "relevance": 1,
+   "student": "s8"
+  },
+  {
+   "internship": "v18",
+   "relevance": 2,
+   "student": "s8"
+  },
+  {
+   "internship": "v27",
+   "relevance": 1,
+   "student": "s8"
+  },
+  {
+   "internship": "v9",
+   "relevance": 2,
+   "student": "s9"
+  },
+  {
+   "internship": "v19",
+   "relevance": 2,
+   "student": "s9"
+  },
+  {
+   "internship": "v29",
+   "relevance": 2,
+   "student": "s9"
+  },
+  {
+   "internship": "v10",
+   "relevance": 2,
+   "student": "s10"
+  },
+  {
+   "internship": "v20",
+   "relevance": 2,
+   "student": "s10"
+  },
+  {
+   "internship": "v30",
+   "relevance": 2,
+   "student": "s10"
+  },
+  {
+   "internship": "v1",
+   "relevance": 2,
+   "student": "s11"
+  },
+  {
+   "internship": "v2",
+   "relevance": 1,
+   "student": "s11"
+  },
+  {
+   "internship": "v11",
+   "relevance": 2,
+   "student": "s11"
+  },
+  {
+   "internship": "v12",
+   "relevance": 1,
+   "student": "s11"
+  },
+  {
+   "internship": "v21",
+   "relevance": 2,
+   "student": "s11"
+  },
+  {
+   "internship": "v23",
+   "relevance": 1,
+   "student": "s11"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s12"
+  },
+  {
+   "internship": "v2",
+   "relevance": 2,
+   "student": "s12"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s12"
+  },
+  {
+   "internship": "v12",
+   "relevance": 2,
+   "student": "s12"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s12"
+  },
+  {
+   "internship": "v22",
+   "relevance": 2,
+   "student": "s12"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s13"
+  },
+  {
+   "internship": "v3",
+   "relevance": 2,
+   "student": "s13"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s13"
+  },
+  {
+   "internship": "v13",
+   "relevance": 2,
+   "student": "s13"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s13"
+  },
+  {
+   "internship": "v23",
+   "relevance": 2,
+   "student": "s13"
+  },
+  {
+   "internship": "v4",
+   "relevance": 2,
+   "student": "s14"
+  },
+  {
+   "internship": "v5",
+   "relevance": 1,
+   "student": "s14"
+  },
+  {
+   "internship": "v14",
+   "relevance": 2,
+   "student": "s14"
+  },
+  {
+   "internship": "v15",
+   "relevance": 1,
+   "student": "s14"
+  },
+  {
+   "internship": "v24",
+   "relevance": 2,
+   "student": "s14"
+  },
+  {
+   "internship": "v25",
+   "relevance": 1,
+   "student": "s14"
+  },
+  {
+   "internship": "v4",
+   "relevance": 1,
+   "student": "s15"
+  },
+  {
+   "internship": "v14",
+   "relevance": 1,
+   "student": "s15"
+  },
+  {
+   "internship": "v15",
+   "relevance": 2,
+   "student": "s15"
+  },
+  {
+   "internship": "v24",
+   "relevance": 1,
+   "student": "s15"
+  },
+  {
+   "internship": "v25",
+   "relevance": 2,
+   "student": "s15"
+  },
+  {
+   "internship": "v6",
+   "relevance": 2,
+   "student": "s16"
+  },
+  {
+   "internship": "v8",
+   "relevance": 1,
+   "student": "s17"
+  },
+  {
+   "internship": "v17",
+   "relevance": 2,
+   "student": "s17"
+  },
+  {
+   "internship": "v27",
+   "relevance": 2,
+   "student": "s17"
+  },
+  {
+   "internship": "v17",
+   "relevance": 1,
+   "student": "s18"
+  },
+  {
+   "internship": "v18",
+   "relevance": 2,
+   "student": "s18"
+  },
+  {
+   "internship": "v20",
+   "relevance": 2,
+   "student": "s20"
+  },
+  {
+   "internship": "v30",
+   "relevance": 2,
+   "student": "s20"
+  },
+  {
+   "internship": "v1",
+   "relevance": 2,
+   "student": "s21"
+  },
+  {
+   "internship": "v2",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v3",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v11",
+   "relevance": 2,
+   "student": "s21"
+  },
+  {
+   "internship": "v12",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v13",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v21",
+   "relevance": 2,
+   "student": "s21"
+  },
+  {
+   "internship": "v22",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v23",
+   "relevance": 1,
+   "student": "s21"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s22"
+  },
+  {
+   "internship": "v2",
+   "relevance": 2,
+   "student": "s22"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s22"
+  },
+  {
+   "internship": "v12",
+   "relevance": 2,
+   "student": "s22"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s22"
+  },
+  {
+   "internship": "v22",
+   "relevance": 2,
+   "student": "s22"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s23"
+  },
+  {
+   "internship": "v3",
+   "relevance": 2,
+   "student": "s23"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s23"
+  },
+  {
+   "internship": "v13",
+   "relevance": 2,
+   "student": "s23"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s23"
+  },
+  {
+   "internship": "v23",
+   "relevance": 2,
+   "student": "s23"
+  },
+  {
+   "internship": "v4",
+   "relevance": 2,
+   "student": "s24"
+  },
+  {
+   "internship": "v15",
+   "relevance": 1,
+   "student": "s24"
+  },
+  {
+   "internship": "v24",
+   "relevance": 2,
+   "student": "s24"
+  },
+  {
+   "internship": "v25",
+   "relevance": 1,
+   "student": "s24"
+  },
+  {
+   "internship": "v4",
+   "relevance": 1,
+   "student": "s25"
+  },
+  {
+   "internship": "v5",
+   "relevance": 2,
+   "student": "s25"
+  },
+  {
+   "internship": "v14",
+   "relevance": 1,
+   "student": "s25"
+  },
+  {
+   "internship": "v15",
+   "relevance": 2,
+   "student": "s25"
+  },
+  {
+   "internship": "v24",
+   "relevance": 1,
+   "student": "s25"
+  },
+  {
+   "internship": "v25",
+   "relevance": 2,
+   "student": "s25"
+  },
+  {
+   "internship": "v8",
+   "relevance": 1,
+   "student": "s27"
+  },
+  {
+   "internship": "v17",
+   "relevance": 2,
+   "student": "s27"
+  },
+  {
+   "internship": "v27",
+   "relevance": 2,
+   "student": "s27"
+  },
+  {
+   "internship": "v8",
+   "relevance": 2,
+   "student": "s28"
+  },
+  {
+   "internship": "v17",
+   "relevance": 1,
+   "student": "s28"
+  },
+  {
+   "internship": "v18",
+   "relevance": 2,
+   "student": "s28"
+  },
+  {
+   "internship": "v27",
+   "relevance": 1,
+   "student": "s28"
+  },
+  {
+   "internship": "v9",
+   "relevance": 2,
+   "student": "s29"
+  },
+  {
+   "internship": "v19",
+   "relevance": 2,
+   "student": "s29"
+  },
+  {
+   "internship": "v29",
+   "relevance": 2,
+   "student": "s29"
+  },
+  {
+   "internship": "v10",
+   "relevance": 2,
+   "student": "s30"
+  },
+  {
+   "internship": "v20",
+   "relevance": 2,
+   "student": "s30"
+  },
+  {
+   "internship": "v30",
+   "relevance": 2,
+   "student": "s30"
+  },
+  {
+   "internship": "v1",
+   "relevance": 2,
+   "student": "s31"
+  },
+  {
+   "internship": "v23",
+   "relevance": 1,
+   "student": "s31"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s32"
+  },
+  {
+   "internship": "v2",
+   "relevance": 2,
+   "student": "s32"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s32"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s32"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s33"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s33"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s33"
+  },
+  {
+   "internship": "v23",
+   "relevance": 2,
+   "student": "s33"
+  },
+  {
+   "internship": "v4",
+   "relevance": 2,
+   "student": "s34"
+  },
+  {
+   "internship": "v5",
+   "relevance": 1,
+   "student": "s34"
+  },
+  {
+   "internship": "v14",
+   "relevance": 2,
+   "student": "s34"
+  },
+  {
+   "internship": "v15",
+   "relevance": 1,
+   "student": "s34"
+  },
+  {
+   "internship": "v24",
+   "relevance": 2,
+   "student": "s34"
+  },
+  {
+   "internship": "v25",
+   "relevance": 1,
+   "student": "s34"
+  },
+  {
+   "internship": "v4",
+   "relevance": 1,
+   "student": "s35"
+  },
+  {
+   "internship": "v25",
+   "relevance": 2,
+   "student": "s35"
+  },
+  {
+   "internship": "v6",
+   "relevance": 2,
+   "student": "s36"
+  },
+  {
+   "internship": "v16",
+   "relevance": 2,
+   "student": "s36"
+  },
+  {
+   "internship": "v26",
+   "relevance": 2,
+   "student": "s36"
+  },
+  {
+   "internship": "v8",
+   "relevance": 1,
+   "student": "s37"
+  },
+  {
+   "internship": "v17",
+   "relevance": 2,
+   "student": "s37"
+  },
+  {
+   "internship": "v27",
+   "relevance": 2,
+   "student": "s37"
+  },
+  {
+   "internship": "v28",
+   "relevance": 1,
+   "student": "s37"
+  },
+  {
+   "internship": "v8",
+   "relevance": 2,
+   "student": "s38"
+  },
+  {
+   "internship": "v17",
+   "relevance": 1,
+   "student": "s38"
+  },
+  {
+   "internship": "v27",
+   "relevance": 1,
+   "student": "s38"
+  },
+  {
+   "internship": "v28",
+   "relevance": 2,
+   "student": "s38"
+  },
+  {
+   "internship": "v9",
+   "relevance": 2,
+   "student": "s39"
+  },
+  {
+   "internship": "v19",
+   "relevance": 2,
+   "student": "s39"
+  },
+  {
+   "internship": "v29",
+   "relevance": 2,
+   "student": "s39"
+  },
+  {
+   "internship": "v10",
+   "relevance": 2,
+   "student": "s40"
+  },
+  {
+   "internship": "v20",
+   "relevance": 2,
+   "student": "s40"
+  },
+  {
+   "internship": "v30",
+   "relevance": 2,
+   "student": "s40"
+  },
+  {
+   "internship": "v1",
+   "relevance": 2,
+   "student": "s41"
+  },
+  {
+   "internship": "v2",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v3",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v11",
+   "relevance": 2,
+   "student": "s41"
+  },
+  {
+   "internship": "v12",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v13",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v21",
+   "relevance": 2,
+   "student": "s41"
+  },
+  {
+   "internship": "v22",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v23",
+   "relevance": 1,
+   "student": "s41"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s42"
+  },
+  {
+   "internship": "v2",
+   "relevance": 2,
+   "student": "s42"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s42"
+  },
+  {
+   "internship": "v12",
+   "relevance": 2,
+   "student": "s42"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s42"
+  },
+  {
+   "internship": "v22",
+   "relevance": 2,
+   "student": "s42"
+  },
+  {
+   "internship": "v1",
+   "relevance": 1,
+   "student": "s43"
+  },
+  {
+   "internship": "v3",
+   "relevance": 2,
+   "student": "s43"
+  },
+  {
+   "internship": "v11",
+   "relevance": 1,
+   "student": "s43"
+  },
+  {
+   "internship": "v13",
+   "relevance": 2,
+   "student": "s43"
+  },
+  {
+   "internship": "v21",
+   "relevance": 1,
+   "student": "s43"
+  },
+  {
+   "internship": "v23",
+   "relevance": 2,
+   "student": "s43"
+  },
+  {
+   "internship": "v4",
+   "relevance": 2,
+   "student": "s44"
+  },
+  {
+   "internship": "v5",
+   "relevance": 1,
+   "student": "s44"
+  },
+  {
+   "internship": "v14",
+   "relevance": 2,
+   "student": "s44"
+  },
+  {
+   "internship": "v15",
+   "relevance": 1,
+   "student": "s44"
+  },
+  {
+   "internship": "v24",
+   "relevance": 2,
+   "student": "s44"
+  },
+  {
+   "internship": "v25",
+   "relevance": 1,
+   "student": "s44"
+  },
+  {
+   "internship": "v4",
+   "relevance": 1,
+   "student": "s45"
+  },
+  {
+   "internship": "v14",
+   "relevance": 1,
+   "student": "s45"
+  },
+  {
+   "internship": "v15",
+   "relevance": 2,
+   "student": "s45"
+  },
+  {
+   "internship": "v24",
+   "relevance": 1,
+   "student": "s45"
+  },
+  {
+   "internship": "v25",
+   "relevance": 2,
+   "student": "s45"
+  },
+  {
+   "internship": "v6",
+   "relevance": 2,
+   "student": "s46"
+  },
+  {
+   "internship": "v16",
+   "relevance": 2,
+   "student": "s46"
+  },
+  {
+   "internship": "v26",
+   "relevance": 2,
+   "student": "s46"
+  },
+  {
+   "internship": "v8",
+   "relevance": 1,
+   "student": "s47"
+  },
+  {
+   "internship": "v17",
+   "relevance": 2,
+   "student": "s47"
+  },
+  {
+   "internship": "v27",
+   "relevance": 2,
+   "student": "s47"
+  },
+  {
+   "internship": "v28",
+   "relevance": 1,
+   "student": "s47"
+  },
+  {
+   "internship": "v7",
+   "relevance": 1,
+   "student": "s48"
+  },
+  {
+   "internship": "v8",
+   "relevance": 2,
+   "student": "s48"
+  },
+  {
+   "internship": "v17",
+   "relevance": 1,
+   "student": "s48"
+  },
+  {
+   "internship": "v18",
+   "relevance": 2,
+   "student": "s48"
+  },
+  {
+   "internship": "v27",
+   "relevance": 1,
+   "student": "s48"
+  },
+  {
+   "internship": "v28",
+   "relevance": 2,
+   "student": "s48"
+  },
+  {
+   "internship": "v9",
+   "relevance": 2,
+   "student": "s49"
+  },
+  {
+   "internship": "v19",
+   "relevance": 2,
+   "student": "s49"
+  },
+  {
+   "internship": "v29",
+   "relevance": 2,
+   "student": "s49"
+  },
+  {
+   "internship": "v10",
+   "relevance": 2,
+   "student": "s50"
+  },
+  {
+   "internship": "v20",
+   "relevance": 2,
+   "student": "s50"
+  },
+  {
+   "internship": "v30",
+   "relevance": 2,
+   "student": "s50"
+  }
+ ],
+ "meta": {
+  "description": "Conjunto SINTÉTICO e fictício gerado por scripts/synthetic_data.py (Faker pt_BR).",
+  "label_rule": "2 = mesma trilha latente e elegível; 1 = trilha adjacente e elegível; 0 = demais",
+  "reference_time": "2026-11-01T12:00:00+00:00",
+  "seed": 2026,
+  "synthetic": true,
+  "tracks": [
+   "backend",
+   "dados",
+   "devops",
+   "frontend",
+   "mobile",
+   "embarcados",
+   "financas",
+   "marketing",
+   "obras",
+   "ux"
+  ]
+ },
+ "students": [
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante@ufal.test",
+   "is_pcd": false,
+   "key": "s1",
+   "name": "Ana Beatriz Souza",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "semester": 6,
+   "skills": [
+    "Git",
+    "Testes automatizados",
+    "Spring Boot"
+   ],
+   "track": "backend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante02@ufal.test",
+   "is_pcd": false,
+   "key": "s2",
+   "name": "Rebeca Sá",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em ciência de dados, estatística e aprendizado de máquina.",
+   "semester": 7,
+   "skills": [
+    "ETL",
+    "Estatística",
+    "Machine Learning",
+    "SQL",
+    "Visualização de dados",
+    "Scikit-learn",
+    "Git"
+   ],
+   "track": "dados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante03@ufal.test",
+   "is_pcd": false,
+   "key": "s3",
+   "name": "Maysa da Costa",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 8,
+   "skills": [
+    "CI/CD",
+    "Monitoramento",
+    "Linux"
+   ],
+   "track": "devops",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante04@ufal.test",
+   "is_pcd": false,
+   "key": "s4",
+   "name": "Bruno Camargo",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Sistemas de Informação buscando a primeira experiência profissional.",
+   "semester": 8,
+   "skills": [
+    "Acessibilidade",
+    "HTML",
+    "Next.js",
+    "React",
+    "Testes de interface",
+    "Proatividade"
+   ],
+   "track": "frontend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante05@ufal.test",
+   "is_pcd": false,
+   "key": "s5",
+   "name": "Carlos Eduardo Machado",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Sistemas de Informação buscando a primeira experiência profissional.",
+   "semester": 8,
+   "skills": [
+    "Firebase",
+    "Flutter",
+    "APIs REST",
+    "Kotlin"
+   ],
+   "track": "mobile",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Recife",
+   "course": "Engenharia de Computação",
+   "email": "estudante06@ufal.test",
+   "is_pcd": true,
+   "key": "s6",
+   "name": "Samuel Rocha",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Engenharia de Computação buscando a primeira experiência profissional.",
+   "semester": 3,
+   "skills": [
+    "Eletrônica",
+    "IoT",
+    "Linux embarcado",
+    "Comunicação"
+   ],
+   "track": "embarcados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante07@ufal.test",
+   "is_pcd": false,
+   "key": "s7",
+   "name": "Sr. Miguel da Cunha",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Administração buscando a primeira experiência profissional.",
+   "semester": 3,
+   "skills": [
+    "Inglês",
+    "Excel",
+    "Matemática financeira",
+    "Análise de custos",
+    "Power BI",
+    "Trabalho em equipe"
+   ],
+   "track": "financas",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante08@ufal.test",
+   "is_pcd": false,
+   "key": "s8",
+   "name": "Dr. Marcos Vinicius Souza",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Administração interessado(a) em marketing digital, comunicação e comportamento do consumidor.",
+   "semester": 5,
+   "skills": [
+    "CRM",
+    "SEO",
+    "Inglês",
+    "Marketing digital",
+    "Canva"
+   ],
+   "track": "marketing",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Rio Largo",
+   "course": "Engenharia Civil",
+   "email": "estudante09@ufal.test",
+   "is_pcd": false,
+   "key": "s9",
+   "name": "Ana Vitória Silveira",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Engenharia Civil interessado(a) em construção civil, projetos estruturais e BIM.",
+   "semester": 6,
+   "skills": [
+    "MS Project",
+    "Orçamento de obras",
+    "AutoCAD",
+    "Segurança do trabalho"
+   ],
+   "track": "obras",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Design",
+   "email": "estudante10@ufal.test",
+   "is_pcd": false,
+   "key": "s10",
+   "name": "Sr. Vitor Gabriel da Rocha",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Design interessado(a) em design de interfaces, pesquisa com usuários e prototipação.",
+   "semester": 8,
+   "skills": [
+    "Prototipação",
+    "Design System",
+    "Tipografia",
+    "Comunicação"
+   ],
+   "track": "ux",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante11@ufal.test",
+   "is_pcd": false,
+   "key": "s11",
+   "name": "Raul Casa Grande",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "semester": 5,
+   "skills": [
+    "FastAPI",
+    "APIs REST",
+    "PostgreSQL",
+    "Trabalho em equipe"
+   ],
+   "track": "backend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante12@ufal.test",
+   "is_pcd": false,
+   "key": "s12",
+   "name": "Luana Alves",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 9,
+   "skills": [
+    "Estatística",
+    "Excel",
+    "SQL",
+    "Pandas",
+    "Power BI",
+    "Machine Learning",
+    "Docker",
+    "FastAPI",
+    "Comunicação"
+   ],
+   "track": "dados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante13@ufal.test",
+   "is_pcd": false,
+   "key": "s13",
+   "name": "Sra. Maria Clara Martins",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 6,
+   "skills": [
+    "Redes",
+    "Shell script",
+    "Terraform",
+    "Kubernetes"
+   ],
+   "track": "devops",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante14@ufal.test",
+   "is_pcd": false,
+   "key": "s14",
+   "name": "Ayla Guerra",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em desenvolvimento web frontend e experiência do usuário.",
+   "semester": 9,
+   "skills": [
+    "HTML",
+    "Acessibilidade",
+    "Testes de interface",
+    "Next.js",
+    "CSS",
+    "Figma",
+    "Firebase",
+    "Comunicação"
+   ],
+   "track": "frontend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Rio Largo",
+   "course": "Sistemas de Informação",
+   "email": "estudante15@ufal.test",
+   "is_pcd": false,
+   "key": "s15",
+   "name": "Sara Camargo",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em aplicativos móveis Android, iOS e Flutter.",
+   "semester": 5,
+   "skills": [
+    "Dart",
+    "React Native",
+    "Flutter",
+    "Swift",
+    "Kotlin",
+    "Figma",
+    "JavaScript",
+    "Inglês"
+   ],
+   "track": "mobile",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia de Computação",
+   "email": "estudante16@ufal.test",
+   "is_pcd": false,
+   "key": "s16",
+   "name": "Sofia Sá",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Engenharia de Computação interessado(a) em sistemas embarcados, eletrônica e IoT.",
+   "semester": 3,
+   "skills": [
+    "RTOS",
+    "IoT",
+    "Sistemas digitais",
+    "C"
+   ],
+   "track": "embarcados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Administração",
+   "email": "estudante17@ufal.test",
+   "is_pcd": false,
+   "key": "s17",
+   "name": "Rebeca Gonçalves",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Administração buscando a primeira experiência profissional.",
+   "semester": 5,
+   "skills": [
+    "Inglês",
+    "Matemática financeira",
+    "ERP",
+    "Planejamento",
+    "Análise de custos",
+    "Redes sociais"
+   ],
+   "track": "financas",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante18@ufal.test",
+   "is_pcd": false,
+   "key": "s18",
+   "name": "Joana Leão",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Administração buscando a primeira experiência profissional.",
+   "semester": 4,
+   "skills": [
+    "Inglês",
+    "Canva",
+    "Redes sociais",
+    "SEO",
+    "CRM",
+    "Finanças corporativas",
+    "Trabalho em equipe"
+   ],
+   "track": "marketing",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Engenharia Civil",
+   "email": "estudante19@ufal.test",
+   "is_pcd": false,
+   "key": "s19",
+   "name": "Pietra Moraes",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Engenharia Civil buscando a primeira experiência profissional.",
+   "semester": 3,
+   "skills": [
+    "Segurança do trabalho",
+    "MS Project",
+    "BIM",
+    "Inglês"
+   ],
+   "track": "obras",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Design",
+   "email": "estudante20@ufal.test",
+   "is_pcd": false,
+   "key": "s20",
+   "name": "Amanda Oliveira",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Design buscando a primeira experiência profissional.",
+   "semester": 3,
+   "skills": [
+    "Design System",
+    "Tipografia",
+    "Acessibilidade",
+    "Usabilidade",
+    "Design de interação",
+    "Inglês"
+   ],
+   "track": "ux",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante21@ufal.test",
+   "is_pcd": false,
+   "key": "s21",
+   "name": "Davi Lucca Aragão",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "semester": 9,
+   "skills": [
+    "Docker",
+    "FastAPI",
+    "APIs REST",
+    "Inglês"
+   ],
+   "track": "backend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante22@ufal.test",
+   "is_pcd": false,
+   "key": "s22",
+   "name": "Dra. Bella Silva",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 7,
+   "skills": [
+    "Excel",
+    "Python",
+    "ETL",
+    "Visualização de dados",
+    "Terraform",
+    "Docker"
+   ],
+   "track": "dados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante23@ufal.test",
+   "is_pcd": true,
+   "key": "s23",
+   "name": "Mariane Melo",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 7,
+   "skills": [
+    "Redes",
+    "Kubernetes",
+    "Docker",
+    "AWS",
+    "Monitoramento"
+   ],
+   "track": "devops",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante24@ufal.test",
+   "is_pcd": false,
+   "key": "s24",
+   "name": "Rodrigo da Conceição",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em desenvolvimento web frontend e experiência do usuário.",
+   "semester": 4,
+   "skills": [
+    "JavaScript",
+    "Git",
+    "HTML",
+    "TypeScript",
+    "Swift"
+   ],
+   "track": "frontend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante25@ufal.test",
+   "is_pcd": false,
+   "key": "s25",
+   "name": "Rafael Rocha",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em aplicativos móveis Android, iOS e Flutter.",
+   "semester": 9,
+   "skills": [
+    "Git",
+    "UI mobile",
+    "Dart",
+    "Android",
+    "Swift",
+    "React Native",
+    "Trabalho em equipe"
+   ],
+   "track": "mobile",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia de Computação",
+   "email": "estudante26@ufal.test",
+   "is_pcd": false,
+   "key": "s26",
+   "name": "Ísis da Cunha",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Engenharia de Computação interessado(a) em sistemas embarcados, eletrônica e IoT.",
+   "semester": 4,
+   "skills": [
+    "Eletrônica",
+    "Arduino",
+    "Sistemas digitais",
+    "Python",
+    "Linux embarcado"
+   ],
+   "track": "embarcados",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Administração",
+   "email": "estudante27@ufal.test",
+   "is_pcd": false,
+   "key": "s27",
+   "name": "Maria Liz Rios",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Administração interessado(a) em finanças corporativas, controladoria e análise financeira.",
+   "semester": 5,
+   "skills": [
+    "Matemática financeira",
+    "ERP",
+    "Excel",
+    "Finanças corporativas",
+    "Pesquisa de mercado"
+   ],
+   "track": "financas",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante28@ufal.test",
+   "is_pcd": false,
+   "key": "s28",
+   "name": "Yan Ramos",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Administração buscando a primeira experiência profissional.",
+   "semester": 5,
+   "skills": [
+    "Marketing digital",
+    "Redes sociais",
+    "Canva"
+   ],
+   "track": "marketing",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia Civil",
+   "email": "estudante29@ufal.test",
+   "is_pcd": false,
+   "key": "s29",
+   "name": "Pietra Guerra",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Engenharia Civil interessado(a) em construção civil, projetos estruturais e BIM.",
+   "semester": 4,
+   "skills": [
+    "Revit",
+    "MS Project",
+    "Excel",
+    "Segurança do trabalho"
+   ],
+   "track": "obras",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Rio Largo",
+   "course": "Design",
+   "email": "estudante30@ufal.test",
+   "is_pcd": false,
+   "key": "s30",
+   "name": "Gabriela da Rocha",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Design interessado(a) em design de interfaces, pesquisa com usuários e prototipação.",
+   "semester": 5,
+   "skills": [
+    "Prototipação",
+    "Acessibilidade",
+    "Adobe XD",
+    "Design System",
+    "Design de interação",
+    "Inglês"
+   ],
+   "track": "ux",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante31@ufal.test",
+   "is_pcd": false,
+   "key": "s31",
+   "name": "Anthony Andrade",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "semester": 4,
+   "skills": [
+    "Java",
+    "PostgreSQL",
+    "Git",
+    "Python",
+    "Spring Boot",
+    "SQL"
+   ],
+   "track": "backend",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante32@ufal.test",
+   "is_pcd": false,
+   "key": "s32",
+   "name": "Raul Moreira",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação buscando a primeira experiência profissional.",
+   "semester": 6,
+   "skills": [
+    "Python",
+    "Scikit-learn",
+    "Pandas",
+    "Machine Learning",
+    "ETL",
+    "Visualização de dados",
+    "Linux",
+    "Monitoramento",
+    "Inglês"
+   ],
+   "track": "dados",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Ciência da Computação",
+   "email": "estudante33@ufal.test",
+   "is_pcd": false,
+   "key": "s33",
+   "name": "Maria Cecília Costa",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em infraestrutura, cloud, automação e DevOps.",
+   "semester": 5,
+   "skills": [
+    "Redes",
+    "Monitoramento",
+    "Shell script",
+    "AWS",
+    "Organização"
+   ],
+   "track": "devops",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Recife",
+   "course": "Sistemas de Informação",
+   "email": "estudante34@ufal.test",
+   "is_pcd": false,
+   "key": "s34",
+   "name": "Ryan Martins",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em desenvolvimento web frontend e experiência do usuário.",
+   "semester": 6,
+   "skills": [
+    "Acessibilidade",
+    "Testes de interface",
+    "TypeScript",
+    "Figma",
+    "React",
+    "Next.js",
+    "Git"
+   ],
+   "track": "frontend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Recife",
+   "course": "Sistemas de Informação",
+   "email": "estudante35@ufal.test",
+   "is_pcd": false,
+   "key": "s35",
+   "name": "Sara Lopes",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em aplicativos móveis Android, iOS e Flutter.",
+   "semester": 3,
+   "skills": [
+    "Git",
+    "Kotlin",
+    "Flutter",
+    "APIs REST",
+    "Android",
+    "UI mobile",
+    "Testes de interface"
+   ],
+   "track": "mobile",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia de Computação",
+   "email": "estudante36@ufal.test",
+   "is_pcd": false,
+   "key": "s36",
+   "name": "Ana Beatriz da Rocha",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Engenharia de Computação interessado(a) em sistemas embarcados, eletrônica e IoT.",
+   "semester": 8,
+   "skills": [
+    "IoT",
+    "Arduino",
+    "Eletrônica"
+   ],
+   "track": "embarcados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante37@ufal.test",
+   "is_pcd": false,
+   "key": "s37",
+   "name": "Dr. Carlos Eduardo Macedo",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Administração interessado(a) em finanças corporativas, controladoria e análise financeira.",
+   "semester": 7,
+   "skills": [
+    "Planejamento",
+    "Orçamento",
+    "Matemática financeira",
+    "Excel",
+    "Google Analytics",
+    "Redes sociais",
+    "Organização"
+   ],
+   "track": "financas",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante38@ufal.test",
+   "is_pcd": false,
+   "key": "s38",
+   "name": "Dra. Sophie da Luz",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Administração interessado(a) em marketing digital, comunicação e comportamento do consumidor.",
+   "semester": 7,
+   "skills": [
+    "Marketing digital",
+    "CRM",
+    "Pesquisa de mercado",
+    "Comunicação",
+    "Redes sociais",
+    "Copywriting",
+    "Matemática financeira",
+    "Excel",
+    "Organização"
+   ],
+   "track": "marketing",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia Civil",
+   "email": "estudante39@ufal.test",
+   "is_pcd": false,
+   "key": "s39",
+   "name": "Emilly Lima",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Engenharia Civil buscando a primeira experiência profissional.",
+   "semester": 9,
+   "skills": [
+    "Excel",
+    "BIM",
+    "Normas técnicas",
+    "Comunicação"
+   ],
+   "track": "obras",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Design",
+   "email": "estudante40@ufal.test",
+   "is_pcd": true,
+   "key": "s40",
+   "name": "Sra. Ana Luiza Rezende",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Design interessado(a) em design de interfaces, pesquisa com usuários e prototipação.",
+   "semester": 5,
+   "skills": [
+    "Design de interação",
+    "Figma",
+    "Usabilidade",
+    "Adobe XD"
+   ],
+   "track": "ux",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Ciência da Computação",
+   "email": "estudante41@ufal.test",
+   "is_pcd": false,
+   "key": "s41",
+   "name": "Theo Freitas",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em desenvolvimento backend, APIs e arquitetura de software.",
+   "semester": 8,
+   "skills": [
+    "PostgreSQL",
+    "Git",
+    "Java",
+    "Comunicação"
+   ],
+   "track": "backend",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Rio Largo",
+   "course": "Ciência da Computação",
+   "email": "estudante42@ufal.test",
+   "is_pcd": false,
+   "key": "s42",
+   "name": "Gael Souza",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em ciência de dados, estatística e aprendizado de máquina.",
+   "semester": 8,
+   "skills": [
+    "Python",
+    "Estatística",
+    "SQL",
+    "Visualização de dados",
+    "Machine Learning",
+    "Excel",
+    "Testes automatizados",
+    "Inglês"
+   ],
+   "track": "dados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Ciência da Computação",
+   "email": "estudante43@ufal.test",
+   "is_pcd": false,
+   "key": "s43",
+   "name": "Clara Machado",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Ciência da Computação interessado(a) em infraestrutura, cloud, automação e DevOps.",
+   "semester": 6,
+   "skills": [
+    "Monitoramento",
+    "Linux",
+    "Redes",
+    "Docker",
+    "Trabalho em equipe"
+   ],
+   "track": "devops",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Sistemas de Informação",
+   "email": "estudante44@ufal.test",
+   "is_pcd": false,
+   "key": "s44",
+   "name": "Caleb Abreu",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em desenvolvimento web frontend e experiência do usuário.",
+   "semester": 8,
+   "skills": [
+    "React",
+    "HTML",
+    "Next.js",
+    "CSS",
+    "Swift",
+    "Flutter",
+    "Comunicação"
+   ],
+   "track": "frontend",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Maceió",
+   "course": "Sistemas de Informação",
+   "email": "estudante45@ufal.test",
+   "is_pcd": false,
+   "key": "s45",
+   "name": "Ísis Barros",
+   "preferred_modality": "hybrid",
+   "resume_summary": "Estudante de Sistemas de Informação interessado(a) em aplicativos móveis Android, iOS e Flutter.",
+   "semester": 5,
+   "skills": [
+    "React Native",
+    "Flutter",
+    "APIs REST",
+    "Swift",
+    "TypeScript",
+    "Git"
+   ],
+   "track": "mobile",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia de Computação",
+   "email": "estudante46@ufal.test",
+   "is_pcd": false,
+   "key": "s46",
+   "name": "Fernanda da Cruz",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Engenharia de Computação buscando a primeira experiência profissional.",
+   "semester": 7,
+   "skills": [
+    "Eletrônica",
+    "Microcontroladores",
+    "C++",
+    "Trabalho em equipe"
+   ],
+   "track": "embarcados",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Administração",
+   "email": "estudante47@ufal.test",
+   "is_pcd": false,
+   "key": "s47",
+   "name": "Augusto Sá",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Administração interessado(a) em finanças corporativas, controladoria e análise financeira.",
+   "semester": 9,
+   "skills": [
+    "Excel",
+    "Orçamento",
+    "Finanças corporativas",
+    "Trabalho em equipe"
+   ],
+   "track": "financas",
+   "weekly_availability_hours": 25
+  },
+  {
+   "city": "Arapiraca",
+   "course": "Administração",
+   "email": "estudante48@ufal.test",
+   "is_pcd": false,
+   "key": "s48",
+   "name": "Juliana Rios",
+   "preferred_modality": "onsite",
+   "resume_summary": "Estudante de Administração buscando a primeira experiência profissional.",
+   "semester": 6,
+   "skills": [
+    "Copywriting",
+    "Marketing digital",
+    "SEO",
+    "ERP"
+   ],
+   "track": "marketing",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Engenharia Civil",
+   "email": "estudante49@ufal.test",
+   "is_pcd": false,
+   "key": "s49",
+   "name": "Maria Alice Cassiano",
+   "preferred_modality": null,
+   "resume_summary": "Estudante de Engenharia Civil buscando a primeira experiência profissional.",
+   "semester": 5,
+   "skills": [
+    "Revit",
+    "Orçamento de obras",
+    "Concreto armado",
+    "Comunicação"
+   ],
+   "track": "obras",
+   "weekly_availability_hours": 30
+  },
+  {
+   "city": "Maceió",
+   "course": "Design",
+   "email": "estudante50@ufal.test",
+   "is_pcd": false,
+   "key": "s50",
+   "name": "Levi Rios",
+   "preferred_modality": "remote",
+   "resume_summary": "Estudante de Design interessado(a) em design de interfaces, pesquisa com usuários e prototipação.",
+   "semester": 7,
+   "skills": [
+    "Ilustração",
+    "Adobe XD",
+    "Tipografia",
+    "Prototipação",
+    "Acessibilidade"
+   ],
+   "track": "ux",
+   "weekly_availability_hours": 25
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+  "meta": {
+    "dataset": "Conjunto SINTÉTICO e fictício gerado por scripts/synthetic_data.py (Faker pt_BR).",
+    "synthetic": true,
+    "seed": 2026,
+    "students_evaluated": 48,
+    "internships": 30,
+    "k": 5,
+    "random_runs_per_student": 30,
+    "label_rule": "2 = mesma trilha latente e elegível; 1 = trilha adjacente e elegível; 0 = demais"
+  },
+  "results": [
+    {
+      "strategy": "Baseline aleatório",
+      "precision_at_5": 0.151,
+      "ndcg_at_5": 0.151
+    },
+    {
+      "strategy": "Baseline só filtros (mais recentes)",
+      "precision_at_5": 0.708,
+      "ndcg_at_5": 0.825
+    },
+    {
+      "strategy": "Híbrido (0,50·cos + 0,35·Jaccard + 0,15·pref)",
+      "precision_at_5": 0.725,
+      "ndcg_at_5": 0.968
+    },
+    {
+      "strategy": "Ablação: só conteúdo (TF-IDF/cosseno)",
+      "precision_at_5": 0.721,
+      "ndcg_at_5": 0.978
+    },
+    {
+      "strategy": "Ablação: só atributos (Jaccard)",
+      "precision_at_5": 0.725,
+      "ndcg_at_5": 0.97
+    }
+  ]
+}
