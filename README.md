@@ -107,6 +107,8 @@ docs/
 - Relatório final: [`docs/relatorio/build/relatorio.pdf`](docs/relatorio/build/relatorio.pdf)
   (fonte em [`docs/relatorio/relatorio.md`](docs/relatorio/relatorio.md)).
 - Guia de estudo: [`docs/STUDY_GUIDE.md`](docs/STUDY_GUIDE.md).
+- Roteiro de apresentação (falas, cliques e tempos):
+  [`docs/ROTEIRO_APRESENTACAO.md`](docs/ROTEIRO_APRESENTACAO.md).
 - Decisões de arquitetura: [`docs/architecture/adr/`](docs/architecture/adr/).
 - Scrum: [`docs/scrum/`](docs/scrum/); andamento: [`PROGRESS.md`](PROGRESS.md).
 - OpenAPI: cada serviço publica `/docs` na rede interna do Compose (porta 8000);
