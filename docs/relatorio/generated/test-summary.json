@@ -8,7 +8,7 @@
     "kind": "component",
     "name": "eh_auth",
     "ok": true,
-    "seconds": 6.8,
+    "seconds": 6.6,
     "passed": 11,
     "failed": 0,
     "coverage": 100
@@ -18,7 +18,7 @@
     "name": "eh_db",
     "ok": true,
     "seconds": 5.8,
-    "passed": 6,
+    "passed": 7,
     "failed": 0,
     "coverage": 100
   },
@@ -26,7 +26,7 @@
     "kind": "component",
     "name": "eh_events",
     "ok": true,
-    "seconds": 6.0,
+    "seconds": 5.6,
     "passed": 13,
     "failed": 0,
     "coverage": 100
@@ -35,7 +35,7 @@
     "kind": "component",
     "name": "eh_http",
     "ok": true,
-    "seconds": 4.7,
+    "seconds": 5.3,
     "passed": 9,
     "failed": 0,
     "coverage": 100
@@ -44,7 +44,7 @@
     "kind": "component",
     "name": "eh_observability",
     "ok": true,
-    "seconds": 6.8,
+    "seconds": 7.4,
     "passed": 10,
     "failed": 0,
     "coverage": 100
@@ -53,7 +53,7 @@
     "kind": "component",
     "name": "eh_ui",
     "ok": true,
-    "seconds": 5.2,
+    "seconds": 5.5,
     "passed": 9,
     "failed": 0,
     "coverage": 100
@@ -62,8 +62,35 @@
     "kind": "service",
     "name": "api-gateway",
     "ok": true,
-    "seconds": 9.4,
+    "seconds": 10.0,
     "passed": 11,
+    "failed": 0,
+    "coverage": 98
+  },
+  {
+    "kind": "service",
+    "name": "internship-service",
+    "ok": true,
+    "seconds": 12.7,
+    "passed": 12,
+    "failed": 0,
+    "coverage": 98
+  },
+  {
+    "kind": "service",
+    "name": "user-service",
+    "ok": true,
+    "seconds": 16.9,
+    "passed": 16,
+    "failed": 0,
+    "coverage": 97
+  },
+  {
+    "kind": "frontend",
+    "name": "web-frontend",
+    "ok": true,
+    "seconds": 13.7,
+    "passed": 14,
     "failed": 0,
     "coverage": 98
   }

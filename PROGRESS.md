@@ -31,3 +31,27 @@ retomar uma sessão interrompida, comece por aqui.
 
 **Pendente (próximas sprints)**
 - Sprint 1: `user-service`, `internship-service`, frontend com login e vagas.
+
+## Sprint 1 — Identidade e vagas
+
+**Feito**
+- `user-service`: registro (argon2), login (JWT com papel), `/users/me`, perfis de estudante e empresa,
+  consulta em lote; eventos `user.registered` e `profile.updated`. Coordenação só é cadastrada com token
+  de serviço/coordenação.
+- `internship-service`: publicação com validação legal (6 h/dia, 30 h/semana, também como *check
+  constraint*), busca com filtros e paginação, estatísticas, encerramento; eventos
+  `internship.published` e `internship.closed`.
+- `web-frontend`: login/cadastro, dashboard por papel, lista/detalhe/criação de vagas (busca com HTMX),
+  perfis, *toggle* "Mostrar microsserviços" e *badges* `X-Served-By`. HTMX 2.0.4 empacotado localmente.
+- Compose com `user-db`, `internship-db`, os dois serviços e o frontend (porta 8080).
+- `eh_db` 0.1.1 e `eh_observability` 0.1.1 (correções); ADR-007.
+
+**Decisões**
+- JWT em cookie HttpOnly; o frontend não valida o token (não conhece o segredo), só lê as *claims*.
+- Eventos publicados somente após o `commit` da transação (sem *outbox*; limitação registrada).
+
+**Problemas encontrados** — ver `docs/scrum/sprint-1.md` (greenlet/`updated_at`, cobertura com greenlet,
+log de acesso, porta 8080 em IPv6 no host, acentos no curl do Git Bash, *overflow* do *toggle*).
+
+**Pendente**
+- Sprint 2: `application-service`, `document-service`, `notification-service`, saga do TCE.
