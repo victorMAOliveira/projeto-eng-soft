@@ -16,20 +16,31 @@ As páginas citadas são do PDF `docs/relatorio/build/relatorio.pdf`
 
 ## 0. Preparação (no dia, 15 minutos antes)
 
-1. Partir de um estado limpo, para a demonstração não mostrar dados de testes
-   anteriores:
+1. Abrir o **Docker Desktop** e esperar o rodapé mostrar *Engine running*
+   (cerca de 1 minuto). Sem isso, todo comando `docker` falha com
+   `failed to connect to the docker API`.
+2. Partir de um estado limpo, para a demonstração não mostrar dados de testes
+   anteriores. No terminal (PowerShell), na pasta do projeto, rodar um comando
+   por vez:
 
    ```bash
-   make clean
+   docker compose --profile tools down -v --remove-orphans
    ```
    ```bash
-   make up
+   docker compose up -d --build --wait
    ```
    ```bash
-   make seed
+   docker compose run --rm --build tools python scripts/seed.py
    ```
 
-2. Abrir **3 janelas anônimas** (cada uma guarda seu próprio login) em
+   São os mesmos comandos que `make clean`, `make up` e `make seed` executam.
+   O GNU Make não vem no Windows, por isso o roteiro usa os comandos direto.
+   O `up` leva de 2 a 5 minutos na primeira vez (constrói as imagens) e termina
+   quando os 17 containers estão *healthy*. O `.env` já existe; se faltar,
+   gerar antes com
+   `docker run --rm -v "${PWD}:/work" -w /work python:3.12-slim python scripts/make_env.py`.
+
+3. Abrir **3 janelas anônimas** (cada uma guarda seu próprio login) em
    <http://127.0.0.1:8080> e entrar:
 
    | Janela | E-mail | Senha |
@@ -38,12 +49,12 @@ As páginas citadas são do PDF `docs/relatorio/build/relatorio.pdf`
    | B — Estudante | `estudante@ufal.test` | `Estudante@2026` |
    | C — Coordenação | `coordenacao@ufal.test` | `Coord@2026` |
 
-3. Na janela C, deixar aberta a aba **Status dos serviços** (menu lateral,
+4. Na janela C, deixar aberta a aba **Status dos serviços** (menu lateral,
    embaixo). Conferir: "Todos os serviços operacionais".
-4. Em outra aba: o PDF do relatório aberto na **página 23**.
-5. Deixar um **terminal** aberto na pasta do projeto (para o bloco de
+5. Em outra aba: o PDF do relatório aberto na **página 23**.
+6. Deixar um **terminal** aberto na pasta do projeto (para o bloco de
    degradação graciosa).
-6. Opcional: painel do RabbitMQ em <http://localhost:15672> (usuário
+7. Opcional: painel do RabbitMQ em <http://localhost:15672> (usuário
    `estagiohub`, senha = `RABBITMQ_PASSWORD` do `.env`).
 
 **Dados que serão digitados na demonstração** (deixar à mão):
@@ -306,7 +317,7 @@ docker compose start recommendation-service
 
 | Problema | O que fazer |
 |---|---|
-| A interface travou ou um passo falhou | No terminal, rodar `make e2e`: executa o mesmo fluxo pela API e imprime as 9 etapas. |
+| A interface travou ou um passo falhou | No terminal, rodar `docker compose run --rm --build tools python scripts/e2e_demo.py` (equivale a `make e2e`): executa o mesmo fluxo pela API e imprime as 9 etapas. |
 | A vaga nova não aparece nas recomendações | Recarregar a página após 2–3 segundos (os eventos são assíncronos). |
 | Sem internet | Nada muda: os agentes rodam em modo regras e não há recursos externos. |
 | Tempo curto | Pular os blocos 5.3 (assistente) e 5.7 (degradação) e mostrar as Figuras 14 e 30 do PDF (seção 8). |

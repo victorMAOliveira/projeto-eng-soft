@@ -25,6 +25,21 @@ make up     # constrói e sobe os 17 containers, esperando todos ficarem healthy
 make seed   # carrega os dados de demonstração (sintéticos) via API Gateway
 ```
 
+**Sem GNU Make (Windows/PowerShell).** O Make não vem instalado no Windows.
+Cada alvo é só um comando `docker`, então dá para rodar direto, com o Docker
+Desktop aberto:
+
+| Alvo | Comando equivalente |
+|---|---|
+| `make env` | `docker run --rm -v "${PWD}:/work" -w /work python:3.12-slim python scripts/make_env.py` |
+| `make up` | `docker compose up -d --build --wait` |
+| `make seed` | `docker compose run --rm --build tools python scripts/seed.py` |
+| `make clean` | `docker compose --profile tools down -v --remove-orphans` |
+| `make e2e` | `docker compose run --rm --build tools python scripts/e2e_demo.py` |
+| `make test` | `docker compose run --rm --no-deps --build tools python scripts/run_tests.py` |
+
+Os demais alvos estão no [`Makefile`](Makefile).
+
 | Endereço | O quê |
 |---|---|
 | <http://localhost:8080> | Interface web |
